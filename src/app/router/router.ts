@@ -1,8 +1,9 @@
 import { RouteObject } from "react-router-dom";
-import { HOME_ROUTE, LOGIN_ROUTE } from "./routes";
+import { HOME_ROUTE, LOGIN_ROUTE, STUDENTS_ROUTE } from "./routes";
 import App from "../../App";
 import HomePage from "../../pages/home/HomePage";
 import AuthPage from "../../pages/auth/AuthPage";
+import StudentsPage from "../../pages/students/Students";
 
 
 export const Router: RouteObject[] = [
@@ -18,6 +19,10 @@ export const Router: RouteObject[] = [
             {
                 path: LOGIN_ROUTE.path,
                 Component: AuthPage
+            },
+            {
+                path: STUDENTS_ROUTE.path,
+                Component: StudentsPage
             }
         ]
     }
