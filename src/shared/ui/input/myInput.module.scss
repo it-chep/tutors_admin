@@ -1,6 +1,7 @@
 
 
 .wrapper{
+    height: 100%;
     .title{
         margin-left: 4px;
         margin-bottom: 4px;
@@ -14,6 +15,13 @@
         border-radius: 8px;
         overflow: hidden;
         position: relative;
+
+        .icon{
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+            margin-left: 12px;
+        }
     
         >input{
             width: 100%;
