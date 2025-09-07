@@ -16,8 +16,6 @@ export default function AuthPage(){
         }
     }, [])
 
-    console.log(my)
-
     return (
         !my.isAuth
             ?
