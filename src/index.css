@@ -12,14 +12,17 @@ body{
   --red-dark: #8b0000;
   --red-hover: #dd0303;
 
-
   --yellow: #FFE565;
+  --yellow-dark: #ECA500;
 
   font-size: 16px;
 
   --gray: #D9D9D9;
 
   --gray-light: #f4f4f4;
+
+
+  --green: #28AE31;
 
 }
 
