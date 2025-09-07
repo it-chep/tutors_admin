@@ -1,11 +1,16 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch, useSelector } from "react-redux";
 import { myReducer } from "../../entities/my";
+import { globalLoadingReducer } from "../../entities/globalLoading";
+import { globalMessageReducer } from "../../entities/globalMessage";
 
 
 const store = configureStore({
     reducer: {
-        myReducer
+        myReducer,
+        globalLoadingReducer,
+        globalMessageReducer,
+        
     }
 })
 
