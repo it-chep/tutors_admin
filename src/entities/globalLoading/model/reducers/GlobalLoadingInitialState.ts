@@ -1,5 +1,4 @@
-import { IGlobalLoading, IGlobalLoadingInitialState } from "../types";
-
+import { IGlobalLoadingInitialState } from "../types";
 
 
 

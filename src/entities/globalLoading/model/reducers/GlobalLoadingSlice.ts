@@ -1,9 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { GlobalLoadingInitialState } from "./GlobalLoadingInitialState";
 
-
-
-
 export const GlobalLoadingSlice = createSlice({
     name: 'globalLoading',
     initialState: GlobalLoadingInitialState,

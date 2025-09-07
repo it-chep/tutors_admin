@@ -9,3 +9,4 @@ export interface IGlobalLoadingInitialState {
     error: string;
     isLoading: boolean;
 }
+

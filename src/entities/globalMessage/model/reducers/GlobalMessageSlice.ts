@@ -4,7 +4,6 @@ import { IGlobalMessage } from "../types";
 
 
 
-
 export const GlobalMessageSlice = createSlice({
     name: 'globalMessage',
     initialState: GlobalMessageInitialState,

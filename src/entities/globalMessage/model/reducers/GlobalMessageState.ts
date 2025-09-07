@@ -1,5 +1,4 @@
-import { IGlobalMessage, IGlobalMessageInitialState } from "../types";
-
+import { IGlobalMessageInitialState } from "../types";
 
 export const GlobalMessageInitialState: IGlobalMessageInitialState = {
     globalMessage: {
