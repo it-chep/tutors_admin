@@ -14,15 +14,15 @@ export const Table: FC<IProps> = ({titles, rows}) => {
             <thead>
                 <tr>
                     {titles.map((title, ind) => 
-                        <th key={ind}>{title}</th>
+                        <th key={ind + Math.random()}>{title}</th>
                     )}
                 </tr>
             </thead>
             <tbody>
                 {rows.map((row, ind) => 
-                    <tr key={ind}>
+                    <tr key={ind + Math.random()}>
                         {row.map((r, ind) => 
-                            <td key={ind}>{r}</td>
+                            <td  key={ind + Math.random()}>{r}</td>
                         )}
                     </tr>
                 )}
