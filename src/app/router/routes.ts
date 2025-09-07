@@ -17,6 +17,6 @@ export const STUDENTS_ROUTE: IRoute = {
 }
 
 export const STUDENT_CREATE_ROUTE: IRoute = {
-    name: 'Создание студента',
+    name: 'Студенты',
     path: '/student/create'
 }

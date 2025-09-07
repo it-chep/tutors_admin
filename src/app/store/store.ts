@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { myReducer } from "../../entities/my";
 import { globalMessageReducer } from "../../entities/globalMessage";
 import { globalLoadingReducer } from "../../entities/globalLoading";
+import { studentReducer } from "../../entities/student";
 
 
 const store = configureStore({
@@ -10,6 +11,7 @@ const store = configureStore({
         myReducer,
         globalMessageReducer,
         globalLoadingReducer,
+        studentReducer,
         
     }
 })

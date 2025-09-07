@@ -1,9 +1,16 @@
 import { fetchAuth } from "../../../shared/api/ApiService"
-import { IStudent } from "../model/types"
+import { IStudent, IStudentChange } from "../model/types"
 
 
 
 class StudentService {
+
+    async create(student: IStudentChange){
+        await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/students', {
+            method: "POST",
+            body: JSON.stringify(student)
+        })
+    }
 
     async getAll() {
         // const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/students')
