@@ -87,7 +87,7 @@ export const StudentsWidget: FC = () => {
                                 key={student.id}
                                 student={student}
                             >
-                                <MyButton onClick={() => router('/')}>
+                                <MyButton onClick={() => router('/student/' + student.id)}>
                                     Подробнее
                                 </MyButton>
                             </StudentItem>
