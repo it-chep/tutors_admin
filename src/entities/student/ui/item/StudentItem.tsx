@@ -19,7 +19,7 @@ export const StudentItem: FC<IProps & PropsWithChildren> = ({student, children})
                 {student.last_name + ' ' + student.first_name + ' ' + student.middle_name}
             </td>
             <td className={classes.tg}>
-                <a className={classes.link} href={student.tg}>
+                <a target="_blank" className={classes.link} href={student.tg}>
                     Написать в ТГ
                 </a>
             </td>
