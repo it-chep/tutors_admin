@@ -22,7 +22,7 @@ export const Table: FC<IProps> = ({titles, rows}) => {
                 {rows.map((row, ind) => 
                     <tr key={ind + Math.random()}>
                         {row.map((r, ind) => 
-                            <td  key={ind + Math.random()}>{r}</td>
+                            <td key={ind + Math.random()}>{r}</td>
                         )}
                     </tr>
                 )}
