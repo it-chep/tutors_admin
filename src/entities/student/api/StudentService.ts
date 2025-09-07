@@ -9,7 +9,7 @@ class StudentService {
         // const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/students')
         // const {students}: {students: IStudent[]} = await res.json()
 
-        await new Promise(resolve => setTimeout(resolve, 2000))
+        await new Promise(resolve => setTimeout(resolve, 4000))
 
         return [
             {
@@ -21,7 +21,27 @@ class StudentService {
                 "is_only_trial_finished": true,
                 "is_balance_negative": false,
                 "is_newbie": false
-            }
+            },
+            {
+                "id": 2,
+                "first_name": "Максим",
+                "last_name": "Нечепорук",
+                "middle_name": "Алексеевич",
+                "tg": "https://t.me/maxim_jordan",
+                "is_only_trial_finished": true,
+                "is_balance_negative": false,
+                "is_newbie": false
+            },
+            {
+                "id": 3,
+                "first_name": "Максим",
+                "last_name": "Нечепорук",
+                "middle_name": "Алексеевич",
+                "tg": "https://t.me/maxim_jordan",
+                "is_only_trial_finished": true,
+                "is_balance_negative": false,
+                "is_newbie": false
+            },
         ]
     }
 
