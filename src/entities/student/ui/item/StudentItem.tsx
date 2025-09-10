@@ -11,7 +11,15 @@ interface IProps {
 export const StudentItem: FC<IProps & PropsWithChildren> = ({student, children}) => {
 
     return (
-        <tr className={classes.item + (student.is_balance_negative ? ` ${classes.balanceNegative}` : student.is_only_trial_finished ? ` ${classes.onlyTrial}` : '')}>
+        <tr 
+            className={
+                classes.item + 
+                (
+                    student.is_balance_negative ? ` ${classes.balanceNegative}` : 
+                    student.is_only_trial_finished ? ` ${classes.onlyTrial}` : 
+                    student.is_newbie ? ` ${classes.newbie}` : ''
+                )}
+            >
             <td className={classes.id}>
                 {student.id}
             </td>  

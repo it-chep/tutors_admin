@@ -3,13 +3,26 @@
 .item{
     border-bottom: 1px solid var(--black);
     background-color: var(--green);
-
+    
     &.balanceNegative{
         background-color: var(--red);
     }
-
+    
     &.onlyTrial{
         background-color: var(--yellow-dark);
+    }
+    
+    &.newbie{
+        background-color: #FFF;
+
+         .link{
+            color: var(--black);
+            transition: all .15s ease;
+
+            &:hover{
+                color: var(--black-hover);
+            }
+        }
     }
 
     td{
