@@ -14,10 +14,12 @@ export const LayoutPages: FC<IProps & PropsWithChildren> = ({title, children}) =
             <header className={classes.header}>
                 {title}
             </header>
-            <section className={classes.container}>
-                <section className={classes.nav}>
+            <section className={classes.nav}>
+                <section className={classes.navWrapper}>
                     <NavPages />
                 </section>
+            </section>
+            <section className={classes.container}>
                 <main className={classes.main}>
                     {children}
                 </main>
