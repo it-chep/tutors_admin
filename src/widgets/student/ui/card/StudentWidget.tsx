@@ -1,18 +1,19 @@
 import { FC, useEffect, useState } from "react";
 import { useMyActions } from "../../../../entities/my";
 import { useGlobalMessageActions } from "../../../../entities/globalMessage";
-import { IStudent, studentService } from "../../../../entities/student";
+import { IStudentData, StudentCard, studentService } from "../../../../entities/student";
 import { useParams } from "react-router-dom";
 import { AuthError } from "../../../../shared/lib/helpers/AuthError";
 import classes from './studentWidget.module.scss'
 import { Message } from "../message/Message";
+import { StudentCalendar } from "../studentCalendar/StudentCalendar";
 
 
 
 export const StudentWidget: FC = () => {
 
     const [isLoaing, setIsLoading] = useState<boolean>(true)
-    const [student, setStudent] = useState<IStudent>()
+    const [student, setStudent] = useState<IStudentData>()
 
     const {setIsAuth} = useMyActions()
     const {setGlobalMessage} = useGlobalMessageActions()
@@ -49,20 +50,34 @@ export const StudentWidget: FC = () => {
 
     return (
         <section className={classes.container}>   
-            <section className={classes.warnings}>
-                <Message 
-                    type="balanceNegative"
-                    sign="У родителя есть задолженность"
-                />
-                <Message 
-                    type="onlyTrial"
-                    sign="Проведено только пробное занятие"
-                />
-                <Message 
-                    type="newbie"
-                    sign="Новичок"
-                />
-            </section>
+            {
+                isLoaing
+                    ?
+                <section></section>
+                    :
+                student
+                    &&
+                <>
+                    <section className={classes.warnings}>
+                        <Message 
+                            type="balanceNegative"
+                            sign="У родителя есть задолженность"
+                        />
+                        <Message 
+                            type="onlyTrial"
+                            sign="Проведено только пробное занятие"
+                        />
+                        <Message 
+                            type="newbie"
+                            sign="Новичок"
+                        />
+                    </section>
+                    <StudentCard
+                        student={student}
+                    />
+                    <StudentCalendar id={student.id} />
+                </>
+            }
         </section>
     )
 }

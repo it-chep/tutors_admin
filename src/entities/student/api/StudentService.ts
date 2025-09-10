@@ -1,15 +1,42 @@
 import { fetchAuth } from "../../../shared/api/ApiService"
-import { IStudent, IStudentChange, IStudentData } from "../model/types"
+import { IStudent, IStudentChange, IStudentData, IStudentFinance } from "../model/types"
 
 
 
 class StudentService {
+
+    controller: AbortController | null
+    constructor(){
+        this.controller = null;
+    }
 
     async create(student: IStudentChange){
         await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/students', {
             method: "POST",
             body: JSON.stringify(student)
         })
+    }
+
+    async getFinance(id: number, from: string, to: string): Promise<IStudentFinance> {
+        if(this.controller){
+            this.controller.abort()
+        }
+        this.controller = new AbortController()
+        // const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/students/' + id + '/finance', {
+        //     method: "POST",
+        //     body: JSON.stringify({
+        //         from,
+        //         to
+        //     }),
+        //     signal: this.controller.signal
+        // })
+        // const {data}: {data: IFinance} = await res.json()
+        this.controller = null;
+        await new Promise(resolve => setTimeout(resolve, 3000))
+        return {
+            "count": 10,
+            "amount": "23"
+        }
     }
 
     async get(id: number): Promise<IStudentData>{
@@ -23,8 +50,8 @@ class StudentService {
             "phone": "89826588317",
             "tg": "https://t.me/maxim_jordan",
             "cost_per_hour": "$1,500.00",
-            "subject_id": 1,
-            "tutor_id": 1,
+            "subject_name": "Математика",
+            "tutor_name": "Фио репетитора",
             "parent_full_name": "Нечепорук Алексей Владимирович",
             "parent_phone": "89826588317",
             "parent_tg": "https://t.me/maxim_jordan",
@@ -69,7 +96,7 @@ class StudentService {
                 "tg": "https://t.me/maxim_jordan",
                 "is_only_trial_finished": false,
                 "is_balance_negative": false,
-                "is_newbie": false
+                "is_newbie": true
             },
         ]
     }
