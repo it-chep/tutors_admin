@@ -1,4 +1,4 @@
-import { FC, MouseEvent, useEffect, useState } from "react";
+import { FC, MouseEvent, useState } from "react";
 import classes from './dropDownList.module.scss'
 import { LoaderSpinner } from "../../spinner";
 import { List } from "../list/List";
