@@ -17,6 +17,12 @@ class TutorService {
         })
     }
 
+    async delete(id: number){
+        await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/tutors/' + id, {
+            method: "DELETE"
+        })
+    }
+
     async getFinance(id: number, from: string, to: string): Promise<ITutorFinance> {
         if(this.controller){
             this.controller.abort()

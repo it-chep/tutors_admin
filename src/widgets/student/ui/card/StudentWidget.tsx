@@ -82,7 +82,6 @@ export const StudentWidget: FC = () => {
                                 type="newbie"
                                 sign="Новичок"
                             />
-                            
                         </section>
                         <DeleteAction 
                             successText="Студент удален"        
