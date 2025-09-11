@@ -1,22 +1,22 @@
 import { FC, useEffect, useState } from "react";
-import classes from './studentsWidget.module.scss'
-import { IStudent, StudentItem, studentService } from "../../../entities/student";
+import classes from './tutorsWidget.module.scss'
 import { MyButton } from "../../../shared/ui/button";
 import { LoaderSpinner } from "../../../shared/ui/spinner";
 import { AuthError } from "../../../shared/lib/helpers/AuthError";
 import { useMyActions } from "../../../entities/my";
 import { useGlobalMessageActions } from "../../../entities/globalMessage";
 import { useNavigate } from "react-router-dom";
-import { STUDENT_CREATE_ROUTE } from "../../../app/router/routes";
+import { STUDENT_CREATE_ROUTE, TUTOR_CREATE_ROUTE } from "../../../app/router/routes";
 import { SearchItems } from "../../../features/searchItems/ui/SearchItems";
+import { ITutor, TutorItem, tutorService } from "../../../entities/tutor";
 
 
-export const StudentsWidget: FC = () => {
+export const TutorsWidget: FC = () => {
 
     const [isLoading, setIsLoading] = useState<boolean>(true)
 
-    const [students, setStudents] = useState<IStudent[]>([])
-    const [studentsSearch, setStudentsSearch] = useState<IStudent[]>([])
+    const [tutors, setTutors] = useState<ITutor[]>([])
+    const [tutorsSearch, setTutorsSearch] = useState<ITutor[]>([])
 
     const router = useNavigate()
 
@@ -26,9 +26,9 @@ export const StudentsWidget: FC = () => {
     const getData = async () => {
         try{
             setIsLoading(true)
-            const studentsRes = await studentService.getAll()
-            setStudents(studentsRes)
-            setStudentsSearch(studentsRes)
+            const tutorsRes = await tutorService.getAll()
+            setTutors(tutorsRes)
+            setTutorsSearch(tutorsRes)
         }
         catch(e){
             console.log(e)
@@ -37,7 +37,7 @@ export const StudentsWidget: FC = () => {
                 setGlobalMessage({message: e.message, type: 'error'})
             }
             else{
-                setGlobalMessage({message: 'Ошибка при получении списка студентов', type: 'error'})
+                setGlobalMessage({message: 'Ошибка при получении списка репетиторов', type: 'error'})
             }
         }
         finally{
@@ -52,20 +52,20 @@ export const StudentsWidget: FC = () => {
 
     return (
         <section className={classes.container}>
-            <section className={classes.addStudentWrap}>
+            <section className={classes.addTutorWrap}>
                 <section className={classes.button}> 
-                    <MyButton onClick={() => router(STUDENT_CREATE_ROUTE.path)}>
-                        Добавить студента
+                    <MyButton onClick={() => router(TUTOR_CREATE_ROUTE.path)}>
+                        Добавить репетитора
                     </MyButton>
                 </section>
             </section>
             <section className={classes.searchItems}>
                 <SearchItems 
                     placeholder="Введите фио студента"
-                    items={students.map(
-                        student => ({...student, name: student.last_name + ' ' + student.first_name + ' ' + student.middle_name,})
+                    items={tutors.map(
+                        tutor => ({...tutor, name: tutor.full_name})
                     )}
-                    setItems={setStudentsSearch}
+                    setItems={setTutorsSearch}
                 />
             </section>
             {
@@ -82,15 +82,15 @@ export const StudentsWidget: FC = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {studentsSearch.map(student => 
-                            <StudentItem 
-                                key={student.id}
-                                student={student}
+                        {tutorsSearch.map(tutor => 
+                            <TutorItem 
+                                key={tutor.id}
+                                tutor={tutor}
                             >
-                                <MyButton onClick={() => router('/student/' + student.id)}>
+                                <MyButton onClick={() => router('/tutor/' + tutor.id)}>
                                     Подробнее
                                 </MyButton>
-                            </StudentItem>
+                            </TutorItem>
                         )}
                     </tbody>
                 </table>

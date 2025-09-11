@@ -25,3 +25,21 @@ export const STUDENT_ROUTE: IRoute = {
     name: 'Студент',
     path: '/student/:id'
 }
+
+
+export const TUTORS_ROUTE: IRoute = {
+    name: 'Репетиторы',
+    path: '/tutors'
+}
+
+
+export const TUTOR_ROUTE: IRoute = {
+    name: 'Репетитор',
+    path: '/tutor:id'
+}
+
+
+export const TUTOR_CREATE_ROUTE: IRoute = {
+    name: 'Репетиторы',
+    path: '/tutor/create'
+}

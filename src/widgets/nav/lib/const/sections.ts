@@ -1,4 +1,4 @@
-import { STUDENTS_ROUTE } from "../../../../app/router/routes";
+import { STUDENTS_ROUTE, TUTORS_ROUTE } from "../../../../app/router/routes";
 import { ISection } from "../../model/types";
 
 
@@ -14,4 +14,13 @@ export const sections: ISection[] = [
             }
         ]
     },
+    {
+        title: 'Репетиторы',
+        sections: [
+            {
+                title: TUTORS_ROUTE.name,
+                link: TUTORS_ROUTE.path
+            }
+        ]
+    }
 ]
