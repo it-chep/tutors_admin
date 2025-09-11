@@ -7,6 +7,7 @@ import { AuthError } from "../../../../shared/lib/helpers/AuthError";
 import classes from './studentWidget.module.scss'
 import { Message } from "../message/Message";
 import { StudentCalendar } from "../studentCalendar/StudentCalendar";
+import { DeleteAction } from "../../../../features/deleteAction";
 
 
 
@@ -19,7 +20,6 @@ export const StudentWidget: FC = () => {
     const {setGlobalMessage} = useGlobalMessageActions()
 
     const {id} = useParams<{id: string}>()
-
 
     const getData = async () => {
         try{
@@ -48,6 +48,12 @@ export const StudentWidget: FC = () => {
         getData()
     }, [])
 
+    const onDelete = async () => {
+        if(student){
+            await studentService.delete(student.id)
+        }
+    }
+
     return (
         <section className={classes.container}>   
             {
@@ -58,18 +64,27 @@ export const StudentWidget: FC = () => {
                 student
                     &&
                 <>
-                    <section className={classes.warnings}>
-                        <Message 
-                            type="balanceNegative"
-                            sign="У родителя есть задолженность"
-                        />
-                        <Message 
-                            type="onlyTrial"
-                            sign="Проведено только пробное занятие"
-                        />
-                        <Message 
-                            type="newbie"
-                            sign="Новичок"
+                    <section className={classes.header}>
+                        <section className={classes.warnings}>
+                            <Message 
+                                type="balanceNegative"
+                                sign="У родителя есть задолженность"
+                            />
+                            <Message 
+                                type="onlyTrial"
+                                sign="Проведено только пробное занятие"
+                            />
+                            <Message 
+                                type="newbie"
+                                sign="Новичок"
+                            />
+                            
+                        </section>
+                        <DeleteAction 
+                            successText="Студента удален"        
+                            errorText="Ошибка при удалении студента"
+                            onDelete={onDelete}
+                            questionText="Точно хотите удалить Студента ?"
                         />
                     </section>
                     <StudentCard

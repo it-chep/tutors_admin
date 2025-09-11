@@ -3,9 +3,17 @@
 
 .container{
 
-    .warnings{
+    .header{
         display: flex;
-        gap: 20px;
+        justify-content: space-between;
+        gap: 40px;
+        align-items: center;
+        
+        .warnings{
+            display: flex;
+            gap: 20px;
+        }
     }
+
 
 }

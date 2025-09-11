@@ -100,6 +100,10 @@ class StudentService {
         }
     }
 
+    async delete(id: number){
+        await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/students/' + id)
+    }
+
     async getAll(): Promise<IStudent[]> {
         // const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/students')
         // const {students}: {students: IStudent[]} = await res.json()

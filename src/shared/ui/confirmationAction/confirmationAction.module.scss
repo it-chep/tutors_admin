@@ -4,12 +4,12 @@
 .container{
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 60px;
     background-color: #FFF;
-    padding: 20px 60px;
+    padding: 60px 80px;
     min-width: 560px;
     border-radius: 20px;
-    height: 240px;
 
     .loader{
         display: flex;
