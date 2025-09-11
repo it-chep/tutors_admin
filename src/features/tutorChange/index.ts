@@ -1,1 +1,1 @@
-export { TutorChange } from "./ui/TutorChange";
+export { TutorChange } from "./ui/change/TutorChange";

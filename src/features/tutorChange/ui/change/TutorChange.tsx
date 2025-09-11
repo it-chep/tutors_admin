@@ -1,12 +1,13 @@
 import { FC, useState } from "react";
 import classes from './tutorChange.module.scss'
-import { MyInput } from "../../../shared/ui/input";
-import { ITutorCreate, tutorChange } from "../../../entities/tutor";
-import { useGlobalLoadingActions } from "../../../entities/globalLoading";
-import { useGlobalMessageActions } from "../../../entities/globalMessage";
-import { useMyActions } from "../../../entities/my";
-import { AuthError } from "../../../shared/lib/helpers/AuthError";
-import { MyButton } from "../../../shared/ui/button";
+import { MyInput } from "../../../../shared/ui/input";
+import { ITutorCreate, tutorChange, tutorService } from "../../../../entities/tutor";
+import { useGlobalLoadingActions } from "../../../../entities/globalLoading";
+import { useGlobalMessageActions } from "../../../../entities/globalMessage";
+import { useMyActions } from "../../../../entities/my";
+import { AuthError } from "../../../../shared/lib/helpers/AuthError";
+import { MyButton } from "../../../../shared/ui/button";
+import { List } from "../list/List";
 
 
 export const TutorChange: FC = () => {
@@ -27,7 +28,7 @@ export const TutorChange: FC = () => {
    const onSend = async () => {
         try{
             setIsLoading(true)
-
+            await tutorService.create(tutor)
         }
         catch(e){
             console.log(e)
@@ -67,12 +68,20 @@ export const TutorChange: FC = () => {
                 value={tutor.tg}
                 setValue={setTg}
             />
-
-            <MyButton
-                onClick={onSend}
-            >
-                Создать
-            </MyButton>
+            <section>
+                <section className={classes.subtitle}>Предмет</section>
+                <List 
+                    tutor={tutor}
+                    setSubjectId={setSubjectId}
+                />            
+            </section>
+            <section className={classes.button}>
+                <MyButton
+                    onClick={onSend}
+                >
+                    Создать
+                </MyButton>
+            </section>
         </section>
     )
 }
