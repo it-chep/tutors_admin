@@ -13,6 +13,7 @@ export const Calendar: React.FC<CalendarProps> = ({onDateRangeSelect, isLoading}
     const [startDate, setStartDate] = useState<Date | null>(null);
     const [endDate, setEndDate] = useState<Date | null>(null);
     const [hoverDate, setHoverDate] = useState<Date | null>(null);
+    const [open, setOpen] = useState<boolean>(false)
 
     // Функции для навигации
     const prevMonth = (): void => {
@@ -47,9 +48,6 @@ export const Calendar: React.FC<CalendarProps> = ({onDateRangeSelect, isLoading}
 
     // Обработчик клика по дате
     const handleDateClick = (date: Date): void => {
-        if(isLoading){
-            return
-        }
         let newStartDate: Date | null = startDate;
         let newEndDate: Date | null = endDate;
 
@@ -66,6 +64,10 @@ export const Calendar: React.FC<CalendarProps> = ({onDateRangeSelect, isLoading}
         setStartDate(newStartDate);
         setEndDate(newEndDate);
         setHoverDate(null);
+
+        if(newStartDate && newEndDate){
+            setOpen(false)
+        }
 
         if (onDateRangeSelect) {
             onDateRangeSelect(newStartDate, newEndDate);
@@ -93,7 +95,7 @@ export const Calendar: React.FC<CalendarProps> = ({onDateRangeSelect, isLoading}
 
         // Пустые ячейки перед первым днем месяца
         for (let i = 0; i < startDay; i++) {
-            days.push(<div key={`empty-${i}`} className={classes.calendarDay + " " + classes.empty}></div>);
+            days.push(<section key={`empty-${i}`} className={classes.calendarDay + " " + classes.empty}></section>);
         }
 
         // Дни месяца
@@ -117,14 +119,14 @@ export const Calendar: React.FC<CalendarProps> = ({onDateRangeSelect, isLoading}
             ].filter(Boolean).join(' ');
 
             days.push(
-                <div
+                <section
                     key={date.toISOString()}
                     className={dayClass}
                     onClick={() => handleDateClick(date)}
                     onMouseEnter={() => handleDateHover(date)}
                 >
                     {day}
-                </div>
+                </section>
             );
         }
 
@@ -133,57 +135,60 @@ export const Calendar: React.FC<CalendarProps> = ({onDateRangeSelect, isLoading}
 
     const months = getThreeMonths();
 
-    return (
-        <div className={classes.calendarContainer}>
-            <div className={classes.calendarHeader}>
-                <button onClick={prevMonth} className={classes.navButton}>
-                    <img src={arrowLeft} />
-                </button>
-                <section className={classes.currentMonth}>
-                    {currentDate.toLocaleString('default', { month: 'long', year: 'numeric' })}
-                </section>
-                <button onClick={nextMonth} className={classes.navButton}>
-                    <img src={arrowRight} />
-                </button>
-            </div>
+    const onOpen = () => {
+        if(!isLoading){
+            setOpen(!open)
+        }
+    }
 
-            <div className={classes.calendarMonths}>
-                {months.map((monthDate, index) => (
-                <div key={index} className={classes.calendarMonth}>
-                    <h3>
-                        {monthDate.toLocaleString('default', { month: 'long', year: 'numeric' })}
-                    </h3>
-                    <div className={classes.calendarWeekdays}>
-                        {['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'].map(day => (
-                            <div key={day} className={classes.weekday}>{day}</div>
-                        ))}
-                    </div>
-                    <div className={classes.calendarDays + (isLoading ? ` ${classes.disabled}` : '')}>
-                        {renderMonth(monthDate)}
-                    </div>
-                </div>
-                ))}
-            </div>
-            <div className={classes.selectedRange}>
+    return (
+        <section className={classes.calendarContainer}>
+            <section 
+                onMouseDown={e => e.preventDefault()}
+                onClick={onOpen} 
+                className={classes.selectedRange + (isLoading ? ` ${classes.disabled}` : '')}
+            >
                 <p>
                     Период: {(!startDate && !endDate) ? 'Выберите даты' : 
                     (startDate && !endDate) ? 'Выберите вторую дату' :  
                     endDate && `${startDate?.toLocaleDateString()} - ${endDate.toLocaleDateString()}`}
                 </p>
-                <button 
-                    disabled={isLoading}
-                    onClick={() => {
-                        setStartDate(null);
-                        setEndDate(null);
-                        if (onDateRangeSelect) {
-                            onDateRangeSelect(null, null);
-                        }
-                    }}
-                    className={classes.clearButton}
-                >
-                    Очистить
-                </button>
-            </div>
-        </div>
+            </section>
+            {
+                open
+                    &&
+                <section className={classes.wrapper}>
+                    <section className={classes.calendarHeader}>
+                        <button onClick={prevMonth} className={classes.navButton}>
+                            <img src={arrowLeft} />
+                        </button>
+                        <section className={classes.currentMonth}>
+                            {currentDate.toLocaleString('default', { month: 'long', year: 'numeric' })}
+                        </section>
+                        <button onClick={nextMonth} className={classes.navButton}>
+                            <img src={arrowRight} />
+                        </button>
+                    </section>
+
+                    <section className={classes.calendarMonths}>
+                        {months.map((monthDate, index) => (
+                        <section key={index} className={classes.calendarMonth}>
+                            <h3>
+                                {monthDate.toLocaleString('default', { month: 'long', year: 'numeric' })}
+                            </h3>
+                            <section className={classes.calendarWeekdays}>
+                                {['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'].map(day => (
+                                    <section key={day} className={classes.weekday}>{day}</section>
+                                ))}
+                            </section>
+                            <section className={classes.calendarDays}>
+                                {renderMonth(monthDate)}
+                            </section>
+                        </section>
+                        ))}
+                    </section>
+                </section>
+            }
+        </section>
     );
 };
