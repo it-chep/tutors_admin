@@ -1,4 +1,4 @@
-import { FC } from "react";
+import React, { FC } from "react";
 import classes from './studentChange.module.scss'
 import { MyInput } from "../../../../shared/ui/input";
 import { useAppSelector } from "../../../../app/store/store";
@@ -7,9 +7,11 @@ import { Send } from "../send/Send";
 
 interface IProps {
     isCreate: boolean;
+    chooseSubject: React.ReactNode;
+    chooseTutor: React.ReactNode;
 }
 
-export const StudentChange: FC<IProps> = ({isCreate}) => {
+export const StudentChange: FC<IProps> = ({isCreate, chooseSubject, chooseTutor}) => {
 
     const {student} = useAppSelector(s => s.studentReducer)
 
@@ -61,12 +63,13 @@ export const StudentChange: FC<IProps> = ({isCreate}) => {
                 value={student.parent_tg}
                 setValue={setParentTg}
             />
+            {chooseSubject}
             <MyInput 
                 title="Стоимость часа"
                 value={student.cost_per_hour}
                 setValue={setCostPerHour}
             />
-
+            {chooseTutor}
             <Send isCreate={isCreate} />
         </section>
     )
