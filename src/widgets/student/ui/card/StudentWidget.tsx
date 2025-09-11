@@ -2,12 +2,13 @@ import { FC, useEffect, useState } from "react";
 import { useMyActions } from "../../../../entities/my";
 import { useGlobalMessageActions } from "../../../../entities/globalMessage";
 import { IStudentData, StudentCard, studentService } from "../../../../entities/student";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { AuthError } from "../../../../shared/lib/helpers/AuthError";
 import classes from './studentWidget.module.scss'
 import { Message } from "../message/Message";
 import { StudentCalendar } from "../studentCalendar/StudentCalendar";
 import { DeleteAction } from "../../../../features/deleteAction";
+import { STUDENTS_ROUTE } from "../../../../app/router/routes";
 
 
 
@@ -18,6 +19,8 @@ export const StudentWidget: FC = () => {
 
     const {setIsAuth} = useMyActions()
     const {setGlobalMessage} = useGlobalMessageActions()
+
+    const router = useNavigate()
 
     const {id} = useParams<{id: string}>()
 
@@ -51,6 +54,7 @@ export const StudentWidget: FC = () => {
     const onDelete = async () => {
         if(student){
             await studentService.delete(student.id)
+            router(STUDENTS_ROUTE.path)
         }
     }
 
@@ -81,7 +85,7 @@ export const StudentWidget: FC = () => {
                             
                         </section>
                         <DeleteAction 
-                            successText="Студента удален"        
+                            successText="Студент удален"        
                             errorText="Ошибка при удалении студента"
                             onDelete={onDelete}
                             questionText="Точно хотите удалить Студента ?"
