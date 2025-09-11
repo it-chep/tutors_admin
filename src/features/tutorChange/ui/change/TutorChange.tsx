@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, PropsWithChildren, useState } from "react";
 import classes from './tutorChange.module.scss'
 import { MyInput } from "../../../../shared/ui/input";
 import { ITutorCreate, tutorChange, tutorService } from "../../../../entities/tutor";
@@ -7,28 +7,29 @@ import { useGlobalMessageActions } from "../../../../entities/globalMessage";
 import { useMyActions } from "../../../../entities/my";
 import { AuthError } from "../../../../shared/lib/helpers/AuthError";
 import { MyButton } from "../../../../shared/ui/button";
-import { List } from "../list/List";
+import { useNavigate } from "react-router-dom";
+import { TUTORS_ROUTE } from "../../../../app/router/routes";
 
+interface IProps {
+    tutor: ITutorCreate;
+    setTutor: (tutor: ITutorCreate) => void;
+}
 
-export const TutorChange: FC = () => {
+export const TutorChange: FC<IProps & PropsWithChildren> = ({tutor, setTutor, children}) => {
 
     const {setIsLoading} = useGlobalLoadingActions()
     const {setGlobalMessage} = useGlobalMessageActions()
     const {setIsAuth} = useMyActions()
-    const [tutor, setTutor] = useState<ITutorCreate>({
-        full_name: '',
-        cost_per_hour: '',
-        phone: '',
-        tg: '',
-        subject_id: -1,
-    })
 
-    const {setFullName, setCostPerHour, setPhone, setTg, setSubjectId} = tutorChange(tutor, setTutor)
+    const {setFullName, setCostPerHour, setPhone, setTg} = tutorChange(tutor, setTutor)
 
-   const onSend = async () => {
+    const router = useNavigate()
+
+    const onSend = async () => {
         try{
             setIsLoading(true)
             await tutorService.create(tutor)
+            router(TUTORS_ROUTE.path)
         }
         catch(e){
             console.log(e)
@@ -68,13 +69,7 @@ export const TutorChange: FC = () => {
                 value={tutor.tg}
                 setValue={setTg}
             />
-            <section>
-                <section className={classes.subtitle}>Предмет</section>
-                <List 
-                    tutor={tutor}
-                    setSubjectId={setSubjectId}
-                />            
-            </section>
+            {children}
             <section className={classes.button}>
                 <MyButton
                     onClick={onSend}
