@@ -52,7 +52,7 @@ export const ChooseItems: FC<IProps> = ({selectedItems, setItem, title, getData}
 
     return (
         <section>
-            <section className={classes.title}>Предмет</section>
+            <section className={classes.title}>{title}</section>
             <DropDownListSelected 
                 isLoading={isLoading}
                 selectedIdItems={selectedItems}
