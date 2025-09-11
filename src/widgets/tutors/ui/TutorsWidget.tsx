@@ -61,7 +61,7 @@ export const TutorsWidget: FC = () => {
             </section>
             <section className={classes.searchItems}>
                 <SearchItems 
-                    placeholder="Введите фио студента"
+                    placeholder="Введите фио репетитора"
                     items={tutors.map(
                         tutor => ({...tutor, name: tutor.full_name})
                     )}
