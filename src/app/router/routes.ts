@@ -35,7 +35,7 @@ export const TUTORS_ROUTE: IRoute = {
 
 export const TUTOR_ROUTE: IRoute = {
     name: 'Репетитор',
-    path: '/tutor:id'
+    path: '/tutor/:id'
 }
 
 

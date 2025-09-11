@@ -10,8 +10,12 @@ import { useNavigate } from "react-router-dom";
 import { STUDENT_CREATE_ROUTE } from "../../../app/router/routes";
 import { SearchItems } from "../../../features/searchItems/ui/SearchItems";
 
+interface IProps {
+    request: () => Promise<IStudent[]>
+    add: boolean;
+}
 
-export const StudentsWidget: FC = () => {
+export const StudentsWidget: FC<IProps> = ({request, add}) => {
 
     const [isLoading, setIsLoading] = useState<boolean>(true)
 
@@ -26,7 +30,7 @@ export const StudentsWidget: FC = () => {
     const getData = async () => {
         try{
             setIsLoading(true)
-            const studentsRes = await studentService.getAll()
+            const studentsRes = await request()
             setStudents(studentsRes)
             setStudentsSearch(studentsRes)
         }
@@ -52,13 +56,18 @@ export const StudentsWidget: FC = () => {
 
     return (
         <section className={classes.container}>
-            <section className={classes.addStudentWrap}>
-                <section className={classes.button}> 
-                    <MyButton onClick={() => router(STUDENT_CREATE_ROUTE.path)}>
-                        Добавить студента
-                    </MyButton>
+            {
+                add 
+                    &&
+                <section className={classes.addStudentWrap}>
+                    <section className={classes.button}> 
+                        <MyButton onClick={() => router(STUDENT_CREATE_ROUTE.path)}>
+                            Добавить студента
+                        </MyButton>
+                    </section>
                 </section>
-            </section>
+
+            }
             <section className={classes.searchItems}>
                 <SearchItems 
                     placeholder="Введите фио студента"

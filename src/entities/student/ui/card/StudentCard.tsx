@@ -1,6 +1,6 @@
 import { FC } from "react";
 import classes from './card.module.scss'
-import { DataList } from "../dataList/DataList";
+import { DataList } from "../../../../shared/ui/dataList/DataList";
 import { IStudentData } from "../../model/types";
 
 interface IProps {

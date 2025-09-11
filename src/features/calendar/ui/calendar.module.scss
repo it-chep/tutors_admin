@@ -3,11 +3,11 @@
   min-width: 900px;
   max-width: 900px;
   position: relative;
+  z-index: 9;
 
   .selectedRange {
     padding: 15px;
     background-color: var(--gray-light);
-    border-radius: 8px;
     text-align: center;
     display: flex;
     justify-content: space-between;
@@ -30,6 +30,8 @@
     background-color: #FFF;
     padding-top: 20px;
     width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
 
 
     .calendarHeader {
