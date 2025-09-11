@@ -2,7 +2,6 @@
 
 
 .wrapper{
-    margin-bottom: 200px;
 
     .header{
         display: flex;
@@ -38,7 +37,8 @@
         margin: 20px auto;
         padding: 0 20px;
         width: 1300px;
-
+        min-height: 100vh;
+        padding-bottom: 200px;
 
         .main{
             width: 100%;
