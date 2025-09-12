@@ -9,6 +9,7 @@ import { useGlobalMessageActions } from "../../../entities/globalMessage";
 import { useNavigate } from "react-router-dom";
 import { STUDENT_CREATE_ROUTE } from "../../../app/router/routes";
 import { SearchItems } from "../../../features/searchItems/ui/SearchItems";
+import { useAppSelector } from "../../../app/store/store";
 
 interface IProps {
     request: () => Promise<IStudent[]>
@@ -26,6 +27,8 @@ export const StudentsWidget: FC<IProps> = ({request, add}) => {
 
     const {setIsAuth} = useMyActions()
     const {setGlobalMessage} = useGlobalMessageActions()
+
+    const {my} = useAppSelector(s => s.myReducer)
 
     const getData = async () => {
         try{
@@ -87,7 +90,11 @@ export const StudentsWidget: FC<IProps> = ({request, add}) => {
                         <tr className={classes.item}>
                             <th>ID</th>
                             <th>Фио</th>
-                            <th>Телеграм</th>
+                            {
+                                my.role === 'admin'
+                                    &&
+                                <th>Телеграм</th>
+                            }
                         </tr>
                     </thead>
                     <tbody>

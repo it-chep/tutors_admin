@@ -9,7 +9,7 @@ interface IProps {
 
 export const StudentCard: FC<IProps> = ({student}) => {
 
-
+    
     return (
         <section className={classes.card}>
             <DataList 

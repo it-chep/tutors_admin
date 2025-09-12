@@ -5,9 +5,9 @@ import { StudentWidget } from '../../widgets/student'
 import { LayoutPages } from '../layoutPages'
 import { Navigate } from 'react-router-dom';
 
-const roles: TRole[] = ['tutor', 'admin'] 
+const roles: TRole[] = ['super_admin'] 
 
-export default function StudentPage() {
+export default function AdminsPage() {
 
     const {my} = useAppSelector(s => s.myReducer)
     const isAccess = roles.includes(my.role)

@@ -2,25 +2,24 @@ import { FC, useEffect, useState } from "react";
 import { useMyActions } from "../../../../entities/my";
 import { useGlobalMessageActions } from "../../../../entities/globalMessage";
 import { IStudentData, StudentCard, studentService } from "../../../../entities/student";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { AuthError } from "../../../../shared/lib/helpers/AuthError";
 import classes from './studentWidget.module.scss'
-import { Message } from "../message/Message";
 import { StudentCalendar } from "../studentCalendar/StudentCalendar";
-import { DeleteAction } from "../../../../features/deleteAction";
-import { STUDENTS_ROUTE } from "../../../../app/router/routes";
-
-
+import { useAppSelector } from "../../../../app/store/store";
+import { Header } from "../header/Header";
+import { DataList } from "../../../../shared/ui/dataList";
+import { TutorFeatures } from "../tutorFeatures/TutorFeatures";
 
 export const StudentWidget: FC = () => {
 
-    const [isLoaing, setIsLoading] = useState<boolean>(true)
+    const [isLoading, setIsLoading] = useState<boolean>(true)
     const [student, setStudent] = useState<IStudentData>()
 
     const {setIsAuth} = useMyActions()
     const {setGlobalMessage} = useGlobalMessageActions()
 
-    const router = useNavigate()
+    const {my} = useAppSelector(s => s.myReducer)
 
     const {id} = useParams<{id: string}>()
 
@@ -51,50 +50,43 @@ export const StudentWidget: FC = () => {
         getData()
     }, [])
 
-    const onDelete = async () => {
-        if(student){
-            await studentService.delete(student.id)
-            router(STUDENTS_ROUTE.path)
-        }
-    }
-
     return (
         <section className={classes.container}>   
             {
-                isLoaing
+                isLoading
                     ?
                 <section></section>
                     :
                 student
                     &&
-                <>
-                    <section className={classes.header}>
-                        <section className={classes.warnings}>
-                            <Message 
-                                type="balanceNegative"
-                                sign="У родителя есть задолженность"
-                            />
-                            <Message 
-                                type="onlyTrial"
-                                sign="Проведено только пробное занятие"
-                            />
-                            <Message 
-                                type="newbie"
-                                sign="Новичок"
-                            />
-                        </section>
-                        <DeleteAction 
-                            successText="Студент удален"        
-                            errorText="Ошибка при удалении студента"
-                            onDelete={onDelete}
-                            questionText="Точно хотите удалить Студента ?"
+                (
+                    my.role === 'admin'
+                        ?
+                    <>
+                        <Header id={student.id} />
+                        <StudentCard
+                            student={student}
+                        />
+                        <StudentCalendar id={student.id} />
+                    </>
+                        :
+                    <section className={classes.tutor}>
+                        <DataList 
+                            title="Данные студента"
+                            list={[
+                                `ID: ${student.id}`,
+                                `ФИО: ${student.last_name} ${student.first_name} ${student.middle_name}`,
+                                `Предмет: ${student.subject_name}`,
+                            ]}
+                        />
+                        <TutorFeatures 
+                            newbie={student.is_newbie}
+                            id={student.id} 
+                            student={student}
+                            setStudent={setStudent}
                         />
                     </section>
-                    <StudentCard
-                        student={student}
-                    />
-                    <StudentCalendar id={student.id} />
-                </>
+                )
             }
         </section>
     )

@@ -11,10 +11,10 @@ class TutorService {
     }
 
     async create(tutor: ITutorCreate){
-        await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/tutors', {
-            method: "POST",
-            body: JSON.stringify(tutor)
-        })
+        // await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/tutors', {
+        //     method: "POST",
+        //     body: JSON.stringify(tutor)
+        // })
     }
 
     async delete(id: number){
@@ -100,6 +100,24 @@ class TutorService {
             },
         ]
             
+    }
+
+    async trialLesson(student_id: number){
+        console.log(student_id)
+        await new Promise(resolve => setTimeout(resolve, 2000))
+        // await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/tutors/trial_lesson', {
+        //     method: "POST",
+        //     body: JSON.stringify({student_id})
+        // })
+    }
+
+    async  conductLesson(student_id: number, duration: number){
+        console.log(student_id, duration)
+        await new Promise(resolve => setTimeout(resolve, 2000))
+        // await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/tutors/conduct_lesson', {
+        //     method: "POST",
+        //     body: JSON.stringify({student_id, duration})
+        // })
     }
 
 }

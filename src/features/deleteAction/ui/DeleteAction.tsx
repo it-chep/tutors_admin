@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, PropsWithChildren, useState } from "react";
 import classes from './deleteAction.module.scss'
 import { ConfirmationAction } from "../../../shared/ui/confirmationAction";
 import { useGlobalMessageActions } from "../../../entities/globalMessage";
@@ -15,7 +15,7 @@ interface IProps {
    successText: string;
 }
 
-export const DeleteAction: FC<IProps> = ({onDelete, questionText, errorText, successText}) => {
+export const DeleteAction: FC<IProps & PropsWithChildren> = ({onDelete, questionText, errorText, successText, children}) => {
 
     const [open, setOpen] = useState<boolean>(false)
     const {setGlobalMessage} = useGlobalMessageActions()
@@ -50,7 +50,7 @@ export const DeleteAction: FC<IProps> = ({onDelete, questionText, errorText, suc
                 className={classes.action} 
                 onClick={() => setOpen(true)}
             >
-                <img className={classes.deleteImg} src={deleteImg} />
+                {children || <img className={classes.deleteImg} src={deleteImg} />}
             </section>
             <Modal setOpen={setOpen} open={open}>
                 <ConfirmationAction 

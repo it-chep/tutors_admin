@@ -11,10 +11,10 @@ class StudentService {
     }
 
     async create(student: IStudentChange){
-        await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/students', {
-            method: "POST",
-            body: JSON.stringify(student)
-        })
+        // await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/students', {
+        //     method: "POST",
+        //     body: JSON.stringify(student)
+        // })
     }
 
     async getAllTutor(id: number): Promise<IStudent[]>{
@@ -35,7 +35,7 @@ class StudentService {
                 "id": 2,
                 "first_name": "Максим",
                 "last_name": "Пвввкк",
-                "middle_name": "Алексеевич",
+                "middle_name": "Алексеевич РЕПЕТ",
                 "tg": "https://t.me/maxim_jordan",
                 "is_only_trial_finished": true,
                 "is_balance_negative": true,
@@ -86,17 +86,16 @@ class StudentService {
             "middle_name": "Алексеевич",
             "phone": "89826588317",
             "tg": "https://t.me/maxim_jordan",
-            "cost_per_hour": "$1,500.00",
+            "cost_per_hour": "1,500.00",
             "subject_name": "Математика",
             "tutor_name": "Фио репетитора",
             "parent_full_name": "Нечепорук Алексей Владимирович",
             "parent_phone": "89826588317",
             "parent_tg": "https://t.me/maxim_jordan",
-            "balance": "$1,000.00",
-            "has_buttons": false,
+            "balance": "1,000.00",
             "is_only_trial_finished": true,
             "is_balance_negative": false,
-            "is_newbie": false
+            "is_newbie": true
         }
     }
 
