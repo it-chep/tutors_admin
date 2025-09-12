@@ -7,6 +7,8 @@ import { AuthError } from "../../../../shared/lib/helpers/AuthError";
 import { useMyActions } from "../../../../entities/my";
 import { studentService } from "../../../../entities/student";
 import { useAppSelector } from "../../../../app/store/store";
+import { useNavigate } from "react-router-dom";
+import { STUDENTS_ROUTE } from "../../../../app/router/routes";
 
 interface IProps {
     isCreate: boolean;
@@ -19,11 +21,14 @@ export const Send: FC<IProps> = ({isCreate}) => {
     const {setIsAuth} = useMyActions()
     const {student} = useAppSelector(s => s.studentReducer)
 
+    const router = useNavigate()
+
     const onSend = async () => {
         try{
             setIsLoading(true)
             if(isCreate){
                 await studentService.create(student)
+                router(STUDENTS_ROUTE.path)
             }
         }
         catch(e){
