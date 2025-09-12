@@ -13,7 +13,7 @@ export default function StudentsPage() {
         <LayoutPages title={STUDENTS_ROUTE.name}>
             <StudentsWidget 
                 add={my.role === 'admin'} 
-                request={my.role === 'admin' ? studentService.getAll : () => studentService.getAllTutor(my.id)} 
+                request={my.role === 'admin' ? studentService.getAll : () => studentService.getAllByTutor(my.id)} 
             />
         </LayoutPages>
     )

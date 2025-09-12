@@ -1,8 +1,9 @@
 import { FC, useState } from "react";
-import classes from './tutorCalendar.module.scss'
+import classes from './adminCalendar.module.scss'
 import { LoaderSpinner } from "../../../../shared/ui/spinner";
-import { ITutorFinance, tutorService } from "../../../../entities/tutor";
+import { ITutorFinance } from "../../../../entities/tutor";
 import { Calendar } from "../../../../features/calendar";
+import { adminService } from "../../../../entities/admin";
 import { useMyActions } from "../../../../entities/my";
 import { useGlobalMessageActions } from "../../../../entities/globalMessage";
 import { AuthError } from "../../../../shared/lib/helpers/AuthError";
@@ -11,18 +12,18 @@ interface IProps {
     id: number;
 }
 
-export const TutorCalendar: FC<IProps> = ({id}) => {
+export const AdminCalendar: FC<IProps> = ({id}) => {
 
     const [finance, setFinance] = useState<ITutorFinance | null>(null)
     const [isLoading, setIsLoading] = useState<boolean>(false)
-    
+
     const {setIsAuth} = useMyActions()
     const {setGlobalMessage} = useGlobalMessageActions()
 
     const getData = async (startDate: string, endDate: string) => {
         try{
             setIsLoading(true)
-            const financeRes = await tutorService.getFinance(id, startDate, endDate)
+            const financeRes = await adminService.getFinance(id, startDate, endDate)
             setFinance(financeRes)
         }
         catch(e){

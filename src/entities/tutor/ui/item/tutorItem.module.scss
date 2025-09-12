@@ -11,19 +11,22 @@
     &.onlyTrial{
         background-color: var(--yellow-dark);
     }
-    
-    &.newbie{
-        background-color: #FFF;
 
-         .link{
+    
+    
+    &.newbie, &.nohighlight{
+        background-color: #FFF;
+        
+        .link{
             color: var(--black);
             transition: all .15s ease;
-
+            
             &:hover{
                 color: var(--black-hover);
             }
         }
     }
+
 
     td{
         padding: 16px 6px;

@@ -1,4 +1,4 @@
-import { FINANCE_ROUTE, STUDENTS_ROUTE, TUTORS_ROUTE } from "../../../../app/router/routes";
+import { ADMINS_ROUTE, FINANCE_ROUTE, STUDENTS_ROUTE, TUTORS_ROUTE } from "../../../../app/router/routes";
 import { IMy } from "../../../../entities/my";
 import { ISection } from "../../model/types";
 
@@ -49,7 +49,17 @@ export const getSections = (my: IMy): ISection[] => {
                 },
             ])
         case 'super_admin':
-            return []
+            return [
+                {
+                    title: 'Админы',
+                    sections: [
+                        {
+                            title: ADMINS_ROUTE.name,
+                            link: ADMINS_ROUTE.path
+                        }
+                    ]
+                }
+            ]
     }
 
 }

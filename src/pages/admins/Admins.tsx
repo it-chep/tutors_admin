@@ -1,7 +1,7 @@
-import { HOME_ROUTE, STUDENT_ROUTE } from '../../app/router/routes'
+import { ADMINS_ROUTE, HOME_ROUTE, STUDENT_ROUTE } from '../../app/router/routes'
 import { useAppSelector } from '../../app/store/store'
 import { TRole } from '../../entities/my'
-import { StudentWidget } from '../../widgets/student'
+import { AdminsWidget } from '../../widgets/admins';
 import { LayoutPages } from '../layoutPages'
 import { Navigate } from 'react-router-dom';
 
@@ -19,8 +19,8 @@ export default function AdminsPage() {
     }
 
     return (
-        <LayoutPages title={STUDENT_ROUTE.name}>
-            <StudentWidget />
+        <LayoutPages title={ADMINS_ROUTE.name}>
+            <AdminsWidget />
         </LayoutPages>
     )
 }

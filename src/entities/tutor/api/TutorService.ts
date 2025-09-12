@@ -46,6 +46,45 @@ class TutorService {
         }
     }
 
+    async getAllByAdmin(id: number): Promise<ITutor[]>{
+        // const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + `/tutors?admin_id=${id}`)
+        // const {tutors}: {tutors: ITutor[]} = await res.json()
+        return [
+            {
+                "id": 1,
+                "full_name": "Нечепорк Максим Алексеевич",
+                "tg": "https://t.me/maxim_jordan",
+                "has_balance_negative": true,
+                "has_only_trial": false,
+                "has_newbie": false
+            },
+            {
+                "id": 2,
+                "full_name": "Нечепорк Максим Алексеевич",
+                "tg": "https://t.me/maxim_jordan",
+                "has_balance_negative": false,
+                "has_only_trial": true,
+                "has_newbie": false
+            },
+            {
+                "id": 3,
+                "full_name": "Бобрито",
+                "tg": "https://t.me/maxim_jordan",
+                "has_balance_negative": false,
+                "has_only_trial": false,
+                "has_newbie": false
+            },
+            {
+                "id": 4,
+                "full_name": "Нечепорк Максим Алексеевич",
+                "tg": "https://t.me/maxim_jordan",
+                "has_balance_negative": false,
+                "has_only_trial": false,
+                "has_newbie": true
+            },
+        ]
+    }
+
     async get(id: number): Promise<ITutorData>{
         // const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/tutors/' + id)
         // const {tutor}: {tutor: ITutorData} = await res.json()
@@ -103,7 +142,6 @@ class TutorService {
     }
 
     async trialLesson(student_id: number){
-        console.log(student_id)
         await new Promise(resolve => setTimeout(resolve, 2000))
         // await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/tutors/trial_lesson', {
         //     method: "POST",
@@ -112,7 +150,6 @@ class TutorService {
     }
 
     async  conductLesson(student_id: number, duration: number){
-        console.log(student_id, duration)
         await new Promise(resolve => setTimeout(resolve, 2000))
         // await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/tutors/conduct_lesson', {
         //     method: "POST",

@@ -5,19 +5,24 @@ import { ITutor } from "../../model/types";
 
 interface IProps {
     tutor: ITutor;
+    highlight: boolean;
 }
 
 
-export const TutorItem: FC<IProps & PropsWithChildren> = ({tutor, children}) => {
+export const TutorItem: FC<IProps & PropsWithChildren> = ({tutor, highlight, children}) => {
 
     return (
         <tr 
             className={
                 classes.item + 
                 (
+                    highlight
+                        ?
                     tutor.has_balance_negative ? ` ${classes.balanceNegative}` : 
                     tutor.has_only_trial ? ` ${classes.onlyTrial}` : 
                     tutor.has_newbie ? ` ${classes.newbie}` : ''
+                        :
+                    ` ${classes.nohighlight}`
                 )}
             >
             <td className={classes.id}>

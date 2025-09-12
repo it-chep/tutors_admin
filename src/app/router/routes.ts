@@ -49,3 +49,20 @@ export const FINANCE_ROUTE: IRoute = {
     name: 'Финансы',
     path: '/finance'
 }
+
+
+export const ADMINS_ROUTE: IRoute = {
+    name: 'Админы',
+    path: '/admins'
+}
+
+export const ADMIN_ROUTE: IRoute = {
+    name: 'Админ',
+    path: '/admin/:id'
+}
+
+export const ADMIN_CREATE_ROUTE: IRoute = {
+    name: 'Админы',
+    path: '/admin/create'
+}
+

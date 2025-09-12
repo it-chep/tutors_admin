@@ -17,7 +17,7 @@ export default function TutorPage() {
             <TutorWidget id={+id}>
                 <StudentsWidget 
                     add={false}
-                    request={() => studentService.getAllTutor(+id)}
+                    request={() => studentService.getAllByTutor(+id)}
                 />
             </TutorWidget>
         </LayoutPages>

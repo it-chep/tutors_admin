@@ -17,7 +17,7 @@ class StudentService {
         // })
     }
 
-    async getAllTutor(id: number): Promise<IStudent[]>{
+    async getAllByTutor(id: number): Promise<IStudent[]>{
         // const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + `/students?tutor_id=${id}`)
         // const {students}: {students: IStudent[]} = await res.json()
         return [

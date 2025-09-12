@@ -6,12 +6,17 @@ import { AuthError } from "../../../shared/lib/helpers/AuthError";
 import { useMyActions } from "../../../entities/my";
 import { useGlobalMessageActions } from "../../../entities/globalMessage";
 import { useNavigate } from "react-router-dom";
-import { STUDENT_CREATE_ROUTE, TUTOR_CREATE_ROUTE } from "../../../app/router/routes";
+import { TUTOR_CREATE_ROUTE } from "../../../app/router/routes";
 import { SearchItems } from "../../../features/searchItems/ui/SearchItems";
-import { ITutor, TutorItem, tutorService } from "../../../entities/tutor";
+import { ITutor, TutorItem } from "../../../entities/tutor";
 
+interface IProps {
+    request: () => Promise<ITutor[]>
+    add: boolean;
+    highlight?: boolean;
+}
 
-export const TutorsWidget: FC = () => {
+export const TutorsWidget: FC<IProps> = ({add, request, highlight=true}) => {
 
     const [isLoading, setIsLoading] = useState<boolean>(true)
 
@@ -26,7 +31,7 @@ export const TutorsWidget: FC = () => {
     const getData = async () => {
         try{
             setIsLoading(true)
-            const tutorsRes = await tutorService.getAll()
+            const tutorsRes = await request()
             setTutors(tutorsRes)
             setTutorsSearch(tutorsRes)
         }
@@ -52,13 +57,17 @@ export const TutorsWidget: FC = () => {
 
     return (
         <section className={classes.container}>
-            <section className={classes.addTutorWrap}>
-                <section className={classes.button}> 
-                    <MyButton onClick={() => router(TUTOR_CREATE_ROUTE.path)}>
-                        Добавить репетитора
-                    </MyButton>
+            {
+                add 
+                    &&
+                <section className={classes.addTutorWrap}>
+                    <section className={classes.button}> 
+                        <MyButton onClick={() => router(TUTOR_CREATE_ROUTE.path)}>
+                            Добавить репетитора
+                        </MyButton>
+                    </section>
                 </section>
-            </section>
+            }
             <section className={classes.searchItems}>
                 <SearchItems 
                     placeholder="Введите фио репетитора"
@@ -84,6 +93,7 @@ export const TutorsWidget: FC = () => {
                     <tbody>
                         {tutorsSearch.map(tutor => 
                             <TutorItem 
+                                highlight={highlight}
                                 key={tutor.id}
                                 tutor={tutor}
                             >
