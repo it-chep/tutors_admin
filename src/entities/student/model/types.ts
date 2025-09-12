@@ -24,7 +24,6 @@ export interface IStudentData {
     parent_phone: string;
     parent_tg: string;
     balance: string;
-    has_buttons: boolean;
     is_only_trial_finished: boolean;
     is_balance_negative: boolean;
     is_newbie: boolean;
