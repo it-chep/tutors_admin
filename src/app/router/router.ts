@@ -1,5 +1,5 @@
 import { RouteObject } from "react-router-dom";
-import { HOME_ROUTE, LOGIN_ROUTE, STUDENT_CREATE_ROUTE, STUDENT_ROUTE, STUDENTS_ROUTE, TUTOR_CREATE_ROUTE, TUTOR_ROUTE, TUTORS_ROUTE } from "./routes";
+import { FINANCE_ROUTE, HOME_ROUTE, LOGIN_ROUTE, STUDENT_CREATE_ROUTE, STUDENT_ROUTE, STUDENTS_ROUTE, TUTOR_CREATE_ROUTE, TUTOR_ROUTE, TUTORS_ROUTE } from "./routes";
 import App from "../../App";
 import HomePage from "../../pages/home/HomePage";
 import AuthPage from "../../pages/auth/AuthPage";
@@ -9,6 +9,7 @@ import StudentPage from "../../pages/student/Student";
 import TutorsPage from "../../pages/tutors/Tutors";
 import TutorPage from "../../pages/tutor/Tutor";
 import TutorChangePage from "../../pages/tutorChange/TutorChange";
+import FinancePage from "../../pages/finance/Finance";
 
 
 export const Router: RouteObject[] = [
@@ -48,6 +49,10 @@ export const Router: RouteObject[] = [
             {
                 path: TUTOR_CREATE_ROUTE.path,
                 Component: TutorChangePage
+            },
+            {
+                path: FINANCE_ROUTE.path,
+                Component: FinancePage
             }
         ]
     }
