@@ -14,6 +14,12 @@
             align-items: center;
             font-size: 18px;
 
+            &.selected{
+                a{
+                    font-weight: 500;
+                }
+            }
+
             a{
                 display: flex;
                 align-items: center;
