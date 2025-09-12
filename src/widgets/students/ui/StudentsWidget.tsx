@@ -91,7 +91,7 @@ export const StudentsWidget: FC<IProps> = ({request, add}) => {
                             <th>ID</th>
                             <th>Фио</th>
                             {
-                                my.role === 'admin'
+                                my.role !== 'tutor'
                                     &&
                                 <th>Телеграм</th>
                             }

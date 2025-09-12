@@ -60,7 +60,7 @@ export const StudentWidget: FC = () => {
                 student
                     &&
                 (
-                    my.role === 'admin'
+                    my.role !== 'tutor'
                         ?
                     <>
                         <Header id={student.id} />

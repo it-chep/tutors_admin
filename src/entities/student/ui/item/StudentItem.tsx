@@ -17,7 +17,7 @@ export const StudentItem: FC<IProps & PropsWithChildren> = ({student, children})
         <tr 
             className={
                 classes.item + (
-                    my.role === 'admin'
+                    my.role !== 'tutor'
                         ?
                     student.is_balance_negative ? ` ${classes.balanceNegative}` : 
                     student.is_only_trial_finished ? ` ${classes.onlyTrial}` : 
@@ -34,7 +34,7 @@ export const StudentItem: FC<IProps & PropsWithChildren> = ({student, children})
                 {student.last_name + ' ' + student.first_name + ' ' + student.middle_name}
             </td>
             {
-                my.role === 'admin'
+                my.role !== 'tutor'
                     &&
                 <td className={classes.tg}>
                     <a target="_blank" className={classes.link} href={student.tg}>

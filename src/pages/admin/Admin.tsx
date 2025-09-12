@@ -11,17 +11,16 @@ const roles: TRole[] = ['super_admin']
 
 export default function AdminPage() {
 
+    const {id} = useParams<{id: string}>()
+    
     const {my} = useAppSelector(s => s.myReducer)
     const isAccess = roles.includes(my.role)
-    const {id} = useParams<{id: string}>()
-
     
     if(!isAccess){
         return (
             <Navigate to={HOME_ROUTE.path} replace />
         )
     }
-    
 
     return (
         id  

@@ -2,7 +2,6 @@ import { FC, PropsWithChildren } from "react";
 import { NavPages } from "../../widgets/nav";
 import classes from './layoutPages.module.scss'
 
-
 interface IProps {
     title: string;
 }

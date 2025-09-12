@@ -5,51 +5,40 @@ import { ISection } from "../../model/types";
 
 export const getSections = (my: IMy): ISection[] => {
     
-    switch (my.role){
-        case 'admin': 
-            return ([
-                {
-                    title: 'Студенты',
-                    sections: [
-                        {
-                            title: STUDENTS_ROUTE.name,
-                            link: STUDENTS_ROUTE.path
-                        }
-                    ]
-                },
-                {
-                    title: 'Репетиторы',
-                    sections: [
-                        {
-                            title: TUTORS_ROUTE.name,
-                            link: TUTORS_ROUTE.path
-                        }
-                    ]
-                },
-                {
-                    title: 'Финансы',
-                    sections: [
-                        {
-                            title: FINANCE_ROUTE.name,
-                            link: FINANCE_ROUTE.path
-                        }
-                    ]
-                }
-            ])
-        case 'tutor':
-            return ([
-                {
-                    title: 'Студенты',
-                    sections: [
-                        {
-                            title: STUDENTS_ROUTE.name,
-                            link: STUDENTS_ROUTE.path
-                        }
-                    ]
-                },
-            ])
-        case 'super_admin':
-            return [
+    const paths: ISection[] = []
+
+    if(my.role === 'admin' || my.role === 'super_admin'){
+        paths.push(
+            {
+                title: 'Студенты',
+                sections: [
+                    {
+                        title: STUDENTS_ROUTE.name,
+                        link: STUDENTS_ROUTE.path
+                    }
+                ]
+            },
+            {
+                title: 'Репетиторы',
+                sections: [
+                    {
+                        title: TUTORS_ROUTE.name,
+                        link: TUTORS_ROUTE.path
+                    }
+                ]
+            },
+            {
+                title: 'Финансы',
+                sections: [
+                    {
+                        title: FINANCE_ROUTE.name,
+                        link: FINANCE_ROUTE.path
+                    }
+                ]
+            }
+        )
+        if(my.role === 'super_admin'){
+            paths.push(
                 {
                     title: 'Админы',
                     sections: [
@@ -59,7 +48,22 @@ export const getSections = (my: IMy): ISection[] => {
                         }
                     ]
                 }
-            ]
+            )
+        }
+    }
+    if(my.role === 'tutor'){
+        paths.push(
+            {
+                title: 'Студенты',
+                sections: [
+                    {
+                        title: STUDENTS_ROUTE.name,
+                        link: STUDENTS_ROUTE.path
+                    }
+                ]
+            }
+        )
     }
 
+    return paths
 }

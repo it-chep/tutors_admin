@@ -12,8 +12,8 @@ export default function StudentsPage() {
     return (
         <LayoutPages title={STUDENTS_ROUTE.name}>
             <StudentsWidget 
-                add={my.role === 'admin'} 
-                request={my.role === 'admin' ? studentService.getAll : () => studentService.getAllByTutor(my.id)} 
+                add={my.role !== 'tutor'} 
+                request={my.role !== 'tutor' ? studentService.getAll : () => studentService.getAllByTutor(my.id)} 
             />
         </LayoutPages>
     )
