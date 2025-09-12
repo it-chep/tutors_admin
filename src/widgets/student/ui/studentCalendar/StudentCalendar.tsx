@@ -3,6 +3,9 @@ import { Calendar } from "../../../../features/calendar";
 import classes from './studentCalendar.module.scss'
 import { IStudentFinance, studentService } from "../../../../entities/student";
 import { LoaderSpinner } from "../../../../shared/ui/spinner";
+import { useMyActions } from "../../../../entities/my";
+import { useGlobalMessageActions } from "../../../../entities/globalMessage";
+import { AuthError } from "../../../../shared/lib/helpers/AuthError";
 
 interface IProps {
     id: number;
@@ -13,6 +16,8 @@ export const StudentCalendar: FC<IProps> = ({id}) => {
     const [finance, setFinance] = useState<IStudentFinance | null>(null)
     const [isLoading, setIsLoading] = useState<boolean>(false)
 
+    const {setIsAuth} = useMyActions()
+    const {setGlobalMessage} = useGlobalMessageActions()
 
     const getData = async (startDate: string, endDate: string) => {
         try{
@@ -22,6 +27,13 @@ export const StudentCalendar: FC<IProps> = ({id}) => {
         }
         catch(e){
             console.log(e)
+            if(e instanceof AuthError){
+                setIsAuth(false)
+                setGlobalMessage({message: e.message, type: 'error'})
+            }
+            else{
+                setGlobalMessage({message: 'Ошибка при получении финансов студента', type: 'error'})
+            }
         }
         finally{
             setIsLoading(false)
