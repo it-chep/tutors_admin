@@ -28,6 +28,7 @@ export interface IStudentData {
     is_only_trial_finished: boolean;
     is_balance_negative: boolean;
     is_newbie: boolean;
+    tg_id?: number;
 }
 
 export interface IStudentChange {

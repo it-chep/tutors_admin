@@ -41,7 +41,8 @@ export const StudentCard: FC<IProps> = ({student}) => {
                         className={classes.highlight}
                     >
                         Написать в тг
-                    </a>
+                    </a>,
+                    Boolean(student.tg_id) && `TgID: ${student.tg_id}`
                 ]}
             />
             <DataList 
