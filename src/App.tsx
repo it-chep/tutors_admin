@@ -4,7 +4,7 @@ import { GlobalMessage } from './entities/globalMessage';
 import { GlobalLoading } from './entities/globalLoading';
 import { useAppSelector } from './app/store/store';
 import { useEffect, useState } from 'react';
-import { myService, useMyActions } from './entities/my';
+import { IMy, myService, useMyActions } from './entities/my';
 import { AUTH_ROUTE } from './app/router/routes';
 import { LoaderSpinner } from './shared/ui/spinner';
 
@@ -40,7 +40,14 @@ const auth = async () => {
   }
 
   useEffect(() => {
-    auth()
+    if(process.env.REACT_APP_USE_AUTH === "false"){
+      process.env.REACT_APP_ROLE && setRole(process.env.REACT_APP_ROLE as IMy['role'])
+      process.env.REACT_APP_ID && setId(+process.env.REACT_APP_ID)
+      setIsAuth(true)
+    }
+    else{
+      auth()
+    }
   }, [])
 
   return (
