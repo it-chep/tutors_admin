@@ -12,7 +12,7 @@ function App() {
 
   const {isLoading: globalIsLoading} = useAppSelector(s => s.globalLoadingReducer)
   const {globalMessage} = useAppSelector(s => s.globalMessageReducer)
-  const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [isLoading, setIsLoading] = useState<boolean>(process.env.REACT_APP_USE_AUTH !== "false")
   const {setId, setRole, setIsAuth} = useMyActions()
 
   const {pathname} = useLocation()
