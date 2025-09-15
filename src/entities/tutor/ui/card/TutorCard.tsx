@@ -14,7 +14,7 @@ export const TutorCard: FC<IProps & PropsWithChildren> = ({tutor, children}) => 
     return (
         <section className={classes.card}>
             <DataList
-                title="Данные студента"
+                title="Данные"
                 list={[
                     `ID: ${tutor.id}`,
                     `ФИО: ${tutor.full_name}`,
