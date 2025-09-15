@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { ComponentProps, FC, useState } from "react";
 import classes from './visiblePassword.module.scss'
 import { MyInput } from "../../../shared/ui/input";
 import lockImg from '../lib/lock.png'
@@ -12,7 +12,7 @@ interface IProps {
     setError?: (err: string) => void;
 }
 
-export const VisiblePassword: FC<IProps> = ({value, setValue, error, setError, isLoading,}) => {
+export const VisiblePassword: FC<IProps & ComponentProps<"input">> = ({value, setValue, error, setError, isLoading, ...props}) => {
 
     const [isLock, setIsLock] = useState<boolean>(true)
 
@@ -25,10 +25,11 @@ export const VisiblePassword: FC<IProps> = ({value, setValue, error, setError, i
             value={value} 
             setValue={setValue}
             type={isLock ? "password" : "text"}
-            placeholder="Пароль..."
+            placeholder={props.placeholder || 'Пароль...'}
             isLoading={isLoading}
             error={error}
             setError={setError}
+            {...props}
         >
             <img 
                 className={classes.lock} 

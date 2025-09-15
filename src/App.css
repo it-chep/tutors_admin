@@ -1,5 +1,7 @@
 
-
+.loader_main{
+    margin: 40px;
+}
 
 .loader{
     display: flex;

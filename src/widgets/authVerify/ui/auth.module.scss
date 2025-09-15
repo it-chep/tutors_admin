@@ -17,7 +17,11 @@
         height: 40px;
     }
 
-    .link{
+    p{
+        margin-bottom: 12px;
+    }
+
+    .back{
         display: flex;
         justify-content: center;
         margin-top: 12px;
@@ -27,6 +31,11 @@
 
         &:hover{
             color: var(--blue-hover);
+        }
+
+        &.disabled{
+            cursor: auto;
+            color: var(--blue);
         }
     }
 }

@@ -1,8 +1,8 @@
 import { RouteObject } from "react-router-dom";
-import { ADMIN_CREATE_ROUTE, ADMIN_ROUTE, ADMINS_ROUTE, FINANCE_ROUTE, HOME_ROUTE, LOGIN_ROUTE, STUDENT_CREATE_ROUTE, STUDENT_ROUTE, STUDENTS_ROUTE, TUTOR_CREATE_ROUTE, TUTOR_ROUTE, TUTORS_ROUTE } from "./routes";
+import { ADMIN_CREATE_ROUTE, ADMIN_ROUTE, ADMINS_ROUTE, AUTH_ROUTE, FINANCE_ROUTE, HOME_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE, STUDENT_CREATE_ROUTE, STUDENT_ROUTE, STUDENTS_ROUTE, TUTOR_CREATE_ROUTE, TUTOR_ROUTE, TUTORS_ROUTE } from "./routes";
 import App from "../../App";
 import HomePage from "../../pages/home/HomePage";
-import AuthPage from "../../pages/auth/AuthPage";
+import AuthPage from "../../pages/auth/auth/AuthPage";
 import StudentsPage from "../../pages/students/Students";
 import StudentChangePage from "../../pages/studentChange/StudentChange";
 import StudentPage from "../../pages/student/Student";
@@ -13,6 +13,8 @@ import FinancePage from "../../pages/finance/Finance";
 import AdminsPage from "../../pages/admins/Admins";
 import AdminPage from "../../pages/admin/Admin";
 import AdminChangePage from "../../pages/adminChange/AdminChange";
+import AuthLayoutPage from "../../pages/auth/layout/AuthLayout";
+import AuthVerifyPage from "../../pages/auth/verify/AuthVerifyPage";
 
 
 export const Router: RouteObject[] = [
@@ -26,8 +28,22 @@ export const Router: RouteObject[] = [
                 Component: HomePage
             },
             {
-                path: LOGIN_ROUTE.path,
-                Component: AuthPage
+                path: AUTH_ROUTE.path,
+                Component: AuthLayoutPage,
+                children: [
+                    {
+                        path: AUTH_ROUTE.path, 
+                        Component: AuthPage,
+                    },
+                    {
+                        path: LOGIN_ROUTE.path,
+                        Component: AuthVerifyPage
+                    },
+                    {
+                        path: REGISTRATION_ROUTE.path,
+                        Component: AuthVerifyPage
+                    }
+                ]
             },
             {
                 path: STUDENTS_ROUTE.path,
