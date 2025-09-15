@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { TUTOR_CREATE_ROUTE } from "../../../app/router/routes";
 import { SearchItems } from "../../../features/searchItems/ui/SearchItems";
 import { ITutor, TutorItem } from "../../../entities/tutor";
+import { HintWrap } from "./hint/Hint";
 
 interface IProps {
     request: () => Promise<ITutor[]>
@@ -58,14 +59,23 @@ export const TutorsWidget: FC<IProps> = ({add, request, highlight=true}) => {
     return (
         <section className={classes.container}>
             {
-                add 
+                (add || highlight)
                     &&
-                <section className={classes.addTutorWrap}>
-                    <section className={classes.button}> 
-                        <MyButton onClick={() => router(TUTOR_CREATE_ROUTE.path)}>
-                            Добавить репетитора
-                        </MyButton>
-                    </section>
+                <section className={classes.header}>
+                    {
+                        highlight
+                            &&
+                        <HintWrap />
+                    }
+                    {
+                        add 
+                            &&
+                        <section className={classes.button}> 
+                            <MyButton onClick={() => router(TUTOR_CREATE_ROUTE.path)}>
+                                Добавить репетитора
+                            </MyButton>
+                        </section>
+                    }
                 </section>
             }
             <section className={classes.searchItems}>

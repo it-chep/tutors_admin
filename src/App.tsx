@@ -4,7 +4,7 @@ import { GlobalMessage } from './entities/globalMessage';
 import { GlobalLoading } from './entities/globalLoading';
 import { useAppSelector } from './app/store/store';
 import { useEffect, useState } from 'react';
-import { myService, useMyActions } from './entities/my';
+import { IMy, myService, useMyActions } from './entities/my';
 import { AUTH_ROUTE } from './app/router/routes';
 import { LoaderSpinner } from './shared/ui/spinner';
 
@@ -12,7 +12,7 @@ function App() {
 
   const {isLoading: globalIsLoading} = useAppSelector(s => s.globalLoadingReducer)
   const {globalMessage} = useAppSelector(s => s.globalMessageReducer)
-  const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [isLoading, setIsLoading] = useState<boolean>(process.env.REACT_APP_USE_AUTH !== "false")
   const {setId, setRole, setIsAuth} = useMyActions()
 
   const {pathname} = useLocation()
@@ -40,7 +40,14 @@ const auth = async () => {
   }
 
   useEffect(() => {
-    auth()
+    if(process.env.REACT_APP_USE_AUTH === "false"){
+      process.env.REACT_APP_ROLE && setRole(process.env.REACT_APP_ROLE as IMy['role'])
+      process.env.REACT_APP_ID && setId(+process.env.REACT_APP_ID)
+      setIsAuth(true)
+    }
+    else{
+      auth()
+    }
   }, [])
 
   return (

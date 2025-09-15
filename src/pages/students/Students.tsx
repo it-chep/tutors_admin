@@ -14,6 +14,7 @@ export default function StudentsPage() {
             <StudentsWidget 
                 add={my.role !== 'tutor'} 
                 request={my.role !== 'tutor' ? studentService.getAll : () => studentService.getAllByTutor(my.id)} 
+                highlight={my.role !== 'tutor'}
             />
         </LayoutPages>
     )

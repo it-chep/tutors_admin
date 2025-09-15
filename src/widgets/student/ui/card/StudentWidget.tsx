@@ -63,7 +63,7 @@ export const StudentWidget: FC = () => {
                     my.role !== 'tutor'
                         ?
                     <>
-                        <Header id={student.id} />
+                        <Header student={student} />
                         <StudentCard
                             student={student}
                         />

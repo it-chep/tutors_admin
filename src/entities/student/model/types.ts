@@ -5,6 +5,7 @@ export interface IStudent {
     last_name: string;
     middle_name: string;
     tg: string;
+    parent_full_name: string;
     is_only_trial_finished: boolean;
     is_balance_negative: boolean;
     is_newbie: boolean;
