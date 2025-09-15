@@ -62,7 +62,11 @@ export const TutorsWidget: FC<IProps> = ({add, request, highlight=true}) => {
                 (add || highlight)
                     &&
                 <section className={classes.header}>
-                    <HintWrap />
+                    {
+                        highlight
+                            &&
+                        <HintWrap />
+                    }
                     {
                         add 
                             &&

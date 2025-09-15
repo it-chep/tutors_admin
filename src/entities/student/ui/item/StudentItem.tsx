@@ -6,10 +6,11 @@ import { useAppSelector } from "../../../../app/store/store";
 
 interface IProps {
     student: IStudent;
+    highlight?: boolean;
 }
 
 
-export const StudentItem: FC<IProps & PropsWithChildren> = ({student, children}) => {
+export const StudentItem: FC<IProps & PropsWithChildren> = ({student, highlight, children}) => {
 
     const {my} = useAppSelector(s => s.myReducer)
 
@@ -17,7 +18,7 @@ export const StudentItem: FC<IProps & PropsWithChildren> = ({student, children})
         <tr 
             className={
                 classes.item + (
-                    my.role !== 'tutor'
+                    highlight
                         ?
                     student.is_balance_negative ? ` ${classes.balanceNegative}` : 
                     student.is_only_trial_finished ? ` ${classes.onlyTrial}` : 

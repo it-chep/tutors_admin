@@ -15,9 +15,10 @@ import { HintWrap } from "./hint/Hint";
 interface IProps {
     request: () => Promise<IStudent[]>
     add: boolean;
+    highlight?: boolean;
 }
 
-export const StudentsWidget: FC<IProps> = ({request, add}) => {
+export const StudentsWidget: FC<IProps> = ({request, add, highlight=true}) => {
 
     const [isLoading, setIsLoading] = useState<boolean>(true)
 
@@ -59,18 +60,26 @@ export const StudentsWidget: FC<IProps> = ({request, add}) => {
 
     return (
         <section className={classes.container}>
-            <section className={classes.header}>
-                <HintWrap />
-                {
-                    add 
-                        &&
-                    <section className={classes.button}> 
-                        <MyButton onClick={() => router(STUDENT_CREATE_ROUTE.path)}>
-                            Добавить студента
-                        </MyButton>
-                    </section>
+            {
+                (add || highlight)
+                    &&
+                <section className={classes.header}>
+                    {
+                        highlight
+                            &&
+                        <HintWrap />
+                    }
+                    {
+                        add 
+                            &&
+                        <section className={classes.button}> 
+                            <MyButton onClick={() => router(STUDENT_CREATE_ROUTE.path)}>
+                                Добавить студента
+                            </MyButton>
+                        </section>
+                    }
+                </section>
             }
-            </section>
             <section className={classes.searchItems}>
                 <SearchItems 
                     placeholder="Введите фио студента или родителя"
@@ -104,6 +113,7 @@ export const StudentsWidget: FC<IProps> = ({request, add}) => {
                     <tbody>
                         {studentsSearch.map(student => 
                             <StudentItem 
+                                highlight={highlight}
                                 key={student.id}
                                 student={student}
                             >
