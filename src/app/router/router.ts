@@ -1,9 +1,18 @@
 import { RouteObject } from "react-router-dom";
-import { HOME_ROUTE, LOGIN_ROUTE, STUDENTS_ROUTE } from "./routes";
+import { ADMIN_CREATE_ROUTE, ADMIN_ROUTE, ADMINS_ROUTE, FINANCE_ROUTE, HOME_ROUTE, LOGIN_ROUTE, STUDENT_CREATE_ROUTE, STUDENT_ROUTE, STUDENTS_ROUTE, TUTOR_CREATE_ROUTE, TUTOR_ROUTE, TUTORS_ROUTE } from "./routes";
 import App from "../../App";
 import HomePage from "../../pages/home/HomePage";
 import AuthPage from "../../pages/auth/AuthPage";
 import StudentsPage from "../../pages/students/Students";
+import StudentChangePage from "../../pages/studentChange/StudentChange";
+import StudentPage from "../../pages/student/Student";
+import TutorsPage from "../../pages/tutors/Tutors";
+import TutorPage from "../../pages/tutor/Tutor";
+import TutorChangePage from "../../pages/tutorChange/TutorChange";
+import FinancePage from "../../pages/finance/Finance";
+import AdminsPage from "../../pages/admins/Admins";
+import AdminPage from "../../pages/admin/Admin";
+import AdminChangePage from "../../pages/adminChange/AdminChange";
 
 
 export const Router: RouteObject[] = [
@@ -23,6 +32,42 @@ export const Router: RouteObject[] = [
             {
                 path: STUDENTS_ROUTE.path,
                 Component: StudentsPage
+            },
+            {
+                path: STUDENT_CREATE_ROUTE.path,
+                Component: StudentChangePage
+            },
+            {
+                path: STUDENT_ROUTE.path,
+                Component: StudentPage
+            },
+            {
+                path: TUTORS_ROUTE.path,
+                Component: TutorsPage
+            },
+            {
+                path: TUTOR_ROUTE.path,
+                Component: TutorPage
+            },
+            {
+                path: TUTOR_CREATE_ROUTE.path,
+                Component: TutorChangePage
+            },
+            {
+                path: FINANCE_ROUTE.path,
+                Component: FinancePage
+            },
+            {
+                path: ADMINS_ROUTE.path,
+                Component: AdminsPage
+            },
+            {
+                path: ADMIN_ROUTE.path,
+                Component: AdminPage
+            },
+            {
+                path: ADMIN_CREATE_ROUTE.path,
+                Component: AdminChangePage
             }
         ]
     }

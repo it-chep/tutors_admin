@@ -15,3 +15,54 @@ export const STUDENTS_ROUTE: IRoute = {
     name: 'Студенты',
     path: '/students'
 }
+
+export const STUDENT_CREATE_ROUTE: IRoute = {
+    name: 'Студенты',
+    path: '/student/create'
+}
+
+export const STUDENT_ROUTE: IRoute = {
+    name: 'Студент',
+    path: '/student/:id'
+}
+
+
+export const TUTORS_ROUTE: IRoute = {
+    name: 'Репетиторы',
+    path: '/tutors'
+}
+
+
+export const TUTOR_ROUTE: IRoute = {
+    name: 'Репетитор',
+    path: '/tutor/:id'
+}
+
+
+export const TUTOR_CREATE_ROUTE: IRoute = {
+    name: 'Репетиторы',
+    path: '/tutor/create'
+}
+
+
+export const FINANCE_ROUTE: IRoute = {
+    name: 'Финансы',
+    path: '/finance'
+}
+
+
+export const ADMINS_ROUTE: IRoute = {
+    name: 'Админы',
+    path: '/admins'
+}
+
+export const ADMIN_ROUTE: IRoute = {
+    name: 'Админ',
+    path: '/admin/:id'
+}
+
+export const ADMIN_CREATE_ROUTE: IRoute = {
+    name: 'Админы',
+    path: '/admin/create'
+}
+

@@ -1,11 +1,13 @@
 import { FC } from "react";
 import classes from './navHome.module.scss'
 import { Section } from "../section/Section";
-import { sections } from "../../lib/const/sections";
+import { useAppSelector } from "../../../../app/store/store";
+import { getSections } from "../../lib/const/sections";
 
 export const NavHome: FC = () => {
 
-
+    const {my} = useAppSelector(s => s.myReducer)
+    const sections = getSections(my)
 
     return (
         <nav className={classes.nav}>

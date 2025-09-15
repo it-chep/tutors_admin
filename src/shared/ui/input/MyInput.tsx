@@ -11,10 +11,11 @@ interface IProps {
     title?: string;
     error?: string;
     setError?: (err: string) => void;
+    iconSrc?: string;
 }
 
 export const MyInput: FC<IProps & ComponentProps<"input"> & PropsWithChildren> = (
-    {value, setValue, isLoading, error, title, setError = () => {}, children, ...props}
+    {value, setValue, isLoading, error, iconSrc, title, setError = () => {}, children, ...props}
 ) => {
 
     const [currentError, setCurrentError] = useState<string>('')
@@ -46,6 +47,9 @@ export const MyInput: FC<IProps & ComponentProps<"input"> & PropsWithChildren> =
                 ref={containerRef} 
                 className={classes.container + (Boolean(children) ? ` ${classes.feature}` : '')}
             >
+                {
+                    iconSrc && <img className={classes.icon} src={iconSrc} />
+                }
                 <input 
                     disabled={isLoading}
                     value={value} 
