@@ -15,13 +15,14 @@ import AdminPage from "../../pages/admin/Admin";
 import AdminChangePage from "../../pages/adminChange/AdminChange";
 import AuthLayoutPage from "../../pages/auth/layout/AuthLayout";
 import AuthVerifyPage from "../../pages/auth/verify/AuthVerifyPage";
+import NotFoundPage from "../../pages/notFound/NotFound";
 
 
 export const Router: RouteObject[] = [
     {
         path: HOME_ROUTE.path,
         Component: App,
-        // ErrorBoundary: NotFound,
+        ErrorBoundary: NotFoundPage,
         children: [
             {
                 path: HOME_ROUTE.path,
