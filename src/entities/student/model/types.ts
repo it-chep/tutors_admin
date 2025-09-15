@@ -20,6 +20,7 @@ export interface IStudentData {
     cost_per_hour: string;
     subject_name : string;
     tutor_name: string;
+    tutor_id: number;
     parent_full_name: string;
     parent_phone: string;
     parent_tg: string;

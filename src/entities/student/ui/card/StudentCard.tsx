@@ -2,6 +2,7 @@ import { FC } from "react";
 import classes from './card.module.scss'
 import { DataList } from "../../../../shared/ui/dataList/DataList";
 import { IStudentData } from "../../model/types";
+import { Link } from "react-router-dom";
 
 interface IProps {
     student: IStudentData;
@@ -27,7 +28,7 @@ export const StudentCard: FC<IProps> = ({student}) => {
                         Написать в тг
                     </a>,
                     `Предмет: ${student.subject_name}`,
-                    <span>Репетитор: <span className={classes.highlight}>{student.tutor_name}</span></span>
+                    <span>Репетитор: <Link to={'/tutor/' + student.tutor_id} className={classes.highlight}>{student.tutor_name}</Link></span>
                 ]}
             />
             <DataList 
