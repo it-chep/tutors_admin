@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from "react";
 import classes from './studentsWidget.module.scss'
-import { IStudent, StudentItem, studentService } from "../../../entities/student";
+import { IStudent, StudentItem } from "../../../entities/student";
 import { MyButton } from "../../../shared/ui/button";
 import { LoaderSpinner } from "../../../shared/ui/spinner";
 import { AuthError } from "../../../shared/lib/helpers/AuthError";
@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { STUDENT_CREATE_ROUTE } from "../../../app/router/routes";
 import { SearchItems } from "../../../features/searchItems/ui/SearchItems";
 import { useAppSelector } from "../../../app/store/store";
+import { HintWrap } from "./hint/Hint";
 
 interface IProps {
     request: () => Promise<IStudent[]>
@@ -56,26 +57,28 @@ export const StudentsWidget: FC<IProps> = ({request, add}) => {
         getData()
     }, [])
 
-
     return (
         <section className={classes.container}>
-            {
-                add 
-                    &&
-                <section className={classes.addStudentWrap}>
+            <section className={classes.header}>
+                <HintWrap />
+                {
+                    add 
+                        &&
                     <section className={classes.button}> 
                         <MyButton onClick={() => router(STUDENT_CREATE_ROUTE.path)}>
                             Добавить студента
                         </MyButton>
                     </section>
-                </section>
-
             }
+            </section>
             <section className={classes.searchItems}>
                 <SearchItems 
-                    placeholder="Введите фио студента"
+                    placeholder="Введите фио студента или родителя"
                     items={students.map(
-                        student => ({...student, name: student.last_name + ' ' + student.first_name + ' ' + student.middle_name,})
+                        student => ({
+                            ...student, 
+                            name: student.last_name + ' ' + student.first_name + ' ' + student.middle_name + ' ' + student.parent_full_name
+                        })
                     )}
                     setItems={setStudentsSearch}
                 />
@@ -90,6 +93,7 @@ export const StudentsWidget: FC<IProps> = ({request, add}) => {
                         <tr className={classes.item}>
                             <th>ID</th>
                             <th>Фио</th>
+                            <th>Фио родителя</th>
                             {
                                 my.role !== 'tutor'
                                     &&

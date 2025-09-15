@@ -33,6 +33,9 @@ export const StudentItem: FC<IProps & PropsWithChildren> = ({student, children})
             <td className={classes.fio}>
                 {student.last_name + ' ' + student.first_name + ' ' + student.middle_name}
             </td>
+              <td className={classes.fio}>
+                {student.parent_full_name}
+            </td>
             {
                 my.role !== 'tutor'
                     &&
