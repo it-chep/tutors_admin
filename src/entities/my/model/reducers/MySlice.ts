@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { MyInitialState } from "./MyState";
+import { IMy } from "../types";
 
 
 export const MySlice = createSlice({
@@ -18,6 +19,12 @@ export const MySlice = createSlice({
         setEmail(state, action: PayloadAction<string>){
             state.my.email = action.payload;
         },
+        setRole(state, action: PayloadAction<IMy['role']>){
+            state.my.role = action.payload;
+        },
+        setId(state, action: PayloadAction<number>){
+            state.my.id = action.payload;
+        }
     }
 })
 

@@ -5,9 +5,20 @@ export const HOME_ROUTE: IRoute = {
     path: '/',
 }
 
+export const AUTH_ROUTE: IRoute = {
+    name: 'Вход',
+    path: '/auth'
+}
+
+
 export const LOGIN_ROUTE: IRoute = {
     name: 'Вход',
-    path: '/login'
+    path: '/auth/login'
+}
+
+export const REGISTRATION_ROUTE: IRoute = {
+    name: 'Вход',
+    path: '/auth/registration'
 }
 
 
