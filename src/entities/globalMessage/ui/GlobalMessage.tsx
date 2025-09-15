@@ -16,7 +16,7 @@ export const GlobalMessage: FC = () => {
         }
         ref.current = setTimeout(() => {
             setMessage('')
-        }, 3000)
+        }, 4000)
     }, [globalMessage.message])
 
     return (
