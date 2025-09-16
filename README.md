@@ -11,7 +11,7 @@
 env: 
 
 REACT_APP_SERVER_URL_ADMIN
-
+REACT_APP_SERVER_URL
 
 
 ### use auth
