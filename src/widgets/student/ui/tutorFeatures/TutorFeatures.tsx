@@ -62,9 +62,9 @@ export const TutorFeatures: FC<IProps> = ({id, newbie, student, setStudent}) => 
     }
 
     const values: TValue[] = [
-        {name: '1 час', value: '1'},
-        {name: '1.5 часа', value: '1.5'},
-        {name: '2 часа', value: '2'}
+        {name: '1 час', value: '60'},
+        {name: '1.5 часа', value: '90'},
+        {name: '2 часа', value: '120'}
     ]
 
     return (

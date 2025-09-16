@@ -63,8 +63,10 @@ export const TutorCalendar: FC<IProps> = ({id}) => {
                 finance
                     &&
                 <section className={classes.data}>
+                    <span>Количество оплаченных занятий : {finance.base_lessons}</span>
+                    <span>Количество пробных занятий: {finance.trial_lessons}</span>
+                    <span>Общее количество занятий: {finance.lessons_count}</span>
                     <span>Конверсия: {finance.conversion} %</span>
-                    <span>Количество занятий: {finance.count}</span>
                     <span>Прибыль: {finance.amount} ₽</span>
                 </section>
             }

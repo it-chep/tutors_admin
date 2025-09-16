@@ -1,9 +1,9 @@
 import { FC, useState } from "react";
 import classes from './adminCalendar.module.scss'
 import { LoaderSpinner } from "../../../../shared/ui/spinner";
-import { ITutorFinance } from "../../../../entities/tutor";
+import {  } from "../../../../entities/tutor";
 import { Calendar } from "../../../../features/calendar";
-import { adminService } from "../../../../entities/admin";
+import { adminService, IAdminFinance } from "../../../../entities/admin";
 import { useMyActions } from "../../../../entities/my";
 import { useGlobalMessageActions } from "../../../../entities/globalMessage";
 import { AuthError } from "../../../../shared/lib/helpers/AuthError";
@@ -14,7 +14,7 @@ interface IProps {
 
 export const AdminCalendar: FC<IProps> = ({id}) => {
 
-    const [finance, setFinance] = useState<ITutorFinance | null>(null)
+    const [finance, setFinance] = useState<IAdminFinance | null>(null)
     const [isLoading, setIsLoading] = useState<boolean>(false)
 
     const {setIsAuth} = useMyActions()
