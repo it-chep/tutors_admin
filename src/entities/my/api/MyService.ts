@@ -18,20 +18,20 @@ class MyService{
     }
 
     async getInfo(): Promise<Omit<IMy, 'email' | 'isAuth'>> {
-        const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/user/info')
+        const res = await fetchAuth(process.env.REACT_APP_SERVER_URL + '/user/info')
         const {user}: {user: Omit<IMy, 'email' | 'isAuth'>} = await res.json()
         return user
     }
 
     async login(email: string, password: string){
-        await fetch(process.env.REACT_APP_SERVER_URL_ADMIN + '/auth/login', {
+        await fetch(process.env.REACT_APP_SERVER_URL + '/auth/login', {
             method: "POST",
             body: JSON.stringify({email, password})
         })
     }
     
     async loginVerify(email: string, code: string){
-        const res = await fetch(process.env.REACT_APP_SERVER_URL_ADMIN + '/auth/login/verify', {
+        const res = await fetch(process.env.REACT_APP_SERVER_URL + '/auth/login/verify', {
             method: "POST",
             body: JSON.stringify({email, code})
         })
@@ -40,7 +40,7 @@ class MyService{
     }
 
     async registerVerify(email: string, code: string){
-        const res = await fetch(process.env.REACT_APP_SERVER_URL_ADMIN + '/auth/register/verify', {
+        const res = await fetch(process.env.REACT_APP_SERVER_URL + '/auth/register/verify', {
             method: "POST",
             body: JSON.stringify({email, code})
         })
