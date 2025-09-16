@@ -19,4 +19,6 @@ export interface IMyFinance {
     cash_flow: string;
     conversion: number;
     lessons_count: number;
+    base_lessons: number;
+    trial_lessons: number;
 }
