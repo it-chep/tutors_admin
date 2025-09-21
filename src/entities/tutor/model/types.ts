@@ -33,4 +33,6 @@ export interface ITutorCreate {
     phone: string;
     tg: string;
     subject_id: number;
+    email: string;
+    admin_id: number;
 }

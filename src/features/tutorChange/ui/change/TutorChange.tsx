@@ -21,7 +21,7 @@ export const TutorChange: FC<IProps & PropsWithChildren> = ({tutor, setTutor, ch
     const {setGlobalMessage} = useGlobalMessageActions()
     const {setIsAuth} = useMyActions()
 
-    const {setFullName, setCostPerHour, setPhone, setTg} = tutorChange(tutor, setTutor)
+    const {setFullName, setCostPerHour, setPhone, setTg, setEmail} = tutorChange(tutor, setTutor)
 
     const router = useNavigate()
 
@@ -53,6 +53,11 @@ export const TutorChange: FC<IProps & PropsWithChildren> = ({tutor, setTutor, ch
                 title="ФИО репетитора"
                 value={tutor.full_name}
                 setValue={setFullName}
+            />
+            <MyInput 
+                title="Email репетитора"
+                value={tutor.email}
+                setValue={setEmail}
             />
             <MyInput 
                 title="Ставка в час"
