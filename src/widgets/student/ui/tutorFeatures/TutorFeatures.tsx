@@ -9,29 +9,29 @@ import { AuthError } from "../../../../shared/lib/helpers/AuthError";
 import { useGlobalMessageActions } from "../../../../entities/globalMessage";
 import { useGlobalLoadingActions } from "../../../../entities/globalLoading";
 import { useMyActions } from "../../../../entities/my";
-import { IStudentData } from "../../../../entities/student";
+import { useNavigate } from "react-router-dom";
+import { STUDENTS_ROUTE } from "../../../../app/router/routes";
 
 interface IProps{
     id: number;
     newbie: boolean;
-    student: IStudentData
-    setStudent: (student: IStudentData) => void;
 }
 
 type TValue = {name: string, value: string}
 
-export const TutorFeatures: FC<IProps> = ({id, newbie, student, setStudent}) => {
+export const TutorFeatures: FC<IProps> = ({id, newbie}) => {
 
     const [open, setOpen] = useState<boolean>(false)
     const {setGlobalMessage} = useGlobalMessageActions()
     const {setIsLoading} = useGlobalLoadingActions()
     const {setIsAuth} = useMyActions()
+    const router = useNavigate()
 
-    const [selected, setSelected] = useState<string>('')
+    const [selected, setSelected] = useState<TValue>({name: '', value: ''})
 
     const onTrialSession = async () => {
         await tutorService.trialLesson(id)
-        setStudent({...student, is_newbie: false})
+        router(STUDENTS_ROUTE.path)
     }
 
     const onSession = async () => {
@@ -40,6 +40,7 @@ export const TutorFeatures: FC<IProps> = ({id, newbie, student, setStudent}) => 
             setOpen(false)
             await tutorService.conductLesson(id, +selected)
             setGlobalMessage({message: 'Занятие проведено', type: 'ok'})
+            router(STUDENTS_ROUTE.path)
         }
         catch(e){
             console.log(e)
@@ -57,7 +58,7 @@ export const TutorFeatures: FC<IProps> = ({id, newbie, student, setStudent}) => 
     }   
 
     const onSelected = (value: string) => {
-        setSelected(value)
+        setSelected(values.find(v => v.value === value) || {name: '', value: ''})
         setOpen(true)
     }
 
@@ -93,7 +94,7 @@ export const TutorFeatures: FC<IProps> = ({id, newbie, student, setStudent}) => 
                 <ConfirmationAction 
                     setOpen={setOpen}
                     onClick={onSession}
-                    title={`Вы уверены что вы провели занятие длительностью ${selected} ${selected === '1' ? 'час' : 'часа'}`}
+                    title={`Вы уверены что вы провели занятие длительностью ${selected.name}`}
                     type="delete"
                 />
             </Modal>

@@ -21,9 +21,10 @@ export const AdminChange: FC = () => {
         full_name: '',
         phone: '',
         tg: '',
+        email: '',
     })
 
-    const {setTg, setFullName, setPhone} = adminChange(admin, setAdmin)
+    const {setTg, setFullName, setPhone, setEmail} = adminChange(admin, setAdmin)
 
     const router = useNavigate()
 
@@ -50,11 +51,16 @@ export const AdminChange: FC = () => {
 
     return (
         <section className={classes.container}>
-            <h1 className={classes.title}>Создание репетитора</h1>
+            <h1 className={classes.title}>Создание админа</h1>
             <MyInput 
                 title="ФИО админа"
                 value={admin.full_name}
                 setValue={setFullName}
+            />
+            <MyInput 
+                title="Email админа"
+                value={admin.email}
+                setValue={setEmail}
             />
             <MyInput 
                 title="Номер телефона админа"

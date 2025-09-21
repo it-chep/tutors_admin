@@ -102,11 +102,13 @@ export const StudentsWidget: FC<IProps> = ({request, add, highlight=true}) => {
                         <tr className={classes.item}>
                             <th>ID</th>
                             <th>Фио</th>
-                            <th>Фио родителя</th>
                             {
                                 my.role !== 'tutor'
                                     &&
-                                <th>Телеграм</th>
+                                <>
+                                    <th>Фио родителя</th>
+                                    <th>Телеграм</th>
+                                </>
                             }
                         </tr>
                     </thead>
