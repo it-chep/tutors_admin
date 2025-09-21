@@ -29,6 +29,13 @@ class MyService{
             body: JSON.stringify({email, password})
         })
     }
+
+    async register(email: string, password: string){
+        await fetch(process.env.REACT_APP_SERVER_URL + '/auth/register', {
+            method: "POST",
+            body: JSON.stringify({email, password})
+        })
+    }
     
     async loginVerify(email: string, code: string){
         const res = await fetch(process.env.REACT_APP_SERVER_URL + '/auth/login/verify', {
