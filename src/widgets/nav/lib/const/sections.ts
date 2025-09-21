@@ -27,16 +27,20 @@ export const getSections = (my: IMy): ISection[] => {
                     }
                 ]
             },
-            {
-                title: 'Финансы',
-                sections: [
-                    {
-                        title: FINANCE_ROUTE.name,
-                        link: FINANCE_ROUTE.path
-                    }
-                ]
-            }
         )
+        if(my.role === 'admin'){
+            paths.push(
+                {
+                    title: 'Финансы',
+                    sections: [
+                        {
+                            title: FINANCE_ROUTE.name,
+                            link: FINANCE_ROUTE.path
+                        }
+                    ]
+                }
+            )
+        }
         if(my.role === 'super_admin'){
             paths.push(
                 {
