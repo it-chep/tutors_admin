@@ -75,7 +75,7 @@ export const StudentWidget: FC = () => {
                             title="Данные студента"
                             list={[
                                 `ID: ${student.id}`,
-                                `ФИО: ${student.last_name} ${student.first_name} ${student.middle_name}`,
+                                `Имя: ${student.last_name} ${student.first_name} ${student.middle_name}`,
                                 `Предмет: ${student.subject_name}`,
                             ]}
                         />
