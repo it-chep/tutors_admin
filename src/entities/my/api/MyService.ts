@@ -5,12 +5,13 @@ import { IMy, IMyFinance } from "../model/types"
 
 class MyService{
 
-    async getFinance(from: string, to: string): Promise<IMyFinance> {
+    async getFinance(from: string, to: string, admin_id: number): Promise<IMyFinance> {
         const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/finance', {
             method: "POST",
             body: JSON.stringify({
                 from,
-                to
+                to,
+                admin_id
             })
         })
         const {data}: {data: IMyFinance} = await res.json()
