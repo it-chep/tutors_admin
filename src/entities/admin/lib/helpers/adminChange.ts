@@ -10,6 +10,9 @@ export const adminChange = (admin: IAdminCreate, setTutor: (admin: IAdminCreate)
         setPhone(phone: string){
             setTutor({...admin, phone})
         },
+        setEmail(email: string){
+            setTutor({...admin, email})
+        },
         setTg(tg: string){
             setTutor({...admin, tg})
         },

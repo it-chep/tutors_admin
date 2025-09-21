@@ -18,6 +18,7 @@ export interface IAdminCreate {
     full_name: string;
     phone: string;
     tg: string;
+    email: string;
 }
 
 export interface IAdminFinance{
