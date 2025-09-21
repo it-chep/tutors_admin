@@ -10,7 +10,7 @@ async function refreshToken(): Promise<string> {
         throw new AuthError(message)
     }
     try {
-        const newToken = await fetch(`${process.env.REACT_APP_SERVER_URL_API}/user/refresh`, {
+        const newToken = await fetch(`${process.env.REACT_APP_SERVER_URL}/auth/auth/refresh`, {
             credentials: 'include'
         })
         if(!newToken.ok) await authError(newToken)
@@ -29,7 +29,7 @@ export async function handleUnauthorized(requestFn: () => Promise<Response>): Pr
         refreshPromise = refreshToken();
         try {
             const newToken = await refreshPromise;
-            localStorage.setItem('token', newToken);
+            localStorage.setItem('auth_token', newToken);
             
             // Выполняем все запросы из очереди
             requestQueue.forEach(cb => cb());

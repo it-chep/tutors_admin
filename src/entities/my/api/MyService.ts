@@ -18,7 +18,7 @@ class MyService{
     }
 
     async getInfo(): Promise<Omit<IMy, 'email' | 'isAuth'>> {
-        const res = await fetchAuth(process.env.REACT_APP_SERVER_URL + '/user/info')
+        const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/user')
         const {user}: {user: Omit<IMy, 'email' | 'isAuth'>} = await res.json()
         return user
     }
