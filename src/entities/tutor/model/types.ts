@@ -34,4 +34,5 @@ export interface ITutorCreate {
     tg: string;
     subject_id: number;
     email: string;
+    admin_id: number;
 }
