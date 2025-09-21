@@ -50,7 +50,7 @@ export const AdminChange: FC = () => {
 
     return (
         <section className={classes.container}>
-            <h1 className={classes.title}>Создание репетитора</h1>
+            <h1 className={classes.title}>Создание админа</h1>
             <MyInput 
                 title="ФИО админа"
                 value={admin.full_name}
