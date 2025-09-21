@@ -19,5 +19,8 @@ export const tutorChange = (tutor: ITutorCreate, setTutor: (tutor: ITutorCreate)
         setSubjectId(subject_id: number){
             setTutor({...tutor, subject_id})
         },
+        setEmail(email: string){
+            setTutor({...tutor, email})
+        },
     }
 }

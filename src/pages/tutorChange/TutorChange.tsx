@@ -19,6 +19,7 @@ export default function TutorChangePage() {
         phone: '',
         tg: '',
         subject_id: -1,
+        email: ''
     })
 
     const {setSubjectId} = tutorChange(tutor, setTutor)
