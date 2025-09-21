@@ -82,8 +82,6 @@ export const StudentWidget: FC = () => {
                         <TutorFeatures 
                             newbie={student.is_newbie}
                             id={student.id} 
-                            student={student}
-                            setStudent={setStudent}
                         />
                     </section>
                 )
