@@ -27,7 +27,7 @@ export const TutorFeatures: FC<IProps> = ({id, newbie, student, setStudent}) => 
     const {setIsLoading} = useGlobalLoadingActions()
     const {setIsAuth} = useMyActions()
 
-    const [selected, setSelected] = useState<string>('')
+    const [selected, setSelected] = useState<TValue>({name: '', value: ''})
 
     const onTrialSession = async () => {
         await tutorService.trialLesson(id)
@@ -57,7 +57,7 @@ export const TutorFeatures: FC<IProps> = ({id, newbie, student, setStudent}) => 
     }   
 
     const onSelected = (value: string) => {
-        setSelected(value)
+        setSelected(values.find(v => v.value === value) || {name: '', value: ''})
         setOpen(true)
     }
 
@@ -93,7 +93,7 @@ export const TutorFeatures: FC<IProps> = ({id, newbie, student, setStudent}) => 
                 <ConfirmationAction 
                     setOpen={setOpen}
                     onClick={onSession}
-                    title={`Вы уверены что вы провели занятие длительностью ${selected} ${selected === '1' ? 'час' : 'часа'}`}
+                    title={`Вы уверены что вы провели занятие длительностью ${selected.name}`}
                     type="delete"
                 />
             </Modal>
