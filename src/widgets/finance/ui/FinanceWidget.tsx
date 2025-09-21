@@ -1,12 +1,10 @@
-import { FC, useEffect, useRef, useState } from "react";
+import { FC, useState } from "react";
 import classes from './financeWidget.module.scss'
 import { useGlobalMessageActions } from "../../../entities/globalMessage";
 import { IMyFinance, myService, useMyActions } from "../../../entities/my";
 import { AuthError } from "../../../shared/lib/helpers/AuthError";
 import { Calendar } from "../../../features/calendar";
 import { useAppSelector } from "../../../app/store/store";
-import { ChooseItems } from "../../../features/chooseSubject";
-import { adminService } from "../../../entities/admin";
 import { useGlobalLoadingActions } from "../../../entities/globalLoading";
 
 
@@ -17,12 +15,11 @@ export const FinanceWidget: FC = () => {
     const {setGlobalMessage} = useGlobalMessageActions()
     const {setIsLoading} = useGlobalLoadingActions()
     const [finance, setFinance] = useState<IMyFinance | null>(null)
-    const [selectedAdmin, setSelectedAdmin] = useState<number | null>(my.role === 'admin' ? my.id : null)
     
     const getData = async (startDate: string, endDate: string) => {
         try{
             setIsLoading(true)
-            const financeRes = await myService.getFinance(startDate, endDate, selectedAdmin || -1)
+            const financeRes = await myService.getFinance(startDate, endDate, my.id)
             setFinance(financeRes)
         }
         catch(e){
@@ -49,43 +46,9 @@ export const FinanceWidget: FC = () => {
         }
     }
 
-    const getAdmins = async() => {
-        const admins = await adminService.getAll()
-        return admins.map(admin => ({name: admin.full_name, id: admin.id}))
-    }
-
-    const setSelectedAdminWrap = (id: number) => {
-        if(my.role === 'super_admin'){
-            setSelectedAdmin(-1)
-            setFinance(null)
-            setTimeout(() => setSelectedAdmin(id))    
-        }
-        else{
-            setSelectedAdmin(id)
-        }
-    }
-
     return (
         <section className={classes.container}>
-            {
-                my.role === 'super_admin'
-                    &&
-                <section className={classes.choose}>
-                    <ChooseItems
-                        title='Админ'
-                        selectedItems={[selectedAdmin || -1]}
-                        setItem={setSelectedAdminWrap}
-                        getData={getAdmins}
-                    />
-                </section>
-            }
-            {
-                (selectedAdmin && selectedAdmin !== -1) 
-                    ? 
-                <Calendar onDateRangeSelect={setDate}/> 
-                    : 
-                <span>Выберите админа</span>
-            }
+            <Calendar onDateRangeSelect={setDate}/> 
             {
                 finance
                     &&
