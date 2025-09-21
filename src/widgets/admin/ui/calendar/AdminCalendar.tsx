@@ -23,8 +23,8 @@ export const AdminCalendar: FC<IProps> = ({id}) => {
     const getData = async (startDate: string, endDate: string) => {
         try{
             setIsLoading(true)
-            const financeRes = await adminService.getFinance(id, startDate, endDate)
-            setFinance(financeRes)
+            // const financeRes = await adminService.getFinance(id, startDate, endDate)
+            // setFinance(financeRes)
         }
         catch(e){
             console.log(e)
