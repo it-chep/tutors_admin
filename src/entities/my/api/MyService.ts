@@ -33,7 +33,8 @@ class MyService{
     async loginVerify(email: string, code: string){
         const res = await fetch(process.env.REACT_APP_SERVER_URL + '/auth/login/verify', {
             method: "POST",
-            body: JSON.stringify({email, code})
+            body: JSON.stringify({email, code}),
+            credentials: 'include'
         })
         const {token} : {token: string} = await res.json()
         localStorage.setItem('auth_token', token)
@@ -42,7 +43,8 @@ class MyService{
     async registerVerify(email: string, code: string){
         const res = await fetch(process.env.REACT_APP_SERVER_URL + '/auth/register/verify', {
             method: "POST",
-            body: JSON.stringify({email, code})
+            body: JSON.stringify({email, code}),
+            credentials: 'include'
         })
         const {token} : {token: string} = await res.json()
         localStorage.setItem('auth_token', token)
