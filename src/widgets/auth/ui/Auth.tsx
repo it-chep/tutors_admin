@@ -25,7 +25,12 @@ export const Auth: FC = () => {
     const onClick = async () => {
         try{
             setIsLoading(true)
-            await myService.login(my.email, password)
+            if(isLogin){
+                await myService.login(my.email, password)
+            }
+            else{
+                await myService.register(my.email, password)
+            }
             setState(2)
             router(isLogin ? LOGIN_ROUTE.path : REGISTRATION_ROUTE.path)
         }
