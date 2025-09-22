@@ -80,7 +80,7 @@ export const AdminWidget: FC<IProps & PropsWithChildren> = ({id, children}) => {
                     <AdminCard
                         admin={admin}
                     >
-                        {/* <AdminCalendar id={admin.id} /> */}
+                        <AdminCalendar id={admin.id} />
                     </AdminCard>
                     <AdminTutors>
                         {children}

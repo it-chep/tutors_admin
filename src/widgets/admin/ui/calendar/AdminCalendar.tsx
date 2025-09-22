@@ -23,8 +23,8 @@ export const AdminCalendar: FC<IProps> = ({id}) => {
     const getData = async (startDate: string, endDate: string) => {
         try{
             setIsLoading(true)
-            // const financeRes = await adminService.getFinance(id, startDate, endDate)
-            // setFinance(financeRes)
+            const financeRes = await adminService.getFinance(startDate, endDate, id)
+            setFinance(financeRes)
         }
         catch(e){
             console.log(e)
@@ -64,9 +64,18 @@ export const AdminCalendar: FC<IProps> = ({id}) => {
                 finance
                     &&
                 <section className={classes.data}>
-                    <span>Конверсия: {finance.conversion} %</span>
-                    <span>Количество занятий: {finance.count}</span>
-                    <span>Прибыль: {finance.amount} ₽</span>
+                    <section className={classes.section}> 
+                        <section className={classes.subtitle}>Общее</section>
+                        <span>Прибыль: {finance.profit} ₽</span>
+                        <span>Валовая прибыль (выручка): {finance.cash_flow} ₽</span>
+                    </section>
+                    <section className={classes.section}> 
+                        <section className={classes.subtitle}>Репетиторы</section>
+                        <span>Количество оплаченных занятий : {finance.base_lessons}</span>
+                        <span>Количество пробных занятий: {finance.trial_lessons}</span>
+                        <span>Общее количество занятий: {finance.lessons_count}</span>
+                        <span>Конверсия: {finance.conversion} %</span>
+                    </section>
                 </section>
             }
         </section>

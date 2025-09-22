@@ -21,8 +21,11 @@ export interface IAdminCreate {
     email: string;
 }
 
-export interface IAdminFinance{
+export interface IAdminFinance {
+    profit: string;
+    cash_flow: string;
     conversion: number;
-    count: number;
-    amount: string;
+    lessons_count: number;
+    base_lessons: number;
+    trial_lessons: number;
 }
