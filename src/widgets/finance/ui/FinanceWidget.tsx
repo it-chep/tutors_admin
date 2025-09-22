@@ -1,11 +1,12 @@
 import { FC, useState } from "react";
 import classes from './financeWidget.module.scss'
 import { useGlobalMessageActions } from "../../../entities/globalMessage";
-import { IMyFinance, myService, useMyActions } from "../../../entities/my";
+import { useMyActions } from "../../../entities/my";
 import { AuthError } from "../../../shared/lib/helpers/AuthError";
 import { Calendar } from "../../../features/calendar";
 import { useAppSelector } from "../../../app/store/store";
 import { useGlobalLoadingActions } from "../../../entities/globalLoading";
+import { adminService, IAdminFinance } from "../../../entities/admin";
 
 
 export const FinanceWidget: FC = () => {
@@ -14,12 +15,12 @@ export const FinanceWidget: FC = () => {
     const {setIsAuth} = useMyActions()
     const {setGlobalMessage} = useGlobalMessageActions()
     const {setIsLoading} = useGlobalLoadingActions()
-    const [finance, setFinance] = useState<IMyFinance | null>(null)
+    const [finance, setFinance] = useState<IAdminFinance | null>(null)
     
     const getData = async (startDate: string, endDate: string) => {
         try{
             setIsLoading(true)
-            const financeRes = await myService.getFinance(startDate, endDate, my.id)
+            const financeRes = await adminService.getFinance(startDate, endDate, my.id)
             setFinance(financeRes)
         }
         catch(e){

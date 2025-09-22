@@ -1,23 +1,11 @@
 import { fetchAuth } from "../../../shared/api/ApiService"
-import { IMy, IMyFinance } from "../model/types"
+import { IMy } from "../model/types"
 
 
 
 class MyService{
 
-    async getFinance(from: string, to: string, admin_id: number): Promise<IMyFinance> {
-        const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/finance', {
-            method: "POST",
-            body: JSON.stringify({
-                from,
-                to,
-                admin_id
-            })
-        })
-        const {data}: {data: IMyFinance} = await res.json()
-        return data
-    }
-
+    
     async getInfo(): Promise<Omit<IMy, 'email' | 'isAuth'>> {
         const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/user')
         const {user}: {user: Omit<IMy, 'email' | 'isAuth'>} = await res.json()

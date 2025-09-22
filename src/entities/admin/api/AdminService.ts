@@ -4,8 +4,6 @@ import { IAdmin, IAdminCreate, IAdminData, IAdminFinance } from "../model/types"
 
 
 class AdminService{
-
-
     async getAll(): Promise<IAdmin[]> {
         const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/admins')
         const {admins}: {admins: IAdmin[]} = await res.json()
@@ -24,18 +22,19 @@ class AdminService{
         })
     }
 
-    async getFinance(id: number, from: string, to: string): Promise<IAdminFinance> {
-        const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/tutors/' + id + '/finance', {
+    async getFinance(from: string, to: string, admin_id: number): Promise<IAdminFinance> {
+        const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/finance', {
             method: "POST",
             body: JSON.stringify({
                 from,
-                to
-            }),
+                to,
+                admin_id
+            })
         })
         const {data}: {data: IAdminFinance} = await res.json()
         return data
     }
-
+    
     async create(admin: IAdminCreate){
         await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/admins', {
             method: "POST",
