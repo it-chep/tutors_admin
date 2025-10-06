@@ -11,10 +11,12 @@ interface IProps {
     title: string;
     selectedItems: number[];
     setItem: (id: number) => void;
-    getData: () => Promise<IItem[]>
+    getData: () => Promise<IItem[]>;
+    error?: string;
+    setError?: (err: string) => void; 
 }
 
-export const ChooseItems: FC<IProps> = ({selectedItems, setItem, title, getData}) => {
+export const ChooseItems: FC<IProps> = ({selectedItems, setItem, title, getData, error, setError}) => {
 
     const {setGlobalMessage} = useGlobalMessageActions()
     const {setIsAuth} = useMyActions()
@@ -47,7 +49,10 @@ export const ChooseItems: FC<IProps> = ({selectedItems, setItem, title, getData}
     }, [])
 
     const onSelected = (item: IItem) => {
-        return (selected: boolean) => setItem(selected ? item.id : -1) 
+        return (selected: boolean) => {
+            setItem(selected ? item.id : -1) 
+            setError && setError('')
+        }
     }
 
     return (
@@ -59,6 +64,9 @@ export const ChooseItems: FC<IProps> = ({selectedItems, setItem, title, getData}
                 items={items}
                 onSelected={onSelected}
             />
+            <section className={classes.errorText}>
+                {error}
+            </section>
         </section>
     )
 }
