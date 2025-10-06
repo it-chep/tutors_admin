@@ -62,7 +62,7 @@ export const MyInput: FC<IProps & ComponentProps<"input"> & PropsWithChildren> =
                     {children}
                 </section>
             </section>
-            {(error || currentError) && <span>{error || currentError}</span> }
+            {(error || currentError) && <span className={classes.errorText}>*{error || currentError}</span> }
         </section>
     )
 }

@@ -9,13 +9,17 @@ import { AuthError } from "../../../../shared/lib/helpers/AuthError";
 import { MyButton } from "../../../../shared/ui/button";
 import { useNavigate } from "react-router-dom";
 import { TUTORS_ROUTE } from "../../../../app/router/routes";
+import { IFormError } from "../../../../shared/model/types";
 
 interface IProps {
     tutor: ITutorCreate;
     setTutor: (tutor: ITutorCreate) => void;
+    formError: IFormError<ITutorCreate>[];
+    setFormError: (formError: IFormError<ITutorCreate>[]) => void;
+    setErrorFieldDelete: (field: keyof ITutorCreate) => () => void;
 }
 
-export const TutorChange: FC<IProps & PropsWithChildren> = ({tutor, setTutor, children}) => {
+export const TutorChange: FC<IProps & PropsWithChildren> = ({tutor, setTutor, children, formError, setErrorFieldDelete, setFormError}) => {
 
     const {setIsLoading} = useGlobalLoadingActions()
     const {setGlobalMessage} = useGlobalMessageActions()
@@ -25,7 +29,23 @@ export const TutorChange: FC<IProps & PropsWithChildren> = ({tutor, setTutor, ch
 
     const router = useNavigate()
 
+    const checkData = (): boolean => {
+        const error: IFormError<ITutorCreate>[] = [];
+        let isOk = true;
+        for(let key in tutor){
+            if(tutor[key as keyof ITutorCreate] === '' || tutor[key as keyof ITutorCreate] === -1){
+                error.push({field: key as keyof ITutorCreate, text: 'Обязательное поле'})
+                isOk = false;
+            }
+        }
+        setFormError(error)
+        return isOk
+    }
+
     const onSend = async () => {
+        if(!checkData()){
+            return
+        }
         try{
             setIsLoading(true)
             await tutorService.create(tutor)
@@ -53,26 +73,36 @@ export const TutorChange: FC<IProps & PropsWithChildren> = ({tutor, setTutor, ch
                 title="ФИО репетитора"
                 value={tutor.full_name}
                 setValue={setFullName}
+                error={formError.find(error => error.field === 'full_name')?.text}
+                setError={setErrorFieldDelete('full_name')}
             />
             <MyInput 
                 title="Email репетитора"
                 value={tutor.email}
                 setValue={setEmail}
+                error={formError.find(error => error.field === 'email')?.text}
+                setError={setErrorFieldDelete('email')}
             />
             <MyInput 
                 title="Ставка в час"
                 value={tutor.cost_per_hour}
                 setValue={setCostPerHour}
+                error={formError.find(error => error.field === 'cost_per_hour')?.text}
+                setError={setErrorFieldDelete('cost_per_hour')}
             />
             <MyInput 
                 title="Номер телефона репетитора"
                 value={tutor.phone}
                 setValue={setPhone}
+                error={formError.find(error => error.field === 'phone')?.text}
+                setError={setErrorFieldDelete('phone')}
             />
             <MyInput 
                 title="Телеграм репетитора"
                 value={tutor.tg}
                 setValue={setTg}
+                error={formError.find(error => error.field === 'tg')?.text}
+                setError={setErrorFieldDelete('tg')}
             />
             {children}
             <section className={classes.button}>

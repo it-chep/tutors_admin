@@ -9,6 +9,8 @@ import { TRole } from '../../entities/my'
 import { Navigate } from 'react-router-dom'
 import { useAppSelector } from '../../app/store/store'
 import { adminService } from '../../entities/admin'
+import { IFormError } from '../../shared/model/types'
+import { changeFormError } from '../../shared/lib/helpers/ChangeFormError'
 
 const roles: TRole[] = ['super_admin', 'admin'] 
 
@@ -28,6 +30,9 @@ export default function TutorChangePage() {
 
     const {my} = useAppSelector(s => s.myReducer)
     const isAccess = roles.includes(my.role)
+
+    const [formError, setFormError] = useState<IFormError<ITutorCreate>[]>([])
+    const setErrorFieldDelete = changeFormError(formError, setFormError)
     
     if(!isAccess){
         return (
@@ -43,6 +48,9 @@ export default function TutorChangePage() {
     return (
         <LayoutPages title={TUTOR_CREATE_ROUTE.name}>
             <TutorChange 
+                formError={formError}
+                setFormError={setFormError}
+                setErrorFieldDelete={setErrorFieldDelete}
                 tutor={tutor}
                 setTutor={setTutor}
             >
@@ -52,6 +60,8 @@ export default function TutorChangePage() {
                         selectedItems={[tutor.subject_id]}
                         setItem={setSubjectId}
                         getData={subjectService.getAll}
+                        error={formError.find(error => error.field === 'subject_id')?.text}
+                        setError={setErrorFieldDelete('subject_id')}
                     />
                     {
                         my.role === 'super_admin'
@@ -61,6 +71,8 @@ export default function TutorChangePage() {
                             selectedItems={[tutor.admin_id]}
                             setItem={setAdminId}
                             getData={getAdmins}
+                            error={formError.find(error => error.field === 'admin_id')?.text}
+                            setError={setErrorFieldDelete('admin_id')}
                         />
                     }
                 </>
