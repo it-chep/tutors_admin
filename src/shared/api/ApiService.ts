@@ -51,17 +51,6 @@ export async function handleUnauthorized(requestFn: () => Promise<Response>): Pr
     }
 }
 
-// export const fetchWithConditions = async() => async (url: string, init?: RequestInit): Promise<Response> => {
-//     const newInit: RequestInit = {...init};
-//     newInit.headers = {
-//         ...newInit.headers,
-//         'Content-Type': 'application/json;charset=utf-8',
-//     } 
-//     newInit.credentials = 'include'
-//     const res = await fetch(url, newInit)
-//     return res
-// }
-
 export const fetchAuth = async (url: string, init?: RequestInit, isRetry?: boolean): Promise<Response> => {
     const newInit: RequestInit = {...init};
 
