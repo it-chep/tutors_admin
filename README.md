@@ -1,11 +1,8 @@
-1) npm i
+# Старт проекта
 
-как запускать:
-1) npm start - Запускает development-сервер
-
-Сборка + запуск production-версии:
-1) npm run build
-2) npx serve -s build
+```shell
+make run 
+```
 
 
 env: 
