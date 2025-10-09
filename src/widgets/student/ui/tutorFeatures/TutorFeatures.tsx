@@ -38,7 +38,7 @@ export const TutorFeatures: FC<IProps> = ({id, newbie}) => {
         try{
             setIsLoading(true)
             setOpen(false)
-            await tutorService.conductLesson(id, +selected)
+            await tutorService.conductLesson(id, +selected.value)
             setGlobalMessage({message: 'Занятие проведено', type: 'ok'})
             router(STUDENTS_ROUTE.path)
         }

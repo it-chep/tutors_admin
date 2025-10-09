@@ -10,3 +10,4 @@ export interface IFormError<T> {
     field: keyof T;
     text: string;
 }
+

@@ -1,4 +1,4 @@
-import { FC, PropsWithChildren, useState } from "react";
+import { FC, PropsWithChildren } from "react";
 import classes from './tutorChange.module.scss'
 import { MyInput } from "../../../../shared/ui/input";
 import { ITutorCreate, tutorChange, tutorService } from "../../../../entities/tutor";
@@ -10,6 +10,7 @@ import { MyButton } from "../../../../shared/ui/button";
 import { useNavigate } from "react-router-dom";
 import { TUTORS_ROUTE } from "../../../../app/router/routes";
 import { IFormError } from "../../../../shared/model/types";
+import { useAppSelector } from "../../../../app/store/store";
 
 interface IProps {
     tutor: ITutorCreate;
@@ -24,6 +25,7 @@ export const TutorChange: FC<IProps & PropsWithChildren> = ({tutor, setTutor, ch
     const {setIsLoading} = useGlobalLoadingActions()
     const {setGlobalMessage} = useGlobalMessageActions()
     const {setIsAuth} = useMyActions()
+    const {my} = useAppSelector(s => s.myReducer)
 
     const {setFullName, setCostPerHour, setPhone, setTg, setEmail} = tutorChange(tutor, setTutor)
 
@@ -33,7 +35,9 @@ export const TutorChange: FC<IProps & PropsWithChildren> = ({tutor, setTutor, ch
         const error: IFormError<ITutorCreate>[] = [];
         let isOk = true;
         for(let key in tutor){
-            if(tutor[key as keyof ITutorCreate] === '' || tutor[key as keyof ITutorCreate] === -1){
+            if(tutor[key as keyof ITutorCreate] === '' || (
+                (tutor[key as keyof ITutorCreate] === -1) && !((key as keyof ITutorCreate === 'admin_id') && (my.role !== 'super_admin')))
+            ){
                 error.push({field: key as keyof ITutorCreate, text: 'Обязательное поле'})
                 isOk = false;
             }

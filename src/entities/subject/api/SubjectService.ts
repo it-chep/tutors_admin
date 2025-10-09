@@ -8,7 +8,7 @@ class SubjectService {
     async getAll(){
         const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/subjects')
         const {subjects}: {subjects: ISubject[]} = await res.json()
-        return subjects
+        return subjects        
     }
 
 }
