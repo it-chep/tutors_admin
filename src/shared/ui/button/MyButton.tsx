@@ -10,7 +10,6 @@ interface IProps {
 
 export const MyButton: FC<IProps & PropsWithChildren> = ({isLoading, error, onClick, children}) => {
 
-
     return (
         <section className={classes.wrapper}>
             <button 
@@ -18,7 +17,15 @@ export const MyButton: FC<IProps & PropsWithChildren> = ({isLoading, error, onCl
                 onClick={onClick} 
                 className={classes.button + (isLoading ? ` ${classes.loader}` : '')}
             >
-                { isLoading ? <section className={classes.loader}><LoaderSpinner color="#FFF" /></section> : children }
+                { 
+                    isLoading 
+                        ? 
+                    <section className={classes.loader}>
+                        <LoaderSpinner color="#FFF" />
+                    </section> 
+                        : 
+                    children 
+                }
             </button>
             { error && <section className={classes.error}>*{error}</section> }
         </section>

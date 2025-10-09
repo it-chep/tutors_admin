@@ -3,7 +3,7 @@ import './App.css';
 import { GlobalMessage } from './entities/globalMessage';
 import { GlobalLoading } from './entities/globalLoading';
 import { useAppSelector } from './app/store/store';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { IMy, myService, useMyActions } from './entities/my';
 import { AUTH_ROUTE } from './app/router/routes';
 import { LoaderSpinner } from './shared/ui/spinner';
@@ -14,15 +14,27 @@ function App() {
   const {globalMessage} = useAppSelector(s => s.globalMessageReducer)
   const [isLoading, setIsLoading] = useState<boolean>(process.env.REACT_APP_USE_AUTH !== "false")
   const {setId, setRole, setIsAuth} = useMyActions()
+  const {my} = useAppSelector(s => s.myReducer)
 
   const {pathname} = useLocation()
   const router = useNavigate()
+
+  const isOne = useRef<boolean>(true)
+  useEffect(() => {
+    if(isOne.current){
+      isOne.current = false;
+      return
+    }
+    if(!my.isAuth){
+      router(AUTH_ROUTE.path)
+    }
+  }, [my.isAuth])
 
   useEffect(() => {
     window.scrollTo({top: 0})
   }, [pathname])
 
-const auth = async () => {
+  const auth = async () => {
     try{
       setIsLoading(true)
       const user = await myService.getInfo()
@@ -35,7 +47,7 @@ const auth = async () => {
       console.log(e)
     }
     finally{
-      setIsLoading(false)
+      setTimeout(() => setIsLoading(false))
     }
   }
 

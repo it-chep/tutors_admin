@@ -4,7 +4,6 @@ import { IMy } from "../model/types"
 
 
 class MyService{
-
     
     async getInfo(): Promise<Omit<IMy, 'email' | 'isAuth'>> {
         const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/user')
@@ -17,6 +16,11 @@ class MyService{
             method: "POST",
             body: JSON.stringify({email, password})
         })
+    }
+
+    async logout() {
+        await fetchAuth(`${process.env.REACT_APP_SERVER_URL}/auth/logout`)
+        localStorage.removeItem('auth_token')
     }
 
     async register(email: string, password: string){
@@ -45,7 +49,6 @@ class MyService{
         const {token} : {token: string} = await res.json()
         localStorage.setItem('auth_token', token)
     }
-
 }
 
 export const myService = new MyService()
