@@ -1,11 +1,10 @@
-import React, { FC, useState } from "react";
+import React, { FC } from "react";
 import classes from './studentChange.module.scss'
 import { MyInput } from "../../../../shared/ui/input";
 import { useAppSelector } from "../../../../app/store/store";
 import { IStudentChange, useStudentActions } from "../../../../entities/student";
 import { Send } from "../send/Send";
 import { IFormError } from "../../../../shared/model/types";
-import { changeFormError } from "../../../../shared/lib/helpers/ChangeFormError";
 
 interface IProps {
     isCreate: boolean;

@@ -43,7 +43,11 @@ export const StudentCard: FC<IProps> = ({student}) => {
                     >
                         Написать в тг
                     </a>,
-                    Boolean(student.tg_id) && `TgID: ${student.tg_id}`
+                    Boolean(student.tg_id) 
+                        ? 
+                    `TgID: ${student.tg_id}`
+                        :
+                    <span className={classes.noTgID}>Нет ТГ ID</span>
                 ]}
             />
             <DataList 

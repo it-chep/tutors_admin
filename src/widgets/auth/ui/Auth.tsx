@@ -7,6 +7,7 @@ import { VisiblePassword } from "../../../features/visiblePassword";
 import { MyButton } from "../../../shared/ui/button";
 import { useAppSelector } from "../../../app/store/store";
 import { LOGIN_ROUTE, REGISTRATION_ROUTE } from "../../../app/router/routes";
+import { AuthError } from "../../../shared/err/AuthError";
 
 
 export const Auth: FC = () => {
@@ -35,8 +36,13 @@ export const Auth: FC = () => {
             router(isLogin ? LOGIN_ROUTE.path : REGISTRATION_ROUTE.path)
         }
         catch(e){
-            setError('Ошибка')
-            console.log(e)
+            if(e instanceof AuthError){
+                setError(e.message)
+            }
+            else{
+                setError('Ошибка')
+                console.log(e)
+            }
         }
         finally{
             setIsLoading(false)

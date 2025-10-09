@@ -6,6 +6,7 @@ import { VisiblePassword } from "../../../features/visiblePassword";
 import { MyButton } from "../../../shared/ui/button";
 import { useAppSelector } from "../../../app/store/store";
 import { AUTH_ROUTE, HOME_ROUTE, LOGIN_ROUTE } from "../../../app/router/routes";
+import { AuthError } from "../../../shared/err/AuthError";
 
 
 export const AuthVerify: FC = () => {
@@ -39,8 +40,13 @@ export const AuthVerify: FC = () => {
             setState(1)
         }
         catch(e){
-            setError('Неверный код или другая ошибка')
-            console.log(e)
+            if(e instanceof AuthError){
+                setError(e.message)
+            }
+            else{
+                setError('Неверный код или другая ошибка')
+                console.log(e)
+            }
         }
         finally{
             setIsLoading(false)
