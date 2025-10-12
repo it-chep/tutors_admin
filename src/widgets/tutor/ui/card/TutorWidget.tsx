@@ -1,7 +1,7 @@
 import { FC, PropsWithChildren, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import classes from './tutorWidget.module.scss'
-import { ITutorData } from "../../../../entities/tutor/model/types";
+import { ITutor, ITutorData } from "../../../../entities/tutor/model/types";
 import { useMyActions } from "../../../../entities/my";
 import { useGlobalMessageActions } from "../../../../entities/globalMessage";
 import { TutorCard, tutorService } from "../../../../entities/tutor";
@@ -10,6 +10,7 @@ import { TutorCalendar } from "../calendar/TutorCalendar";
 import { TutorStudents } from "../students/TutorStudents";
 import { DeleteAction } from "../../../../features/deleteAction";
 import { TUTORS_ROUTE } from "../../../../app/router/routes";
+import { StudentsMove } from "../../../../features/studentsMove";
 
 interface IProps {
     id: number;
@@ -19,9 +20,11 @@ export const TutorWidget: FC<IProps & PropsWithChildren> = ({id, children}) => {
 
     const [isLoaing, setIsLoading] = useState<boolean>(true)
     const [tutor, setTutor] = useState<ITutorData>()
-
+    const [newTutor, setNewTutor] = useState<ITutor>()
     const {setIsAuth} = useMyActions()
     const {setGlobalMessage} = useGlobalMessageActions()
+
+    const [isStudentsMove, setIsStudentsMove] = useState<boolean>(false)
 
     const router = useNavigate()
 
@@ -59,6 +62,11 @@ export const TutorWidget: FC<IProps & PropsWithChildren> = ({id, children}) => {
         }
     }
 
+    const onMove = (tutor: ITutor) => {
+        setNewTutor(tutor)
+        setIsStudentsMove(true)
+    }
+
     return (
         <section className={classes.container}>   
             {
@@ -82,8 +90,25 @@ export const TutorWidget: FC<IProps & PropsWithChildren> = ({id, children}) => {
                     >
                         <TutorCalendar id={tutor.id} />
                     </TutorCard>
+                    {
+                        !isStudentsMove
+                            &&
+                        <section className={classes.move}>
+                            <StudentsMove
+                                title="Перенести студентов к новому репетитору" 
+                                tutorId={tutor.id}
+                                onSelected={onMove}
+                                />
+                        </section>
+                    }
                     <TutorStudents>
-                        {children}
+                        {
+                            isStudentsMove
+                                ?
+                            <span>Студенты были перемещены к репетитору: {newTutor?.full_name}</span>
+                                :
+                            children
+                        }
                     </TutorStudents>
                 </>
             }

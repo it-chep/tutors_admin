@@ -10,12 +10,13 @@ import { useAppSelector } from "../../../../app/store/store";
 import { Header } from "../header/Header";
 import { DataList } from "../../../../shared/ui/dataList";
 import { TutorFeatures } from "../tutorFeatures/TutorFeatures";
+import { StudentsMove } from "../../../../features/studentsMove";
+import { ITutor } from "../../../../entities/tutor";
 
 export const StudentWidget: FC = () => {
 
     const [isLoading, setIsLoading] = useState<boolean>(true)
     const [student, setStudent] = useState<IStudentData>()
-
     const {setIsAuth} = useMyActions()
     const {setGlobalMessage} = useGlobalMessageActions()
 
@@ -50,6 +51,11 @@ export const StudentWidget: FC = () => {
         getData()
     }, [])
 
+    const onNewTutor = (tutor: ITutor) => {
+        if(student) 
+            setStudent({...student, tutor_id: tutor.id, tutor_name: tutor.full_name})
+    }
+
     return (
         <section className={classes.container}>   
             {
@@ -68,6 +74,14 @@ export const StudentWidget: FC = () => {
                             student={student}
                         />
                         <StudentCalendar id={student.id} />
+                        <section className={classes.move}>
+                            <StudentsMove 
+                                title="Смена репетитора у студента" 
+                                onSelected={onNewTutor}
+                                tutorId={student.tutor_id}
+                                studentId={student.id} 
+                            />
+                        </section>
                     </>
                         :
                     <section className={classes.tutor}>
