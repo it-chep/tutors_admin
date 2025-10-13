@@ -5,7 +5,7 @@ import { useGlobalLoadingActions } from "../../../../entities/globalLoading";
 import { useGlobalMessageActions } from "../../../../entities/globalMessage";
 import { AuthError } from "../../../../shared/lib/helpers/AuthError";
 import { useMyActions } from "../../../../entities/my";
-import { IStudentChange, studentService } from "../../../../entities/student";
+import { IStudentChange, studentService, useStudentActions } from "../../../../entities/student";
 import { useAppSelector } from "../../../../app/store/store";
 import { useNavigate } from "react-router-dom";
 import { STUDENTS_ROUTE } from "../../../../app/router/routes";
@@ -23,6 +23,7 @@ export const Send: FC<IProps> = ({isCreate, formError, setFormError}) => {
     const {setGlobalMessage} = useGlobalMessageActions()
     const {setIsAuth} = useMyActions()
     const {student} = useAppSelector(s => s.studentReducer)
+    const {setInitialState} = useStudentActions()
 
     const router = useNavigate()
 
@@ -47,6 +48,7 @@ export const Send: FC<IProps> = ({isCreate, formError, setFormError}) => {
             setIsLoading(true)
             if(isCreate){
                 await studentService.create(student)
+                setInitialState()
                 router(STUDENTS_ROUTE.path)
             }
         }

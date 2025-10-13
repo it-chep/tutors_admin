@@ -1,3 +1,4 @@
+export { StudentInitialState } from "./model/reducers/StudentInitialState";
 export { StudentCard } from "./ui/card/StudentCard";
 export { StudentItem } from "./ui/item/StudentItem";
 export { useStudentActions } from "./lib/hooks/useStudentActions";

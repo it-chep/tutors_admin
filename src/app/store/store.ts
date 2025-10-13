@@ -12,7 +12,6 @@ const store = configureStore({
         globalMessageReducer,
         globalLoadingReducer,
         studentReducer,
-        
     }
 })
 
