@@ -5,8 +5,9 @@
     flex-direction: column;
     gap: 12px;
 
-    h3{
-        cursor: pointer;
+    .buttonOpen{
+        width: fit-content;
+        height: 44px;
     }
 
     .choose{

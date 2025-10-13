@@ -10,6 +10,7 @@ import { Modal } from "../../../shared/ui/modal";
 import { ConfirmationAction } from "../../../shared/ui/confirmationAction";
 import { IItem } from "../../../shared/model/types";
 import { studentService } from "../../../entities/student";
+import { MyButton } from "../../../shared/ui/button";
 
 
 interface IProps {
@@ -107,7 +108,13 @@ export const StudentsMove: FC<IProps & PropsWithChildren> = ({title, tutorId, st
 
     return (
         <section className={classes.container}>
-            <h3 onClick={() => setWidgetOpen(!widgetOpen)}>{title}</h3>
+            <section className={classes.buttonOpen}>
+                <MyButton 
+                    onClick={() => setWidgetOpen(!widgetOpen)}
+                >
+                    {title}
+                </MyButton>
+            </section>
             {   
                 widgetOpen
                     &&
