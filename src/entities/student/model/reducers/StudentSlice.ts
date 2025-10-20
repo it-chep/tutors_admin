@@ -1,12 +1,15 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { StudentInitialState } from "./StudentInitialState";
-
+import { IStudentChange } from "../types";
 
 
 export const StudentSlice = createSlice({
     name: 'student',
     initialState: StudentInitialState,
     reducers: {
+        setStudent(state, action: PayloadAction<IStudentChange>){
+            state.student = action.payload;
+        },
         setFirstName(state, action: PayloadAction<string>){
             state.student.first_name = action.payload;
         },

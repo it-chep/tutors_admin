@@ -17,10 +17,17 @@ class StudentService {
         })
     }
 
-    async getAllByTutor(id: number): Promise<IStudent[]>{
+    async update(student: IStudentChange){
+        await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/students/update', {
+            method: "POST",
+            body: JSON.stringify(student)
+        })
+    }
+
+    async getAllByTutor(id: number): Promise<{students: IStudent[], students_count: number}>{
         const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + `/students?tutor_id=${id}`)
-        const {students}: {students: IStudent[]} = await res.json()
-        return students
+        const {students, students_count}: {students: IStudent[], students_count: number} = await res.json()
+        return {students, students_count}
     }
 
     async move(old_tutor_id: number, new_tutor_id: number, student_id?: number) {
@@ -64,10 +71,10 @@ class StudentService {
         })
     }
 
-    async getAll(): Promise<IStudent[]> {
+    async getAll(): Promise<{students: IStudent[], students_count: number}> {
         const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/students')
-        const {students}: {students: IStudent[]} = await res.json()
-        return students
+        const {students, students_count}: {students: IStudent[], students_count: number} = await res.json()
+        return {students, students_count}
     }
 }
 

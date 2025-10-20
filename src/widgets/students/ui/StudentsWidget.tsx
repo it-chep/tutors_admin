@@ -13,7 +13,7 @@ import { useAppSelector } from "../../../app/store/store";
 import { HintWrap } from "./hint/Hint";
 
 interface IProps {
-    request: () => Promise<IStudent[]>
+    request: () => Promise<{students: IStudent[], students_count: number}>
     add: boolean;
     highlight?: boolean;
 }
@@ -23,6 +23,7 @@ export const StudentsWidget: FC<IProps> = ({request, add, highlight=true}) => {
     const [isLoading, setIsLoading] = useState<boolean>(true)
 
     const [students, setStudents] = useState<IStudent[]>([])
+    const [studentsCount, setStudentsCount] = useState<number>(0)
     const [studentsSearch, setStudentsSearch] = useState<IStudent[]>([])
 
     const router = useNavigate()
@@ -36,8 +37,9 @@ export const StudentsWidget: FC<IProps> = ({request, add, highlight=true}) => {
         try{
             setIsLoading(true)
             const studentsRes = await request()
-            setStudents(studentsRes)
-            setStudentsSearch(studentsRes)
+            setStudentsCount(studentsRes.students_count)
+            setStudents(studentsRes.students)
+            setStudentsSearch(studentsRes.students)
         }
         catch(e){
             console.log(e)
@@ -80,17 +82,26 @@ export const StudentsWidget: FC<IProps> = ({request, add, highlight=true}) => {
                     }
                 </section>
             }
-            <section className={classes.searchItems}>
-                <SearchItems 
-                    placeholder="Введите фио студента или родителя"
-                    items={students.map(
-                        student => ({
-                            ...student, 
-                            name: student.last_name + ' ' + student.first_name + ' ' + student.middle_name + ' ' + student.parent_full_name
-                        })
-                    )}
-                    setItems={setStudentsSearch}
-                />
+            <section className={classes.search}>
+                <section className={classes.searchItems}>
+                    <SearchItems 
+                        placeholder="Введите фио студента или родителя"
+                        items={students.map(
+                            student => ({
+                                ...student, 
+                                name: student.last_name + ' ' + student.first_name + ' ' + student.middle_name + ' ' + student.parent_full_name
+                            })
+                        )}
+                        setItems={setStudentsSearch}
+                    />
+                </section>
+                {
+                    !isLoading
+                        &&
+                    <section>
+                        Кол-во студентов: {studentsCount}
+                    </section>
+                }
             </section>
             {
                 isLoading

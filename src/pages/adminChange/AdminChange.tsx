@@ -1,4 +1,4 @@
-import { ADMIN_CREATE_ROUTE, HOME_ROUTE, TUTOR_CREATE_ROUTE } from '../../app/router/routes'
+import { ADMIN_CREATE_ROUTE, HOME_ROUTE } from '../../app/router/routes'
 import { LayoutPages } from '../layoutPages'
 import { AdminChange } from '../../features/adminChange'
 import { TRole } from '../../entities/my'

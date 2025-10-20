@@ -3,8 +3,9 @@ import { DeleteAction } from "../../../../features/deleteAction";
 import { Message } from "../message/Message";
 import classes from './header.module.scss'
 import { useNavigate } from "react-router-dom";
-import { STUDENTS_ROUTE } from "../../../../app/router/routes";
-import { IStudentData, studentService } from "../../../../entities/student";
+import { STUDENT_UPDATE_ROUTE, STUDENTS_ROUTE } from "../../../../app/router/routes";
+import { IStudentData, studentService, useStudentActions } from "../../../../entities/student";
+import editImg from '../../../../shared/lib/assets/edit.png'
 
 interface IProps {
     student: IStudentData;
@@ -13,12 +14,18 @@ interface IProps {
 export const Header: FC<IProps> = ({student}) => {
 
     const router = useNavigate()
+    const {setStudent} = useStudentActions()
 
     const onDelete = async () => {
         if(student.id){
             await studentService.delete(student.id)
             router(STUDENTS_ROUTE.path)
         }
+    }
+
+    const onEdit = () => {
+        setStudent(student)
+        router(STUDENT_UPDATE_ROUTE.path)
     }
 
     return (
@@ -49,12 +56,20 @@ export const Header: FC<IProps> = ({student}) => {
                     />
                 }
             </section>
-            <DeleteAction
-                successText="Студент удален"        
-                errorText="Ошибка при удалении студента"
-                onDelete={onDelete}
-                questionText="Точно хотите удалить Студента ?"
-            />
+            <section className={classes.features}>
+                <img  
+                    onClick={onEdit}
+                    className={classes.edit}
+                    src={editImg} 
+                    alt="Редактирование" 
+                />
+                <DeleteAction
+                    successText="Студент удален"        
+                    errorText="Ошибка при удалении студента"
+                    onDelete={onDelete}
+                    questionText="Точно хотите удалить Студента ?"
+                />
+            </section>
         </section>
     )
 }

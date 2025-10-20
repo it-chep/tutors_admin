@@ -48,9 +48,12 @@ export const Send: FC<IProps> = ({isCreate, formError, setFormError}) => {
             setIsLoading(true)
             if(isCreate){
                 await studentService.create(student)
-                setInitialState()
-                router(STUDENTS_ROUTE.path)
             }
+            else{
+                await studentService.update(student)
+            }
+            setInitialState()
+            router(STUDENTS_ROUTE.path)
         }
         catch(e){
             console.log(e)

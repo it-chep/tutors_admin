@@ -1,5 +1,8 @@
 import { RouteObject } from "react-router-dom";
-import { ADMIN_CREATE_ROUTE, ADMIN_ROUTE, ADMINS_ROUTE, AUTH_ROUTE, FINANCE_ROUTE, HOME_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE, STUDENT_CREATE_ROUTE, STUDENT_ROUTE, STUDENTS_ROUTE, TUTOR_CREATE_ROUTE, TUTOR_ROUTE, TUTORS_ROUTE } from "./routes";
+import { ADMIN_CREATE_ROUTE, ADMIN_ROUTE, ADMINS_ROUTE, AUTH_ROUTE, FINANCE_ROUTE, 
+    HOME_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE, STUDENT_CREATE_ROUTE, STUDENT_ROUTE, 
+    STUDENT_UPDATE_ROUTE, 
+    STUDENTS_ROUTE, TUTOR_CREATE_ROUTE, TUTOR_ROUTE, TUTORS_ROUTE } from "./routes";
 import App from "../../App";
 import HomePage from "../../pages/home/HomePage";
 import AuthPage from "../../pages/auth/auth/AuthPage";
@@ -52,6 +55,10 @@ export const Router: RouteObject[] = [
             },
             {
                 path: STUDENT_CREATE_ROUTE.path,
+                Component: StudentChangePage
+            },
+            {
+                path: STUDENT_UPDATE_ROUTE.path,
                 Component: StudentChangePage
             },
             {
