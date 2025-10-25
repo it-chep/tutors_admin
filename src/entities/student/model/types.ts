@@ -34,6 +34,7 @@ export interface IStudentData {
 }
 
 export interface IStudentChange {
+    id?: number,
     first_name: string;
     last_name: string;
     middle_name: string;
@@ -56,4 +57,13 @@ export interface IStudentInitialState {
 export interface IStudentFinance {
     count: number;
     amount: string;
+}
+
+export interface ILesson{
+    id: number;
+    student_id: number;
+    tutor_id: number;
+    student_full_name: string;   
+    date: string;
+    duration_minutes: number;
 }

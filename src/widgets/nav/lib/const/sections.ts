@@ -1,4 +1,4 @@
-import { ADMINS_ROUTE, FINANCE_ROUTE, STUDENTS_ROUTE, TUTORS_ROUTE } from "../../../../app/router/routes";
+import { ADMINS_ROUTE, FINANCE_ROUTE, STUDENTS_ROUTE, TUTOR_LESSONS_ROUTE, TUTORS_ROUTE } from "../../../../app/router/routes";
 import { IMy } from "../../../../entities/my";
 import { ISection } from "../../model/types";
 
@@ -63,6 +63,15 @@ export const getSections = (my: IMy): ISection[] => {
                     {
                         title: STUDENTS_ROUTE.name,
                         link: STUDENTS_ROUTE.path
+                    }
+                ]
+            },
+            {
+                title: 'Занятия',
+                sections: [
+                    {
+                        title: TUTOR_LESSONS_ROUTE.name,
+                        link: TUTOR_LESSONS_ROUTE.path
                     }
                 ]
             }

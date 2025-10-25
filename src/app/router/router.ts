@@ -2,7 +2,7 @@ import { RouteObject } from "react-router-dom";
 import { ADMIN_CREATE_ROUTE, ADMIN_ROUTE, ADMINS_ROUTE, AUTH_ROUTE, FINANCE_ROUTE, 
     HOME_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE, STUDENT_CREATE_ROUTE, STUDENT_ROUTE, 
     STUDENT_UPDATE_ROUTE, 
-    STUDENTS_ROUTE, TUTOR_CREATE_ROUTE, TUTOR_ROUTE, TUTORS_ROUTE } from "./routes";
+    STUDENTS_ROUTE, TUTOR_CREATE_ROUTE, TUTOR_LESSONS_ROUTE, TUTOR_ROUTE, TUTORS_ROUTE } from "./routes";
 import App from "../../App";
 import HomePage from "../../pages/home/HomePage";
 import AuthPage from "../../pages/auth/auth/AuthPage";
@@ -19,6 +19,7 @@ import AdminChangePage from "../../pages/adminChange/AdminChange";
 import AuthLayoutPage from "../../pages/auth/layout/AuthLayout";
 import AuthVerifyPage from "../../pages/auth/verify/AuthVerifyPage";
 import NotFoundPage from "../../pages/notFound/NotFound";
+import TutorLessonsPage from "../../pages/tutorLessons/TutorLessons";
 
 
 export const Router: RouteObject[] = [
@@ -92,6 +93,10 @@ export const Router: RouteObject[] = [
             {
                 path: ADMIN_CREATE_ROUTE.path,
                 Component: AdminChangePage
+            },
+            {
+                path: TUTOR_LESSONS_ROUTE.path,
+                Component: TutorLessonsPage
             }
         ]
     }

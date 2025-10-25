@@ -7,9 +7,13 @@
         text-align: center;
     }
 
-    .move{
+    .move, .lessons{
         border-top: 2px solid black;
-        padding-top: 20px;
+        padding: 20px 0;
+    }
+
+    .lessons{
+        min-height: 400px;
     }
 
 }

@@ -3,11 +3,14 @@
 .container {
     margin-top: 20px;
     margin-bottom: 100px;
+    min-height: 450px;
     padding-top: 20px;
     display: flex;
     flex-direction: column;
     gap: 20px;
     border-top: 2px solid var(--black);
+    position: relative;
+    z-index: 9;
 
     .title{
         font-size: 24px;

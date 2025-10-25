@@ -1,14 +1,15 @@
-import { FC } from "react";
+import { FC, PropsWithChildren } from "react";
 import classes from './card.module.scss'
 import { DataList } from "../../../../shared/ui/dataList/DataList";
 import { IStudentData } from "../../model/types";
 import { Link } from "react-router-dom";
+import { MyButton } from "../../../../shared/ui/button";
 
 interface IProps {
     student: IStudentData;
 }
 
-export const StudentCard: FC<IProps> = ({student}) => {
+export const StudentCard: FC<IProps & PropsWithChildren> = ({student, children}) => {
 
     
     return (
@@ -54,6 +55,7 @@ export const StudentCard: FC<IProps> = ({student}) => {
                 title="Финансы"
                 list={[
                     `Кошелек: ${student.balance} ₽`,
+                    <section>{children}</section>
                 ]}
             />
         </section>

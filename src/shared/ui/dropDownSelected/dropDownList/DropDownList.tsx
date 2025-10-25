@@ -56,7 +56,7 @@ export const DropDownListSelected: FC<IProps> = ({selectedIdItems, items, isLoad
                                 >
                                     {item.name}
                                     <svg 
-                                        className={classes.delete} 
+                                        className={classes.delete } 
                                         onClick={() => onSelected(item)(false)} 
                                         width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"
                                     >
@@ -66,7 +66,7 @@ export const DropDownListSelected: FC<IProps> = ({selectedIdItems, items, isLoad
                                 </section>
                             )}
                         </section>
-                        <img src={arrowDown} />
+                        <img className={(open ? ` ${classes.open}` : '')} src={arrowDown} />
                     </>
                 }
             </section>

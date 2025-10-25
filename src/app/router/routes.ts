@@ -10,6 +10,10 @@ export const AUTH_ROUTE: IRoute = {
     path: '/auth'
 }
 
+export const TUTOR_LESSONS_ROUTE: IRoute = {
+    name: 'Занятия',
+    path: '/tutor_lessons'
+}
 
 export const LOGIN_ROUTE: IRoute = {
     name: 'Вход',

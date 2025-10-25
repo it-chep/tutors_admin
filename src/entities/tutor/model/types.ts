@@ -36,3 +36,14 @@ export interface ITutorCreate {
     email: string;
     admin_id: number;
 }
+
+
+
+export interface ILessonTutor{
+    id: number;
+    student_id: number;
+    tutor_id: number;
+    student_full_name: string;   
+    date: string;
+    duration_minutes: number;
+}

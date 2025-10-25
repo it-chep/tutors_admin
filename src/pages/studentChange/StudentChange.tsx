@@ -43,6 +43,8 @@ export default function StudentChangePage() {
                 setErrorFieldDelete={setErrorFieldDelete} 
                 isCreate={isCreate} 
                 chooseSubject={
+                    isCreate
+                        &&
                     <ChooseItems 
                         error={formError.find(error => error.field === 'subject_id')?.text}
                         setError={setErrorFieldDelete('subject_id')}

@@ -1,5 +1,5 @@
 import { fetchAuth } from "../../../shared/api/ApiService"
-import { ITutor, ITutorCreate, ITutorData, ITutorFinance } from "../model/types";
+import { ILessonTutor, ITutor, ITutorCreate, ITutorData, ITutorFinance } from "../model/types";
 
 
 
@@ -71,6 +71,15 @@ class TutorService {
             method: "POST",
             body: JSON.stringify({student_id, duration})
         })
+    }
+
+    async getLessons(id: number, from: string, to: string){
+        const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/tutors/' + id + '/lessons', {
+            method: "POST",
+            body: JSON.stringify({from, to})
+        })
+        const {lessons}: {lessons: ILessonTutor[]} = await res.json()
+        return lessons
     }
 
 }

@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, PropsWithChildren, useEffect, useState } from "react";
 import { useMyActions } from "../../../../entities/my";
 import { useGlobalMessageActions } from "../../../../entities/globalMessage";
 import { IStudentData, StudentCard, studentService } from "../../../../entities/student";
@@ -12,17 +12,26 @@ import { DataList } from "../../../../shared/ui/dataList";
 import { TutorFeatures } from "../tutorFeatures/TutorFeatures";
 import { StudentsMove } from "../../../../features/studentsMove";
 import { ITutor } from "../../../../entities/tutor";
+import { ChangeStudentBalance } from "../../../../features/changeStudentBalance";
 
-export const StudentWidget: FC = () => {
+interface IProps {
+    id: number;
+}
+
+export const StudentWidget: FC<IProps & PropsWithChildren> = ({id, children}) => {
 
     const [isLoading, setIsLoading] = useState<boolean>(true)
     const [student, setStudent] = useState<IStudentData>()
     const {setIsAuth} = useMyActions()
     const {setGlobalMessage} = useGlobalMessageActions()
 
-    const {my} = useAppSelector(s => s.myReducer)
+    const setBalance = (balance: string) => {
+        const copy: IStudentData = JSON.parse(JSON.stringify(student))
+        copy.balance = balance;
+        setStudent(copy)
+    }
 
-    const {id} = useParams<{id: string}>()
+    const {my} = useAppSelector(s => s.myReducer)
 
     const getData = async () => {
         try{
@@ -72,8 +81,16 @@ export const StudentWidget: FC = () => {
                         <Header student={student} />
                         <StudentCard
                             student={student}
-                        />
+                        >
+                            <ChangeStudentBalance 
+                                studentId={student.id} 
+                                setStudentBalance={setBalance} 
+                            />
+                        </StudentCard>
                         <StudentCalendar id={student.id} />
+                        <section className={classes.lessons}>
+                            {children}
+                        </section>
                         <section className={classes.move}>
                             <StudentsMove 
                                 title="Смена репетитора у студента" 
@@ -97,6 +114,9 @@ export const StudentWidget: FC = () => {
                             newbie={student.is_newbie}
                             id={student.id} 
                         />
+                        <section className={classes.lessons}>
+                            {children}
+                        </section>
                     </section>
                 )
             }

@@ -8,7 +8,7 @@ import { IFormError } from "../../../../shared/model/types";
 
 interface IProps {
     isCreate: boolean;
-    chooseSubject: React.ReactNode;
+    chooseSubject?: React.ReactNode;
     chooseTutor: React.ReactNode;
     formError: IFormError<IStudentChange>[];
     setFormError: (formError: IFormError<IStudentChange>[]) => void;

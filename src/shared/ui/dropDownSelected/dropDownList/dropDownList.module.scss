@@ -22,6 +22,10 @@
             height: 24px;
         }
 
+        .open{
+            transform: rotate(180deg);
+        }
+
         .selected{
             display: flex;
             flex-wrap: wrap;
@@ -40,10 +44,14 @@
                     cursor: pointer;
                     width: 14px;
                     height: 14px;
+
                     path{
                         stroke: var(--black);
                         transition: all .15s ease;
                     }
+
+                  
+
                     &:hover{
                         path{
                             stroke: var(--black-hover);
