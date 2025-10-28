@@ -7,9 +7,9 @@ import { useMyActions } from "../../../entities/my";
 import { useGlobalMessageActions } from "../../../entities/globalMessage";
 import { useNavigate } from "react-router-dom";
 import { TUTOR_CREATE_ROUTE } from "../../../app/router/routes";
-import { SearchItems } from "../../../features/searchItems/ui/SearchItems";
 import { ITutor, TutorItem } from "../../../entities/tutor";
 import { HintWrap } from "./hint/Hint";
+import { SearchItems } from "../../../features/searchItems";
 
 interface IProps {
     request: () => Promise<ITutor[]>
@@ -79,7 +79,7 @@ export const TutorsWidget: FC<IProps> = ({add, request, highlight=true}) => {
                 </section>
             }
             <section className={classes.searchItems}>
-                <SearchItems 
+                <SearchItems
                     placeholder="Введите фио репетитора"
                     items={tutors.map(
                         tutor => ({...tutor, name: tutor.full_name})

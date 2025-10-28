@@ -5,5 +5,5 @@ export function useSearchItems<T extends {name: string}> (items: T[], value: str
         return items.filter(
             item => item.name.toLocaleLowerCase().includes(value.toLocaleLowerCase())
         )
-    }, [value])
+    }, [value, items])
 }

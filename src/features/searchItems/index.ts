@@ -1,1 +1,1 @@
-export { useSearchItems } from "./lib/hooks/useSearchItems";
+export { SearchItems } from "./ui/SearchItems";

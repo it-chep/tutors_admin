@@ -1,11 +1,12 @@
-import { FC, useEffect, useState } from "react";
+import { FC, PropsWithChildren, useEffect, useState } from "react";
 import { useGlobalMessageActions } from "../../../entities/globalMessage";
 import { useMyActions } from "../../../entities/my";
 import { AuthError } from "../../../shared/lib/helpers/AuthError";
-import { ISubject } from "../../../entities/subject";
 import { DropDownListSelected } from "../../../shared/ui/dropDownSelected";
 import { IItem } from "../../../shared/model/types";
 import classes from './chooseItems.module.scss'
+import { useSearchItems } from "../../../shared/lib/hooks/useSearchItems";
+import { MyInput } from "../../../shared/ui/input";
 
 interface IProps {
     title: string;
@@ -14,14 +15,19 @@ interface IProps {
     getData: () => Promise<IItem[]>;
     error?: string;
     setError?: (err: string) => void; 
+    search?: boolean;
 }
 
-export const ChooseItems: FC<IProps> = ({selectedItems, setItem, title, getData, error, setError}) => {
+export const ChooseItems: FC<IProps & PropsWithChildren> = (
+    {selectedItems, setItem, title, getData, error, setError, search}
+) => {
 
     const {setGlobalMessage} = useGlobalMessageActions()
     const {setIsAuth} = useMyActions()
-    const [items, setItems] = useState<ISubject[]>([])
+    const [items, setItems] = useState<IItem[]>([])
     const [isLoading, setIsLoading] = useState<boolean>(true)
+    const [value, setValue] = useState<string>('')
+    const searchItems = useSearchItems(items, value)
 
     const getDataWrap = async () => {
         try{
@@ -61,9 +67,15 @@ export const ChooseItems: FC<IProps> = ({selectedItems, setItem, title, getData,
             <DropDownListSelected 
                 isLoading={isLoading}
                 selectedIdItems={selectedItems}
-                items={items}
+                items={search ? searchItems : items}
                 onSelected={onSelected}
-            />
+            >
+                {
+                    search
+                        &&
+                    <MyInput placeholder="Поиск..." value={value} setValue={setValue} />
+                }
+            </DropDownListSelected>
             <section className={classes.errorText}>
                 {error}
             </section>

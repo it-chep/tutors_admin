@@ -8,9 +8,9 @@ import { useMyActions } from "../../../entities/my";
 import { useGlobalMessageActions } from "../../../entities/globalMessage";
 import { useNavigate } from "react-router-dom";
 import { STUDENT_CREATE_ROUTE } from "../../../app/router/routes";
-import { SearchItems } from "../../../features/searchItems/ui/SearchItems";
 import { useAppSelector } from "../../../app/store/store";
 import { HintWrap } from "./hint/Hint";
+import { SearchItems } from "../../../features/searchItems";
 
 interface IProps {
     request: () => Promise<{students: IStudent[], students_count: number}>
@@ -84,7 +84,7 @@ export const StudentsWidget: FC<IProps> = ({request, add, highlight=true}) => {
             }
             <section className={classes.search}>
                 <section className={classes.searchItems}>
-                    <SearchItems 
+                    <SearchItems
                         placeholder="Введите фио студента или родителя"
                         items={students.map(
                             student => ({

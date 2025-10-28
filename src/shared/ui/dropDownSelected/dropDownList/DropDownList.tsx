@@ -1,4 +1,4 @@
-import { FC, MouseEvent, useState } from "react";
+import { FC, MouseEvent, PropsWithChildren, useState } from "react";
 import classes from './dropDownList.module.scss'
 import { LoaderSpinner } from "../../spinner";
 import { List } from "../list/List";
@@ -13,7 +13,9 @@ interface IProps {
     isLoading: boolean;
 }
 
-export const DropDownListSelected: FC<IProps> = ({selectedIdItems, items, isLoading, onSelected}) => {
+export const DropDownListSelected: FC<IProps & PropsWithChildren> = (
+    {selectedIdItems, items, isLoading, onSelected, children}
+) => {
 
     const [open, setOpen] = useState<boolean>(false)
 
@@ -74,7 +76,8 @@ export const DropDownListSelected: FC<IProps> = ({selectedIdItems, items, isLoad
                 open
                     &&
                 <section className={classes.container}>
-                    <section className={classes.list}>
+                    {children}
+                    <section className={classes.list + (children ? ` ${classes.feature}` : '')}>
                         <List
                             onSelected={onSelected}
                             items={items} 

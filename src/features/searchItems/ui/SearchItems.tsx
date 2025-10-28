@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { MyInput } from "../../../shared/ui/input";
-import { useSearchItems } from "../lib/hooks/useSearchItems";
 import classes from './searchItems.module.scss'
 import lupaImg from '../lib/assets/lupa.png'
+import { useSearchItems } from "../../../shared/lib/hooks/useSearchItems";
 
 interface IProps<T> {
     placeholder: string;

@@ -2,7 +2,7 @@ import { Navigate, useLocation } from 'react-router-dom'
 import { HOME_ROUTE, STUDENT_CREATE_ROUTE } from '../../app/router/routes'
 import { StudentChange } from '../../features/studentChange'
 import { LayoutPages } from '../layoutPages'
-import { ChooseItems } from '../../features/chooseSubject'
+import { ChooseItems } from '../../features/chooseItems'
 import { useAppSelector } from '../../app/store/store'
 import { IStudentChange, useStudentActions } from '../../entities/student'
 import { subjectService } from '../../entities/subject'
@@ -66,6 +66,7 @@ export default function StudentChangePage() {
                                 return data.map(d => ({id: d.id, name: d.full_name}))
                             }
                         }
+                        search
                     />
                 }
             />
