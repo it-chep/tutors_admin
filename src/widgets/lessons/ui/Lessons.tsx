@@ -29,14 +29,14 @@ export const Lessons: FC<IProps> = ({studentId, tutorId, showFio=false}) => {
         }
     }
 
-    // const setData = (ind: number) => {
-    //     return (date: string, duration: number) => {
-    //         const copy: ILesson[] = JSON.parse(JSON.stringify(lessons))
-    //         copy[ind].date = date;
-    //         copy[ind].duration_minutes = duration;
-    //         setLessons(copy)
-    //     }
-    // }
+    const setData = (ind: number) => {
+        return (date: string, duration: number) => {
+            const copy: ILesson[] = JSON.parse(JSON.stringify(lessons))
+            copy[ind].date = date;
+            copy[ind].duration_minutes = duration;
+            setLessons(copy)
+        }
+    }
 
     const onDelete = async (ind: number, lessonId: number) => {
         await studentService.deleteLesson(lessonId)
@@ -105,12 +105,12 @@ export const Lessons: FC<IProps> = ({studentId, tutorId, showFio=false}) => {
                         {lessons.map((lesson, ind) => 
                             <LessonItem key={ind} showFio={showFio} lesson={lesson}>
                                 <section className={classes.features}>
-                                    {/* <ChangeDurationLesson 
+                                    <ChangeDurationLesson 
                                         lessonId={lesson.id}
                                         durationInit={`${lesson.duration_minutes}`} 
                                         dateInit={lesson.date}
                                         setData={setData(ind)}
-                                    /> */}
+                                    />
                                     <DeleteAction 
                                         questionText="Вы точно хотите удалить занятие ?"
                                         successText="Занятие успешно удалено"

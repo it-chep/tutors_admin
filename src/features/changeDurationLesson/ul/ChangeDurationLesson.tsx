@@ -106,7 +106,6 @@ export const ChangeDurationLesson: FC<IProps> = ({lessonId, durationInit, dateIn
                     </section>
                 }
             </Modal>
-            
         </section>
     )
 }
