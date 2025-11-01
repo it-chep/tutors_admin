@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useState, useCallback } from "react";
 import classes from './lessons.module.scss'
 import { ILesson, LessonItem, studentService } from "../../../entities/student";
 import { useGlobalMessageActions } from "../../../entities/globalMessage";
@@ -23,11 +23,11 @@ export const Lessons: FC<IProps> = ({studentId, tutorId, showFio=false}) => {
     const {setGlobalMessage} = useGlobalMessageActions()    
     const {setIsAuth} = useMyActions()
 
-    const setDate = (startDate: Date | null, endDate: Date | null) => {
+    const setDate = useCallback((startDate: Date | null, endDate: Date | null) => {
         if(startDate && endDate){
             getLessons(startDate.toISOString().split('T')[0], endDate.toISOString().split('T')[0])
         }
-    }
+    }, [])
 
     const setData = (ind: number) => {
         return (date: string, duration: number) => {
@@ -75,7 +75,7 @@ export const Lessons: FC<IProps> = ({studentId, tutorId, showFio=false}) => {
     useEffect(() => {
         const dateNow = new Date()
         setDate(dateNow, dateNow)
-    }, [])
+    }, [setDate])
 
     return (
         <section className={classes.container}>
@@ -103,7 +103,7 @@ export const Lessons: FC<IProps> = ({studentId, tutorId, showFio=false}) => {
                     </thead>
                     <tbody>
                         {lessons.map((lesson, ind) => 
-                            <LessonItem key={ind} showFio={showFio} lesson={lesson}>
+                            <LessonItem key={lesson.id} showFio={showFio} lesson={lesson}>
                                 <section className={classes.features}>
                                     <ChangeDurationLesson 
                                         lessonId={lesson.id}
