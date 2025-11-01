@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import classes from './changeDurationLesson.module.scss'
 import { DropDownListSelected } from "../../../shared/ui/dropDownSelected";
 import { IItem } from "../../../shared/model/types";
@@ -36,6 +36,10 @@ export const ChangeDurationLesson: FC<IProps> = ({lessonId, durationInit, dateIn
     const {setIsLoading} = useGlobalLoadingActions()
     const [confirm, setConfirm] = useState<boolean>(false)
 
+    useEffect(() => {
+        setSelected(values.find(v => v.value === durationInit)?.id || values[0].id)
+    }, [open])
+
     const onSelected = (item: IItem) => {
         return (s: boolean) => {
             if(s){
@@ -47,7 +51,7 @@ export const ChangeDurationLesson: FC<IProps> = ({lessonId, durationInit, dateIn
     const onChange = async () => {
         try{
             setIsLoading(true)
-            setOpen(false)
+            onClose(false)
             const newDuration = values.find(v => v.id === selected)?.value || durationInit
             await studentService.changeLesson(lessonId, date, newDuration)
             setData(date, +newDuration)

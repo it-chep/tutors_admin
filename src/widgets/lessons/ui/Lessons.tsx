@@ -30,19 +30,14 @@ export const Lessons: FC<IProps> = ({studentId, tutorId, showFio=false}) => {
     }, [])
 
     const setData = (ind: number) => {
-        return (date: string, duration: number) => {
-            const copy: ILesson[] = JSON.parse(JSON.stringify(lessons))
-            copy[ind].date = date;
-            copy[ind].duration_minutes = duration;
-            setLessons(copy)
+        return (date: string, duration_minutes: number) => {
+            setLessons(prev => prev.map((l, index) => index === ind ? {...l, date, duration_minutes} : l))
         }
     }
 
     const onDelete = async (ind: number, lessonId: number) => {
         await studentService.deleteLesson(lessonId)
-        const copy: ILesson[] = JSON.parse(JSON.stringify(lessons))
-        copy.splice(ind, 1)
-        setLessons(copy)
+        setLessons(prev => prev.filter((l, i) => i !== ind))
     }
 
     const getLessons = async (from: string, to: string) => {
