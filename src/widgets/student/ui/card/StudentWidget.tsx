@@ -87,10 +87,6 @@ export const StudentWidget: FC<IProps & PropsWithChildren> = ({id, children}) =>
                                 setStudentBalance={setBalance} 
                             />
                         </StudentCard>
-                        <StudentCalendar id={student.id} />
-                        <section className={classes.lessons}>
-                            {children}
-                        </section>
                         <section className={classes.move}>
                             <StudentsMove 
                                 title="Смена репетитора у студента" 
@@ -98,6 +94,10 @@ export const StudentWidget: FC<IProps & PropsWithChildren> = ({id, children}) =>
                                 tutorId={student.tutor_id}
                                 studentId={student.id} 
                             />
+                        </section>
+                        <StudentCalendar id={student.id} />
+                        <section className={classes.lessons}>
+                            {children}
                         </section>
                     </>
                         :

@@ -31,6 +31,7 @@ export const Send: FC<IProps> = ({isCreate, formError, setFormError}) => {
         const error: IFormError<IStudentChange>[] = [];
         let isOk = true;
         for(let key in student){
+            if(key as keyof IStudentChange === 'tg_admin_username') continue
             if(student[key as keyof IStudentChange] === '' || student[key as keyof IStudentChange] === -1){
                 error.push({field: key as keyof IStudentChange, text: 'Обязательное поле'})
                 isOk = false;

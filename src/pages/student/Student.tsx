@@ -19,7 +19,7 @@ export default function StudentPage() {
     return (
         <LayoutPages title={STUDENT_ROUTE.name}>
             <StudentWidget id={+id}>
-                <Lessons studentId={+id}/>
+                <Lessons/>
             </StudentWidget>
             {
                 my.role !== 'tutor'

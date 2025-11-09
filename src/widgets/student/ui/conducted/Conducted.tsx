@@ -5,9 +5,7 @@ import { useGlobalMessageActions } from "../../../../entities/globalMessage";
 import { useGlobalLoadingActions } from "../../../../entities/globalLoading";
 import { useMyActions } from "../../../../entities/my";
 import { tutorService } from "../../../../entities/tutor";
-import { STUDENTS_ROUTE } from "../../../../app/router/routes";
 import { TValue } from "../tutorFeatures/TutorFeatures";
-import { useNavigate } from "react-router-dom";
 import { AuthError } from "../../../../shared/err/AuthError";
 import { Modal } from "../../../../shared/ui/modal";
 import { ConfirmationAction } from "../../../../shared/ui/confirmationAction";
@@ -26,7 +24,6 @@ export const Conducted: FC<IProps> = ({id}) => {
     const {setIsLoading} = useGlobalLoadingActions()
     const {setIsAuth} = useMyActions()
     const [selected, setSelected] = useState<TValue>({name: '', value: ''})
-    const router = useNavigate()
     const [stage, setStage] = useState<number>(1)
 
     const getNowDate = () => new Date()
@@ -45,13 +42,21 @@ export const Conducted: FC<IProps> = ({id}) => {
         {name: '2 часа', value: '120'}
     ]
 
+    const onOpenStage = (open: boolean) => {
+        if(!open){
+            setStage(1)
+        }
+        setOpen(open)
+    }
+
     const onSession = async () => {
         try{
             setIsLoading(true)
             setOpen(false)
+            console.log(id, +selected.value, getDateUTC(date))
             await tutorService.conductLesson(id, +selected.value, getDateUTC(date))
             setGlobalMessage({message: 'Занятие проведено', type: 'ok'})
-            router(STUDENTS_ROUTE.path)
+            onOpenStage(false)
         }
         catch(e){
             console.log(e)
@@ -85,13 +90,6 @@ export const Conducted: FC<IProps> = ({id}) => {
             return
         }
         setStage(2)
-    }
-
-    const onOpenStage = (open: boolean) => {
-        if(!open){
-            setStage(1)
-        }
-        setOpen(open)
     }
 
     return (

@@ -15,7 +15,7 @@ export const AdminTransactionItem: FC<IProps> = ({transaction}) => {
             className={classes.item}
         >
             <td>
-                {getLocaleDate(new Date(transaction.created_at + 'Z'))}
+                {getLocaleDate(new Date(transaction.created_at + 'Z'), true)}
             </td>  
             <td>
                 {transaction.amount}

@@ -100,7 +100,7 @@ class StudentService {
         })
     }
     
-    async changeLesson(id: number, date: string, duration: string){
+    async changeLesson(id: number, date: string, duration: number){
         await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/lessons/' + id, {
             method: "POST",
             body: JSON.stringify({date, duration})

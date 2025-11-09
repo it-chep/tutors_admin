@@ -131,7 +131,7 @@ export const StudentsMove: FC<IProps & PropsWithChildren> = ({title, tutorId, st
                         <ConfirmationAction 
                             onClick={onMove}
                             setOpen={onClose} 
-                            title={'Вы точно хотите сменить репетитора'}
+                            title={'Вы точно хотите сменить репетитора ?'}
                             type='send'
                         />
                     </Modal>

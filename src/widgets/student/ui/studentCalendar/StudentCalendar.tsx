@@ -6,6 +6,8 @@ import { LoaderSpinner } from "../../../../shared/ui/spinner";
 import { useMyActions } from "../../../../entities/my";
 import { useGlobalMessageActions } from "../../../../entities/globalMessage";
 import { AuthError } from "../../../../shared/lib/helpers/AuthError";
+import { OpenContainer } from "../../../../features/openContainer";
+import { getDateUTC } from "../../../../shared/lib/helpers/getDateUTC";
 
 interface IProps {
     id: number;
@@ -42,7 +44,7 @@ export const StudentCalendar: FC<IProps> = ({id}) => {
 
     const setDate = (startDate: Date | null, endDate: Date | null) => {
         if(startDate && endDate){
-            getData(startDate.toISOString().split('T')[0], endDate.toISOString().split('T')[0])
+            getData(getDateUTC(startDate), getDateUTC(endDate))
         }
         if(!startDate && !endDate){
             setFinance(null)
@@ -50,25 +52,27 @@ export const StudentCalendar: FC<IProps> = ({id}) => {
     }
 
     return (
-        <section className={classes.container}>
-            <section className={classes.title}>Финансы</section>
-            <Calendar 
-                onDateRangeSelect={setDate} 
-                isLoading={isLoading}
-            />
-            {
-                isLoading
-                    ?
-                <section className={classes.loader}><LoaderSpinner /></section>
-                    :
-                finance
-                    &&
-                <section className={classes.data}>
-                    <span>Количество занятий: {finance?.count}</span>
-                    <span>Прибыль: {finance?.amount} ₽</span>
-                    <span></span>
+         <section className={classes.container}>
+            <OpenContainer title="Финансы">
+                <section className={classes.content}>
+                    <Calendar 
+                        onDateRangeSelect={setDate} 
+                        isLoading={isLoading}
+                    />
+                    {
+                        isLoading
+                            ?
+                        <section className={classes.loader}><LoaderSpinner /></section>
+                            :
+                        finance
+                            &&
+                        <section className={classes.data}>
+                            <span>Количество занятий: {finance?.count}</span>
+                            <span>Прибыль: {finance?.amount} ₽</span>
+                        </section>
+                    }
                 </section>
-            }
+            </OpenContainer>
         </section>
     )
 }

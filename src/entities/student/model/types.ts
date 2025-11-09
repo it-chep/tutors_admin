@@ -30,6 +30,7 @@ export interface IStudentData {
     balance: string;
     is_only_trial_finished: boolean;
     is_balance_negative: boolean;
+    tg_admin_username: string;
     is_newbie: boolean;
     tg_id?: number;
 }
@@ -47,6 +48,7 @@ export interface IStudentChange {
     parent_full_name: string;
     parent_phone: string;
     parent_tg: string;
+    tg_admin_username: string;
 }
 
 export interface IStudentInitialState {

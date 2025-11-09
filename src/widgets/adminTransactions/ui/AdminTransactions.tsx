@@ -70,7 +70,7 @@ export const AdminTransactions: FC = () => {
                                 <th>Дата</th>
                                 <th>Сумма</th>
                                 <th>Подтвержденная</th>
-                                <th>Переход к студенту</th>
+                                <th>ФИО студента</th>
                             </tr>
                         </thead>
                         <tbody>

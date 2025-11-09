@@ -64,9 +64,11 @@ export const TutorCalendar: FC<IProps> = ({id}) => {
                 finance
                     &&
                 <section className={classes.data}>
+                    <section className={classes.sub}>Репетитор</section>
                     <span>Количество часов : {finance.hours_count}</span>
-                    <span>Прибыль: {finance.amount} ₽</span>
                     <span>Заработная плата: {finance.wages} ₽</span>
+                    <section className={classes.sub}>Общее</section>
+                    <span>Прибыль: {finance.amount} ₽</span>
                 </section>
             }
         </section>

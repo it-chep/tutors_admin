@@ -55,7 +55,7 @@ export const DropDownListSelected: FC<IProps & PropsWithChildren> = (
                             {
                                 selectedCount
                                     ?
-                                <>Активность: {selectedIdItems.length}</>
+                                <>Выбрано: {selectedIdItems.length}</>
                                     :
                                 getSelectedNames().map(item => 
                                     <section 

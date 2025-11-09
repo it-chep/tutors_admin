@@ -16,6 +16,7 @@ export const StudentInitialState: IStudentInitialState = {
         parent_full_name: '',
         parent_phone: '',
         parent_tg: '',
+        tg_admin_username: ''
     },
     isLoading: false,
     error: ''

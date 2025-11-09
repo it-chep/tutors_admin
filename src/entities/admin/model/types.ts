@@ -36,7 +36,7 @@ export interface IAdminLesson {
     tutor_id: number;
     tutor_name: string;   
     student_name: string;
-    date: string;
+    created_at: string;
     duration_in_minutes: number;
 }
 

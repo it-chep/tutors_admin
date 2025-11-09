@@ -6,7 +6,7 @@ import { getLocaleDate } from "../../../../shared/lib/helpers/getLocalDate";
 
 interface IProps {
     lesson: ILesson;
-    showFio: boolean;
+    showFio?: boolean;
 }
 
 export const LessonItem: FC<IProps & PropsWithChildren> = ({lesson, showFio, children}) => {

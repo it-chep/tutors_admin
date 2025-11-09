@@ -12,7 +12,7 @@
         margin-left: 40px;
     }
 
-    .move, .lessons{
+    .move {
         border-top: 2px solid black;
         padding-top: 20px;
         margin-top: 20px;
@@ -22,9 +22,4 @@
         position: relative;
         z-index: 9;
     }
-
-    .lessons{
-        min-height: 400px;
-    }
-
 }

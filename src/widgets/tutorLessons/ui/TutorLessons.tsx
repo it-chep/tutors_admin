@@ -1,51 +1,29 @@
-import { FC, useCallback, useState } from "react";
-import classes from './adminLessons.module.scss'
-import { AdminLessonItem, adminService, IAdminLesson } from "../../../entities/admin";
-import { AuthError } from "../../../shared/err/AuthError";
-import { useMyActions } from "../../../entities/my";
+import { FC, useState, useCallback } from "react";
+import classes from './tutorLessons.module.scss'
+import { ILesson, LessonItem, studentService } from "../../../entities/student";
 import { useGlobalMessageActions } from "../../../entities/globalMessage";
-import { LoaderSpinner } from "../../../shared/ui/spinner";
+import { useMyActions } from "../../../entities/my";
+import { AuthError } from "../../../shared/err/AuthError";
 import { Calendar } from "../../../features/calendar";
-import { getDateUTC } from "../../../shared/lib/helpers/getDateUTC";
-import { ChangeDurationLesson } from "../../../features/changeDurationLesson";
+import { LoaderSpinner } from "../../../shared/ui/spinner";
+import { tutorService } from "../../../entities/tutor";
 import { DeleteAction } from "../../../features/deleteAction";
-import { studentService } from "../../../entities/student";
+import { ChangeDurationLesson } from "../../../features/changeDurationLesson";
+import { getDateUTC } from "../../../shared/lib/helpers/getDateUTC";
+import { useAppSelector } from "../../../app/store/store";
 
+export const TutorLessons: FC = () => {
 
-export const AdminLessons: FC = () => {
-
-    const [lessons, setLessons] = useState<IAdminLesson[] | null>(null)
-    const [isLoading, setIsLoading] = useState<boolean>(false) 
-    const {setIsAuth} = useMyActions()
-    const {setGlobalMessage} = useGlobalMessageActions()
+    const [lessons, setLessons] = useState<ILesson[] | null>(null) 
     const [count, setCount] = useState<number>(0)   
+    const [isLoading, setIsLoading] = useState<boolean>(false)
+    const {setGlobalMessage} = useGlobalMessageActions()    
+    const {setIsAuth} = useMyActions()
+    const {my} = useAppSelector(s => s.myReducer)
 
-    const getData = async (from: string, to: string) => {
-        try{
-            setIsLoading(true)
-            const lessonsRes = await adminService.getLessons(from, to)
-            setLessons(lessonsRes.lessons)
-            setCount(lessonsRes.lessons_count)
-        }
-        catch(e){
-            console.log(e)
-            if(e instanceof AuthError){
-                setIsAuth(false)
-                setGlobalMessage({message: e.message, type: 'error'})
-            }
-            else{
-                setGlobalMessage({message: 'Ошибка при получении списка занятий', type: 'error'})
-            }
-        }
-        finally{
-            setIsLoading(false)
-        }
-    }
-    
-    
     const setDate = useCallback((startDate: Date | null, endDate: Date | null) => {
         if(startDate && endDate){
-            getData(getDateUTC(startDate), getDateUTC(endDate))
+            getLessons(getDateUTC(startDate), getDateUTC(endDate))
         }
     }, [])
 
@@ -59,9 +37,32 @@ export const AdminLessons: FC = () => {
         await studentService.deleteLesson(lessonId)
         setLessons(prev => prev ? prev.filter((l, i) => i !== ind) : prev)
     }
-    
+
+    const getLessons = async (from: string, to: string) => {
+        try{
+            setIsLoading(true)
+            const lessonsRes = await tutorService.getLessons(my.id, from, to)
+            setLessons(lessonsRes.lessons)
+            setCount(lessonsRes.lessons_count)
+        }
+        catch(e){
+            console.log(e)
+            if(e instanceof AuthError){
+                setIsAuth(false)
+                setGlobalMessage({message: e.message, type: 'error'})
+            }
+            else{
+                setGlobalMessage({message: 'Ошибка при получении занятий репетитора', type: 'error'})
+            }
+        }
+        finally{
+            setIsLoading(false)
+        }
+    }
+
     return (
         <section className={classes.container}>
+            <section className={classes.title}>Занятия</section>
             <Calendar onDateRangeSelect={setDate} />
             {
                 isLoading
@@ -73,28 +74,25 @@ export const AdminLessons: FC = () => {
                 <>
                     <section className={classes.count}>Кол-во занятий: {count}</section>
                 {
-                    lessons.length
+                    lessons?.length
                         ?
                     <table className={classes.table}>
                         <thead>
                             <tr className={classes.item}>
                                 <th>Дата</th>
-                                <th>ФИО репетитора</th>
-                                <th>ФИО студента</th>
+                                <th>Фио</th>
                                 <th>Длительность</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             {lessons.map((lesson, ind) => 
-                                <AdminLessonItem 
-                                    key={lesson.id} 
-                                    lesson={lesson} 
-                                >
+                                <LessonItem key={lesson.id} showFio lesson={lesson}>
                                     <section className={classes.features}>
                                         <ChangeDurationLesson 
                                             lessonId={lesson.id}
-                                            durationInit={`${lesson.duration_in_minutes}`} 
-                                            dateInit={lesson.created_at}
+                                            durationInit={`${lesson.duration_minutes}`} 
+                                            dateInit={lesson.date}
                                             setData={setData(ind)}
                                         />
                                         <DeleteAction 
@@ -104,7 +102,7 @@ export const AdminLessons: FC = () => {
                                             onDelete={() => onDelete(ind, lesson.id)}
                                         />
                                     </section>
-                                </AdminLessonItem>
+                                </LessonItem>
                             )}
                         </tbody>
                     </table>

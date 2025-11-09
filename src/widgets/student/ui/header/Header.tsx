@@ -59,7 +59,7 @@ export const Header: FC<IProps> = ({student}) => {
             </section>
             <section className={classes.features}>
                 {
-                    student.parent_tg
+                    student.tg_id
                         &&
                     student.balance[0] === '-'
                         &&

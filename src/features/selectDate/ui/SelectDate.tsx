@@ -1,6 +1,7 @@
 import { FC, useState } from "react";
 import classes from './date.module.scss'
 import { MyInput } from "../../../shared/ui/input";
+import { formatDateForInput } from "../../../shared/lib/helpers/formatDateForInput";
 
 interface IProps {
     setError: (err: string) => void;
@@ -15,19 +16,9 @@ export const SelectDate: FC<IProps> = ({date, setDate, setError}) => {
     const onSetDate = (date: string) => {
         const now = new Date()
         const [year, month, day] = date.split('-')
-        const fullDate = new Date(+year, +month, +day, now.getHours(), now.getMinutes(), now.getSeconds())
+        const fullDate = new Date(+year, +month - 1, +day, now.getHours(), now.getMinutes(), now.getSeconds())
         setDate(fullDate)
     }
-
-    const formatDateForInput = (date: Date | null): string => {
-        if (!date) return '';
-        
-        const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, '0');
-        const day = String(date.getDate()).padStart(2, '0');
-        
-        return `${year}-${month}-${day}`;
-    };
 
     return (
         <section className={classes.container}>

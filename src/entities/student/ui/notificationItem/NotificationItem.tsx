@@ -15,7 +15,7 @@ export const NotificationItem: FC<IProps> = ({notification}) => {
             className={classes.item}
         >
             <td>
-                {getLocaleDate(new Date(notification.created_at + 'Z'))}
+                {getLocaleDate(new Date(notification.created_at + 'Z'), true)}
             </td>  
         </tr>
        )

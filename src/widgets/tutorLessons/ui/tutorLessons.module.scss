@@ -29,13 +29,13 @@
                 text-align: start;
                 padding: 16px 6px;
             }
-
         }
-    }
-    .features{
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
-        gap: 40px;
+
+        .features{
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 40px;
+        }
     }
 }

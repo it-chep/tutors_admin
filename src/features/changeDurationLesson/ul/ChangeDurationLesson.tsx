@@ -58,7 +58,7 @@ export const ChangeDurationLesson: FC<IProps> = ({lessonId, durationInit, dateIn
             setIsLoading(true)
             onClose(false)
             const newDuration = values.find(v => v.id === selected)?.value || durationInit
-            await studentService.changeLesson(lessonId, date, newDuration)
+            await studentService.changeLesson(lessonId, date, +newDuration)
             setData(date, +newDuration)
             setGlobalMessage({message: 'Успешное редактированте занятия', type: 'ok'})
         }
