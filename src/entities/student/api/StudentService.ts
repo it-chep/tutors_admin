@@ -1,5 +1,6 @@
 import { fetchAuth } from "../../../shared/api/ApiService"
-import { ILesson, IStudent, IStudentChange, IStudentData, IStudentFinance } from "../model/types"
+import { ILesson, INotifications, IStudent, IStudentChange, IStudentData, 
+    IStudentFinance, ITransactions } from "../model/types"
 
 
 
@@ -71,8 +72,23 @@ class StudentService {
         })
     }
 
+    async getTgAdmins(): Promise<string[]> {
+        const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/students/tg_admins_usernames')
+        const {tg_admins}: {tg_admins: string[]} = await res.json()
+        return tg_admins
+    }
+
     async getAll(): Promise<{students: IStudent[], students_count: number}> {
         const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/students')
+        const {students, students_count}: {students: IStudent[], students_count: number} = await res.json()
+        return {students, students_count}
+    }
+
+    async getAllByFilters(tg_admins_usernames: string[], is_lost: boolean): Promise<{students: IStudent[], students_count: number}> {
+        const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/students/filter', {
+            method: 'POST',
+            body: JSON.stringify({tg_admins_usernames, is_lost})
+        })
         const {students, students_count}: {students: IStudent[], students_count: number} = await res.json()
         return {students, students_count}
     }
@@ -91,19 +107,43 @@ class StudentService {
         })
     }
 
-    async getLessons(id: number, from: string, to: string){
+    async getLessons(id: number, from: string, to: string): Promise<{lessons: ILesson[], lessons_count: number}> {
         const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/students/' + id + '/lessons', {
             method: "POST",
             body: JSON.stringify({from, to})
         })
-        const {lessons}: {lessons: ILesson[]} = await res.json()
-        return lessons
+        const {lessons, lessons_count}: {lessons: ILesson[], lessons_count: number} = await res.json()
+        return {lessons, lessons_count}
     }
 
     async deleteLesson(id: number){
         await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/lessons/' + id, {
             method: "DELETE"
         })
+    }
+
+    async notificationPush(id: number){
+        await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/students/' + id + '/notifications/push', {
+            method: 'POST'
+        })
+    }
+
+    async transactions(id: number, from: string, to: string): Promise<{transactions: ITransactions[], transactions_count: number}>{
+        const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/students/' + id + '/transactions', {
+            method: "POST",
+            body: JSON.stringify({from, to})
+        })
+        const {transactions, transactions_count}: {transactions: ITransactions[], transactions_count: number} = await res.json()
+        return {transactions, transactions_count}
+    }
+
+    async notifications(id: number, from: string, to: string): Promise<{notifications: INotifications[], notifications_count: number}>{
+        const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/students/' + id + '/notifications', {
+            method: "POST",
+            body: JSON.stringify({from, to})
+        })
+        const {notifications, notifications_count}: {notifications: INotifications[], notifications_count: number} = await res.json()
+        return {notifications, notifications_count}
     }
 
 }

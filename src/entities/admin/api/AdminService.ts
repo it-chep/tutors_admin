@@ -1,5 +1,5 @@
 import { fetchAuth } from "../../../shared/api/ApiService"
-import { IAdmin, IAdminCreate, IAdminData, IAdminFinance } from "../model/types"
+import { IAdmin, IAdminCreate, IAdminData, IAdminFinance, IAdminLesson, ITransactionsAdmin } from "../model/types"
 
 
 
@@ -34,12 +34,30 @@ class AdminService{
         const {data}: {data: IAdminFinance} = await res.json()
         return data
     }
+
+    async getTransactions(from: string, to: string): Promise<{transactions: ITransactionsAdmin[], transactions_count: number}> {
+        const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/transactions', {
+            method: 'POST',
+            body: JSON.stringify({from, to})
+        })
+        const {transactions, transactions_count}: {transactions: ITransactionsAdmin[], transactions_count: number} = await res.json()
+        return {transactions, transactions_count}
+    }
     
     async create(admin: IAdminCreate){
         await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/admins', {
             method: "POST",
             body: JSON.stringify(admin)
         })
+    }
+
+    async getLessons(from: string, to: string){
+        const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/lessons', {
+            method: "POST",
+            body: JSON.stringify({from, to})
+        })
+        const {lessons, lessons_count}: {lessons: IAdminLesson[], lessons_count: number} = await res.json()
+        return {lessons, lessons_count}
     }
 }
 

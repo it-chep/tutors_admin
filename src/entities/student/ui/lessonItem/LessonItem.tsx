@@ -1,6 +1,7 @@
 import { FC, PropsWithChildren } from "react";
 import classes from './lessonItem.module.scss'
 import { ILesson } from "../../model/types";
+import { getLocaleDate } from "../../../../shared/lib/helpers/getLocalDate";
 
 
 interface IProps {
@@ -15,7 +16,7 @@ export const LessonItem: FC<IProps & PropsWithChildren> = ({lesson, showFio, chi
             className={classes.item}
         >
             <td className={classes.id}>
-                {lesson.date}
+                {getLocaleDate(new Date(lesson.date + 'Z'))}
             </td>  
             {
                 showFio

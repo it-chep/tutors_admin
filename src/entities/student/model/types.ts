@@ -9,6 +9,7 @@ export interface IStudent {
     is_only_trial_finished: boolean;
     is_balance_negative: boolean;
     is_newbie: boolean;
+    balance: string;
 }
 
 export interface IStudentData {
@@ -66,4 +67,16 @@ export interface ILesson{
     student_full_name: string;   
     date: string;
     duration_minutes: number;
+}
+
+export interface ITransactions {
+    id: string;
+    created_at: string;
+    amount: string;
+    is_confirmed: boolean;
+}
+
+export interface INotifications {
+    id: number;
+    created_at: string;
 }

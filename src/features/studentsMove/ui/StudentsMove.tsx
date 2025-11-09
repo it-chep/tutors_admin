@@ -36,7 +36,7 @@ export const StudentsMove: FC<IProps & PropsWithChildren> = ({title, tutorId, st
         try{
             setIsLoading(true)
             const tutorsRes = await tutorService.getAll()
-            setTutors(tutorsRes)
+            setTutors(tutorsRes.tutors)
         }
         catch(e){
             console.log(e)

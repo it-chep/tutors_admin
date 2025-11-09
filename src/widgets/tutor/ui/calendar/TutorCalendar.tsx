@@ -6,6 +6,7 @@ import { Calendar } from "../../../../features/calendar";
 import { useMyActions } from "../../../../entities/my";
 import { useGlobalMessageActions } from "../../../../entities/globalMessage";
 import { AuthError } from "../../../../shared/lib/helpers/AuthError";
+import { getDateUTC } from "../../../../shared/lib/helpers/getDateUTC";
 
 interface IProps {
     id: number;
@@ -42,7 +43,7 @@ export const TutorCalendar: FC<IProps> = ({id}) => {
 
     const setDate = (startDate: Date | null, endDate: Date | null) => {
         if(startDate && endDate){
-            getData(startDate.toISOString().split('T')[0], endDate.toISOString().split('T')[0])
+            getData(getDateUTC(startDate), getDateUTC(endDate))
         }
         if(!startDate && !endDate){
             setFinance(null)
@@ -63,11 +64,9 @@ export const TutorCalendar: FC<IProps> = ({id}) => {
                 finance
                     &&
                 <section className={classes.data}>
-                    <span>Количество оплаченных занятий : {finance.base_lessons}</span>
-                    <span>Количество пробных занятий: {finance.trial_lessons}</span>
-                    <span>Общее количество занятий: {finance.lessons_count}</span>
-                    <span>Конверсия: {finance.conversion} %</span>
+                    <span>Количество часов : {finance.hours_count}</span>
                     <span>Прибыль: {finance.amount} ₽</span>
+                    <span>Заработная плата: {finance.wages} ₽</span>
                 </section>
             }
         </section>

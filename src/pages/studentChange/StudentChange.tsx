@@ -63,7 +63,7 @@ export default function StudentChangePage() {
                         setItem={setTutorId}
                         getData={async () => {
                                 const data = await tutorService.getAll()
-                                return data.map(d => ({id: d.id, name: d.full_name}))
+                                return data.tutors.map(d => ({id: d.id, name: d.full_name}))
                             }
                         }
                         search

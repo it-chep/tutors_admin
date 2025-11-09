@@ -3,7 +3,6 @@
 
 .container {
     min-height: 510px;
-
     
     .title{
         font-size: 24px;
@@ -16,10 +15,15 @@
         margin-left: 40px;
     }
 
+    .count {
+        margin-top: 20px;
+        text-align: start;
+    }
+
     .table{
         border-collapse: collapse;
         width: 100%;
-        margin-top: 30px;
+        margin-top: 20px;
         text-align: start;
 
         .item{

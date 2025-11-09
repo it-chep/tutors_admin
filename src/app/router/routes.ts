@@ -15,6 +15,16 @@ export const TUTOR_LESSONS_ROUTE: IRoute = {
     path: '/tutor_lessons'
 }
 
+export const ADMIN_TRANSACTIONS_ROUTE: IRoute = {
+    name: 'Транзакции',
+    path: '/transactions'
+}
+
+export const ADMIN_LESSONS_ROUTE: IRoute = {
+    name: 'Занятия',
+    path: '/lessons'
+}
+
 export const LOGIN_ROUTE: IRoute = {
     name: 'Вход',
     path: '/auth/login'

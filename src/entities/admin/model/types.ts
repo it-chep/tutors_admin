@@ -15,10 +15,29 @@ export interface IAdminData {
 }
 
 export interface IAdminCreate {
-    "full_name": string;
-    "phone": string;
-    "tg": string;
-    "email": string;
+    full_name: string;
+    phone: string;
+    tg: string;
+    email: string;
+}
+
+export interface ITransactionsAdmin {
+    id: string;
+    created_at: string;
+    amount: string;
+    is_confirmed: boolean;
+    student_name: string;
+    student_id: number;
+}
+
+export interface IAdminLesson {
+    id: number;
+    student_id: number;
+    tutor_id: number;
+    tutor_name: string;   
+    student_name: string;
+    date: string;
+    duration_in_minutes: number;
 }
 
 export interface IAdminFinance {

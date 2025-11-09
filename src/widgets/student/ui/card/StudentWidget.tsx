@@ -2,7 +2,6 @@ import { FC, PropsWithChildren, useEffect, useState } from "react";
 import { useMyActions } from "../../../../entities/my";
 import { useGlobalMessageActions } from "../../../../entities/globalMessage";
 import { IStudentData, StudentCard, studentService } from "../../../../entities/student";
-import { useParams } from "react-router-dom";
 import { AuthError } from "../../../../shared/lib/helpers/AuthError";
 import classes from './studentWidget.module.scss'
 import { StudentCalendar } from "../studentCalendar/StudentCalendar";
@@ -13,6 +12,7 @@ import { TutorFeatures } from "../tutorFeatures/TutorFeatures";
 import { StudentsMove } from "../../../../features/studentsMove";
 import { ITutor } from "../../../../entities/tutor";
 import { ChangeStudentBalance } from "../../../../features/changeStudentBalance";
+import { LoaderSpinner } from "../../../../shared/ui/spinner";
 
 interface IProps {
     id: number;
@@ -70,7 +70,7 @@ export const StudentWidget: FC<IProps & PropsWithChildren> = ({id, children}) =>
             {
                 isLoading
                     ?
-                <section></section>
+                <section className={classes.loader}><LoaderSpinner /></section>
                     :
                 student
                     &&

@@ -9,6 +9,7 @@ import { LoaderSpinner } from "../../../shared/ui/spinner";
 import { tutorService } from "../../../entities/tutor";
 import { DeleteAction } from "../../../features/deleteAction";
 import { ChangeDurationLesson } from "../../../features/changeDurationLesson";
+import { getDateUTC } from "../../../shared/lib/helpers/getDateUTC";
 
 interface IProps {
     studentId?: number;
@@ -18,7 +19,8 @@ interface IProps {
 
 export const Lessons: FC<IProps> = ({studentId, tutorId, showFio=false}) => {
 
-    const [lessons, setLessons] = useState<ILesson[]>([])    
+    const [lessons, setLessons] = useState<ILesson[]>([]) 
+    const [count, setCount] = useState<number>(0)   
     const [isLoading, setIsLoading] = useState<boolean>(true)
     const {setGlobalMessage} = useGlobalMessageActions()    
     const {setIsAuth} = useMyActions()
@@ -45,11 +47,13 @@ export const Lessons: FC<IProps> = ({studentId, tutorId, showFio=false}) => {
             setIsLoading(true)
             if(studentId){
                 const lessonsRes = await studentService.getLessons(studentId, from, to)
-                setLessons(lessonsRes)
+                setLessons(lessonsRes.lessons)
+                setCount(lessonsRes.lessons_count)
             }
             else if(tutorId){
                 const lessonsRes = await tutorService.getLessons(tutorId, from, to)
-                setLessons(lessonsRes)
+                setLessons(lessonsRes.lessons)
+                setCount(lessonsRes.lessons_count)
             }
         }
         catch(e){
@@ -68,8 +72,10 @@ export const Lessons: FC<IProps> = ({studentId, tutorId, showFio=false}) => {
     }
 
     useEffect(() => {
-        const dateNow = new Date()
-        setDate(dateNow, dateNow)
+        const nowDate = new Date()
+        const date = new Date(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate(), 0, 0, 0)
+        const endDate = new Date(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate() + 1, 0, 0, 0)
+        setDate(date, endDate)
     }, [setDate])
 
     return (
@@ -77,12 +83,17 @@ export const Lessons: FC<IProps> = ({studentId, tutorId, showFio=false}) => {
             <section className={classes.title}>Занятия</section>
             <Calendar onDateRangeSelect={setDate} />
             {
+                !isLoading  
+                    &&
+                <section className={classes.count}>Кол-во занятий: {count}</section>
+            }
+            {
                 isLoading
                     ?
                 <section className={classes.loader}><LoaderSpinner /></section>
                     :
                 lessons.length
-                    &&
+                    ?
                 <table className={classes.table}>
                     <thead>
                         <tr className={classes.item}>
@@ -117,6 +128,8 @@ export const Lessons: FC<IProps> = ({studentId, tutorId, showFio=false}) => {
                         )}
                     </tbody>
                 </table>
+                    :
+                <></>
             }
         </section>
     )

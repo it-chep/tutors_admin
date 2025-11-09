@@ -1,6 +1,6 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import classes from './studentsWidget.module.scss'
-import { IStudent, StudentItem } from "../../../entities/student";
+import { IStudent, StudentItem, studentService } from "../../../entities/student";
 import { MyButton } from "../../../shared/ui/button";
 import { LoaderSpinner } from "../../../shared/ui/spinner";
 import { AuthError } from "../../../shared/lib/helpers/AuthError";
@@ -11,6 +11,7 @@ import { STUDENT_CREATE_ROUTE } from "../../../app/router/routes";
 import { useAppSelector } from "../../../app/store/store";
 import { HintWrap } from "./hint/Hint";
 import { SearchItems } from "../../../features/searchItems";
+import { StudentFilters } from "../../../features/studentFilters";
 
 interface IProps {
     request: () => Promise<{students: IStudent[], students_count: number}>
@@ -21,7 +22,6 @@ interface IProps {
 export const StudentsWidget: FC<IProps> = ({request, add, highlight=true}) => {
 
     const [isLoading, setIsLoading] = useState<boolean>(true)
-
     const [students, setStudents] = useState<IStudent[]>([])
     const [studentsCount, setStudentsCount] = useState<number>(0)
     const [studentsSearch, setStudentsSearch] = useState<IStudent[]>([])
@@ -33,10 +33,10 @@ export const StudentsWidget: FC<IProps> = ({request, add, highlight=true}) => {
 
     const {my} = useAppSelector(s => s.myReducer)
 
-    const getData = async () => {
+    const getData = async (req: () => Promise<{students: IStudent[], students_count: number}>) => {
         try{
             setIsLoading(true)
-            const studentsRes = await request()
+            const studentsRes = await req()
             setStudentsCount(studentsRes.students_count)
             setStudents(studentsRes.students)
             setStudentsSearch(studentsRes.students)
@@ -56,8 +56,22 @@ export const StudentsWidget: FC<IProps> = ({request, add, highlight=true}) => {
         }
     }
 
+    const isOne = useRef<boolean>(true)
+    const onSelectedFilters = (tgAdmins: string[], isLost: boolean) => {
+        if(isOne.current){
+            isOne.current = false
+            return
+        }
+        if(tgAdmins.length || isLost){
+            getData(() => studentService.getAllByFilters(tgAdmins, isLost))
+        }
+        else{
+            getData(request)
+        }
+    }
+
     useEffect(() => {
-        getData()
+        getData(request)
     }, [])
 
     return (
@@ -70,6 +84,13 @@ export const StudentsWidget: FC<IProps> = ({request, add, highlight=true}) => {
                         highlight
                             &&
                         <HintWrap />
+                    }
+                    {
+                        my.role === 'admin'
+                            &&
+                        <section className={classes.filter}>
+                            <StudentFilters onSelectedFilters={onSelectedFilters} />
+                        </section>
                     }
                     {
                         add 
@@ -119,6 +140,7 @@ export const StudentsWidget: FC<IProps> = ({request, add, highlight=true}) => {
                                 <>
                                     <th>Фио родителя</th>
                                     <th>Телеграм</th>
+                                    <th>Баланс</th>
                                 </>
                             }
                         </tr>
