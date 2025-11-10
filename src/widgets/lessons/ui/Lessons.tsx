@@ -81,35 +81,37 @@ export const Lessons: FC<IProps> = ({studentId}) => {
                         {
                             lessons?.length
                                 ?
-                            <table className={classes.table}>
-                                <thead>
-                                    <tr className={classes.item}>
-                                        <th>Дата</th>
-                                        <th>Длительность</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {lessons.map((lesson, ind) => 
-                                        <LessonItem key={lesson.id} lesson={lesson}>
-                                            <section className={classes.features}>
-                                                <ChangeDurationLesson 
-                                                    lessonId={lesson.id}
-                                                    durationInit={`${lesson.duration_minutes}`} 
-                                                    dateInit={lesson.date}
-                                                    setData={setData(ind)}
-                                                />
-                                                <DeleteAction 
-                                                    questionText="Вы точно хотите удалить занятие ?"
-                                                    successText="Занятие успешно удалено"
-                                                    errorText="Ошибка при удалении занятия"
-                                                    onDelete={() => onDelete(ind, lesson.id)}
-                                                />
-                                            </section>
-                                        </LessonItem>
-                                    )}
-                                </tbody>
-                            </table>
+                            <section className={classes.wrapTable}>
+                                <table className={classes.table}>
+                                    <thead>
+                                        <tr className={classes.item}>
+                                            <th>Дата</th>
+                                            <th>Длительность</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {lessons.map((lesson, ind) => 
+                                            <LessonItem key={lesson.id} lesson={lesson}>
+                                                <section className={classes.features}>
+                                                    <ChangeDurationLesson 
+                                                        lessonId={lesson.id}
+                                                        durationInit={`${lesson.duration_minutes}`} 
+                                                        dateInit={lesson.date}
+                                                        setData={setData(ind)}
+                                                    />
+                                                    <DeleteAction 
+                                                        questionText="Вы точно хотите удалить занятие ?"
+                                                        successText="Занятие успешно удалено"
+                                                        errorText="Ошибка при удалении занятия"
+                                                        onDelete={() => onDelete(ind, lesson.id)}
+                                                    />
+                                                </section>
+                                            </LessonItem>
+                                        )}
+                                    </tbody>
+                                </table>
+                            </section>
                                 :
                             <></>
                         }

@@ -26,6 +26,12 @@
             text-align: start;
         }
     
+        .wrapTable{
+            overflow: auto;
+            height: 360px;
+            margin-top: 20px;
+        }
+
         .table{
             border-collapse: collapse;
             width: 100%;
