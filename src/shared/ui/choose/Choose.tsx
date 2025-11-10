@@ -3,12 +3,13 @@ import classes from './choose.module.scss'
 
 interface IProps {
     title: string;
-    values: {name: string, value: string}[]
+    values: {name: string, value: string}[];
+    selected: string;
     onSelected: (value: string) => void;
 }
 
 export const Choose: FC<IProps> = (
-    {title, onSelected=()=>{}, values}
+    {title, onSelected=()=>{}, values, selected}
 ) => {
 
     const [open, setOpen] = useState<boolean>(false)
@@ -20,7 +21,7 @@ export const Choose: FC<IProps> = (
                 onClick={() => setOpen(!open)}
                 onMouseDown={e => e.preventDefault()}
             >
-                {title}
+                {selected || title}
             </section>  
             {
                 open

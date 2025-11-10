@@ -46,6 +46,9 @@ export const StudentSlice = createSlice({
         setInitialState(state, action: PayloadAction<void>){
             state.student = StudentInitialState.student;
         },
+        setTgAdminUsername(state, action: PayloadAction<string>){
+            state.student.tg_admin_username = action.payload;
+        }
     }
 })
 

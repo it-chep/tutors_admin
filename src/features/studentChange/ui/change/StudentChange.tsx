@@ -21,7 +21,7 @@ export const StudentChange: FC<IProps> = ({isCreate, chooseSubject, chooseTutor,
 
     const {
         setFirstName, setCostPerHour, setLastName, setMiddleName, setParentFullName, 
-        setParentPhone, setParentTg, setPhone, setTg
+        setParentPhone, setParentTg, setPhone, setTg, setTgAdminUsername
     } = useStudentActions()
 
     return (
@@ -92,6 +92,13 @@ export const StudentChange: FC<IProps> = ({isCreate, chooseSubject, chooseTutor,
                 setError={setErrorFieldDelete('cost_per_hour')}
             />
             {chooseTutor}
+            <MyInput 
+                title="Рабочий аккаунт тг"
+                value={student.tg_admin_username}
+                setValue={setTgAdminUsername}
+                error={formError.find(error => error.field === 'tg_admin_username')?.text}
+                setError={setErrorFieldDelete('tg_admin_username')}
+            />
             <Send 
                 formError={formError} 
                 setFormError={setFormError}

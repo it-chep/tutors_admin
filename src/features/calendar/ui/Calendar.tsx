@@ -6,9 +6,10 @@ import arrowRight from '../../../shared/lib/assets/ArrowRight.png'
 interface CalendarProps {
     isLoading?: boolean;
     onDateRangeSelect?: (startDate: Date | null, endDate: Date | null) => void;
+    oneDate?: boolean;
 }
 
-export const Calendar: React.FC<CalendarProps> = ({onDateRangeSelect, isLoading}) => {
+export const Calendar: React.FC<CalendarProps> = ({onDateRangeSelect, isLoading, oneDate}) => {
     const [currentDate, setCurrentDate] = useState<Date>(new Date());
     const [startDate, setStartDate] = useState<Date | null>(null);
     const [endDate, setEndDate] = useState<Date | null>(null);
@@ -27,7 +28,8 @@ export const Calendar: React.FC<CalendarProps> = ({onDateRangeSelect, isLoading}
   // Получение дат для трех месяцев
     const getThreeMonths = (): Date[] => {
         const months: Date[] = [];
-        for (let i = -1; i <= 1; i++) {
+        let interval = oneDate ? [0, 0] : [-1, 1] 
+        for (let i = interval[0]; i <= interval[1]; i++) {
             const monthDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + i, 1);
             months.push(monthDate);
         }
@@ -46,8 +48,24 @@ export const Calendar: React.FC<CalendarProps> = ({onDateRangeSelect, isLoading}
         return date.getTime() === startDate.getTime() || date.getTime() === endDate.getTime();
     };
 
+    const getLocalDate = (date: Date) => {
+        return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0)
+    } 
+
     // Обработчик клика по дате
     const handleDateClick = (date: Date): void => {
+
+        if(oneDate){
+            const newStartDate: Date | null = date;
+            setStartDate(newStartDate);
+            setHoverDate(null);
+            setOpen(false)
+            if(onDateRangeSelect) {
+                onDateRangeSelect(getLocalDate(newStartDate), null);
+            }
+            return
+        }
+
         let newStartDate: Date | null = startDate;
         let newEndDate: Date | null = endDate;
 
@@ -69,8 +87,8 @@ export const Calendar: React.FC<CalendarProps> = ({onDateRangeSelect, isLoading}
             setOpen(false)
         }
 
-        if (onDateRangeSelect) {
-            onDateRangeSelect(newStartDate, newEndDate);
+        if (onDateRangeSelect && newStartDate && newEndDate) {
+            onDateRangeSelect(getLocalDate(newStartDate), getLocalDate(newEndDate));
         }
     };
 
@@ -142,16 +160,26 @@ export const Calendar: React.FC<CalendarProps> = ({onDateRangeSelect, isLoading}
     }
 
     return (
-        <section className={classes.calendarContainer}>
+        <section className={classes.calendarContainer + (oneDate ? ` ${classes.oneDate}` : '')}>
             <section 
                 onMouseDown={e => e.preventDefault()}
                 onClick={onOpen} 
                 className={classes.selectedRange + (isLoading ? ` ${classes.disabled}` : '')}
             >
                 <p>
-                    Период: {(!startDate && !endDate) ? 'Выберите даты' : 
-                    (startDate && !endDate) ? 'Выберите вторую дату' :  
-                    endDate && `${startDate?.toLocaleDateString()} - ${endDate.toLocaleDateString()}`}
+                    {
+                        oneDate
+                            ?
+                        <>
+                            Дата: {!startDate ? 'Выберите дату' : startDate?.toLocaleDateString()}
+                        </>
+                            :
+                        <>
+                            Период: {(!startDate && !endDate) ? 'Выберите даты' : 
+                            (startDate && !endDate) ? 'Выберите вторую дату' :  
+                            endDate && `${startDate?.toLocaleDateString()} - ${endDate.toLocaleDateString()}`}
+                        </>
+                    }
                 </p>
             </section>
             {
@@ -172,19 +200,19 @@ export const Calendar: React.FC<CalendarProps> = ({onDateRangeSelect, isLoading}
 
                     <section className={classes.calendarMonths}>
                         {months.map((monthDate, index) => (
-                        <section key={index} className={classes.calendarMonth}>
-                            <h3>
-                                {monthDate.toLocaleString('default', { month: 'long', year: 'numeric' })}
-                            </h3>
-                            <section className={classes.calendarWeekdays}>
-                                {['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'].map(day => (
-                                    <section key={day} className={classes.weekday}>{day}</section>
-                                ))}
+                            <section key={index} className={classes.calendarMonth}>
+                                <h3>
+                                    {monthDate.toLocaleString('default', { month: 'long', year: 'numeric' })}
+                                </h3>
+                                <section className={classes.calendarWeekdays}>
+                                    {['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'].map(day => (
+                                        <section key={day} className={classes.weekday}>{day}</section>
+                                    ))}
+                                </section>
+                                <section className={classes.calendarDays}>
+                                    {renderMonth(monthDate)}
+                                </section>
                             </section>
-                            <section className={classes.calendarDays}>
-                                {renderMonth(monthDate)}
-                            </section>
-                        </section>
                         ))}
                     </section>
                 </section>

@@ -4,6 +4,8 @@
   max-width: 900px;
   position: relative;
   z-index: 9;
+  
+
 
   .selectedRange {
     padding: 15px;
@@ -162,6 +164,15 @@
           }
         }
       }
+    }
+  }
+    &.oneDate{
+    width: 300px;
+    min-width: 300px;
+    max-width: 300px; 
+
+    .calendarMonths {
+      grid-template-columns: repeat(1, 1fr);
     }
   }
 }

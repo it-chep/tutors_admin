@@ -12,7 +12,7 @@ import { HintWrap } from "./hint/Hint";
 import { SearchItems } from "../../../features/searchItems";
 
 interface IProps {
-    request: () => Promise<ITutor[]>
+    request: () => Promise<{tutors: ITutor[], tutors_count: number}>
     add: boolean;
     highlight?: boolean;
 }
@@ -23,6 +23,7 @@ export const TutorsWidget: FC<IProps> = ({add, request, highlight=true}) => {
 
     const [tutors, setTutors] = useState<ITutor[]>([])
     const [tutorsSearch, setTutorsSearch] = useState<ITutor[]>([])
+    const [tutorsCount, setTutorsCount] = useState<number>(0)
 
     const router = useNavigate()
 
@@ -33,8 +34,9 @@ export const TutorsWidget: FC<IProps> = ({add, request, highlight=true}) => {
         try{
             setIsLoading(true)
             const tutorsRes = await request()
-            setTutors(tutorsRes)
-            setTutorsSearch(tutorsRes)
+            setTutors(tutorsRes.tutors)
+            setTutorsSearch(tutorsRes.tutors)
+            setTutorsCount(tutorsRes.tutors_count)
         }
         catch(e){
             console.log(e)
@@ -78,14 +80,23 @@ export const TutorsWidget: FC<IProps> = ({add, request, highlight=true}) => {
                     }
                 </section>
             }
-            <section className={classes.searchItems}>
-                <SearchItems
-                    placeholder="Введите фио репетитора"
-                    items={tutors.map(
-                        tutor => ({...tutor, name: tutor.full_name})
-                    )}
-                    setItems={setTutorsSearch}
-                />
+            <section className={classes.search}>
+                <section className={classes.searchItems}>
+                    <SearchItems
+                        placeholder="Введите фио репетитора"
+                        items={tutors.map(
+                            tutor => ({...tutor, name: tutor.full_name})
+                        )}
+                        setItems={setTutorsSearch}
+                    />
+                </section>
+                {
+                    !isLoading
+                        &&
+                    <section>
+                        Кол-во репетиторов: {tutorsCount}
+                    </section>
+                }
             </section>
             {
                 isLoading

@@ -7,6 +7,7 @@ import { Calendar } from "../../../features/calendar";
 import { useAppSelector } from "../../../app/store/store";
 import { useGlobalLoadingActions } from "../../../entities/globalLoading";
 import { adminService, IAdminFinance } from "../../../entities/admin";
+import { getDateUTC } from "../../../shared/lib/helpers/getDateUTC";
 
 
 export const FinanceWidget: FC = () => {
@@ -40,7 +41,7 @@ export const FinanceWidget: FC = () => {
     
     const setDate = (startDate: Date | null, endDate: Date | null) => {
         if(startDate && endDate){
-            getData(startDate.toISOString().split('T')[0], endDate.toISOString().split('T')[0])
+            getData(getDateUTC(startDate), getDateUTC(endDate))
         }
         if(!startDate && !endDate){
             setFinance(null)

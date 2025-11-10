@@ -46,6 +46,9 @@ export const StudentItem: FC<IProps & PropsWithChildren> = ({student, highlight,
                             Написать в ТГ
                         </a>
                     </td>
+                    <td>
+                        {student.balance} ₽
+                    </td>
                 </>
             }            
             <td className={classes.feature}>

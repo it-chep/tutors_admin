@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { STUDENT_UPDATE_ROUTE, STUDENTS_ROUTE } from "../../../../app/router/routes";
 import { IStudentData, studentService, useStudentActions } from "../../../../entities/student";
 import editImg from '../../../../shared/lib/assets/edit.png'
+import { NotificationPush } from "../../../../features/notificationPush";
 
 interface IProps {
     student: IStudentData;
@@ -57,6 +58,13 @@ export const Header: FC<IProps> = ({student}) => {
                 }
             </section>
             <section className={classes.features}>
+                {
+                    (student.tg_id && student.balance[0] === '-')
+                        ?
+                    <NotificationPush studentId={student.id} />
+                        :
+                    <></>
+                }
                 <img  
                     onClick={onEdit}
                     className={classes.edit}

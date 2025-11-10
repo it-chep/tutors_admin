@@ -35,9 +35,11 @@ export const ChangeDurationLesson: FC<IProps> = ({lessonId, durationInit, dateIn
     const {setGlobalMessage} = useGlobalMessageActions()
     const {setIsLoading} = useGlobalLoadingActions()
     const [confirm, setConfirm] = useState<boolean>(false)
+    const [error, setError] = useState<string>('')
 
     useEffect(() => {
         setSelected(values.find(v => v.value === durationInit)?.id || values[0].id)
+        setDate(dateInit)
     }, [open])
 
     const onSelected = (item: IItem) => {
@@ -53,7 +55,7 @@ export const ChangeDurationLesson: FC<IProps> = ({lessonId, durationInit, dateIn
             setIsLoading(true)
             onClose(false)
             const newDuration = values.find(v => v.id === selected)?.value || durationInit
-            await studentService.changeLesson(lessonId, date, newDuration)
+            await studentService.changeLesson(lessonId, date, +newDuration)
             setData(date, +newDuration)
             setGlobalMessage({message: 'Успешное редактированте занятия', type: 'ok'})
         }
@@ -79,6 +81,20 @@ export const ChangeDurationLesson: FC<IProps> = ({lessonId, durationInit, dateIn
         setOpen(open)
     }
 
+    const DATE_TIME_REGEX = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01]) (0[0-9]|1[0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])$/;
+
+    const isValidDateTimeFormat = (str: string): boolean => {
+        return DATE_TIME_REGEX.test(str);
+    };
+
+    const onCheckDate = () => {
+        if(!isValidDateTimeFormat(date)){
+            setError('Неправильный формат даты')
+            return
+        }
+        setConfirm(true)
+    }
+
     return (
         <section className={classes.container}>
             <img src={editImg} onClick={() => setOpen(true)} />
@@ -95,8 +111,12 @@ export const ChangeDurationLesson: FC<IProps> = ({lessonId, durationInit, dateIn
                         :
                     <section className={classes.change}>
                         <section className={classes.date}>
-                            <span>Дата в формате "YYYY-MM-DD"</span>
-                            <MyInput value={date} setValue={setDate} />
+                            <span>Дата в формате "YYYY-MM-DD HH:MM:SS"</span>
+                            <MyInput   
+                                value={date} 
+                                setValue={setDate} 
+                                setError={setError}
+                            />
                         </section>
                         <DropDownListSelected 
                             items={values}
@@ -105,7 +125,12 @@ export const ChangeDurationLesson: FC<IProps> = ({lessonId, durationInit, dateIn
                             isLoading={false}
                         />
                         <section className={classes.button}>
-                            <MyButton onClick={() => setConfirm(true)}>Изменить</MyButton>
+                            <MyButton 
+                                onClick={onCheckDate}
+                                error={error}
+                            >
+                                Изменить
+                            </MyButton>
                         </section>
                     </section>
                 }

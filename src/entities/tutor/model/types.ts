@@ -20,11 +20,9 @@ export interface ITutorData {
 }
 
 export interface ITutorFinance {
-    conversion: number;
     amount: string;
-    lessons_count: number;
-    base_lessons: number;
-    trial_lessons: number;
+    hours_count: number;
+    wages: number;
 }
 
 export interface ITutorCreate {

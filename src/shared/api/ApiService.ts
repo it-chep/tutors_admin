@@ -62,6 +62,10 @@ export const fetchAuth = async (url: string, init?: RequestInit, isRetry?: boole
     newInit.credentials = 'include'
     const res = await fetch(url, newInit)
     
+    if(!res.ok) {
+        throw new Error('Ошибка в запросе')
+    }
+
     const authError = async (res: Response) => {
         const {message}: {message: string} = await res.json()
         throw new AuthError(message)
@@ -77,5 +81,6 @@ export const fetchAuth = async (url: string, init?: RequestInit, isRetry?: boole
             }
         }
     }
+    
     return res
 }

@@ -41,10 +41,10 @@ class TutorService {
         return data
     }
 
-    async getAllByAdmin(id: number): Promise<ITutor[]>{
+    async getAllByAdmin(id: number): Promise<{tutors: ITutor[], tutors_count: number}>{
         const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + `/tutors?admin_id=${id}`)
-        const {tutors}: {tutors: ITutor[]} = await res.json()
-        return tutors
+        const {tutors, tutors_count}: {tutors: ITutor[], tutors_count: number} = await res.json()
+        return {tutors, tutors_count}
     }
 
     async get(id: number): Promise<ITutorData>{
@@ -53,10 +53,10 @@ class TutorService {
         return tutor
     }
 
-    async getAll(): Promise<ITutor[]> {
+    async getAll(): Promise<{tutors: ITutor[], tutors_count: number}> {
         const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/tutors')
-        const {tutors}: {tutors: ITutor[]} = await res.json()
-        return tutors
+        const {tutors, tutors_count}: {tutors: ITutor[], tutors_count: number} = await res.json()
+        return {tutors, tutors_count}
     }
 
     async trialLesson(student_id: number){
@@ -66,20 +66,20 @@ class TutorService {
         })
     }
 
-    async  conductLesson(student_id: number, duration: number){
+    async  conductLesson(student_id: number, duration: number, date: string){
         await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/tutors/conduct_lesson', {
             method: "POST",
-            body: JSON.stringify({student_id, duration})
+            body: JSON.stringify({student_id, duration, date})
         })
     }
 
-    async getLessons(id: number, from: string, to: string){
+    async getLessons(id: number, from: string, to: string): Promise<{lessons: ILessonTutor[], lessons_count: number}>{
         const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/tutors/' + id + '/lessons', {
             method: "POST",
             body: JSON.stringify({from, to})
         })
-        const {lessons}: {lessons: ILessonTutor[]} = await res.json()
-        return lessons
+        const {lessons, lessons_count}: {lessons: ILessonTutor[], lessons_count: number} = await res.json()
+        return {lessons, lessons_count}
     }
 
 }

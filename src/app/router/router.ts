@@ -1,5 +1,5 @@
 import { RouteObject } from "react-router-dom";
-import { ADMIN_CREATE_ROUTE, ADMIN_ROUTE, ADMINS_ROUTE, AUTH_ROUTE, FINANCE_ROUTE, 
+import { ADMIN_CREATE_ROUTE, ADMIN_LESSONS_ROUTE, ADMIN_ROUTE, ADMIN_TRANSACTIONS_ROUTE, ADMINS_ROUTE, AUTH_ROUTE, FINANCE_ROUTE, 
     HOME_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE, STUDENT_CREATE_ROUTE, STUDENT_ROUTE, 
     STUDENT_UPDATE_ROUTE, 
     STUDENTS_ROUTE, TUTOR_CREATE_ROUTE, TUTOR_LESSONS_ROUTE, TUTOR_ROUTE, TUTORS_ROUTE } from "./routes";
@@ -20,6 +20,8 @@ import AuthLayoutPage from "../../pages/auth/layout/AuthLayout";
 import AuthVerifyPage from "../../pages/auth/verify/AuthVerifyPage";
 import NotFoundPage from "../../pages/notFound/NotFound";
 import TutorLessonsPage from "../../pages/tutorLessons/TutorLessons";
+import AdminTransactionsPage from "../../pages/adminTransactions/AdminTransactions";
+import AdminLessonsPage from "../../pages/adminLessons/AdminLessons";
 
 
 export const Router: RouteObject[] = [
@@ -97,6 +99,14 @@ export const Router: RouteObject[] = [
             {
                 path: TUTOR_LESSONS_ROUTE.path,
                 Component: TutorLessonsPage
+            },
+            {
+                path: ADMIN_TRANSACTIONS_ROUTE.path,
+                Component: AdminTransactionsPage
+            },
+            {
+                path: ADMIN_LESSONS_ROUTE.path,
+                Component: AdminLessonsPage
             }
         ]
     }

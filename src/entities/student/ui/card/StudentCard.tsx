@@ -29,7 +29,12 @@ export const StudentCard: FC<IProps & PropsWithChildren> = ({student, children})
                         Написать в тг
                     </a>,
                     `Предмет: ${student.subject_name}`,
-                    <span>Репетитор: <Link to={'/tutor/' + student.tutor_id} className={classes.highlight}>{student.tutor_name}</Link></span>
+                    <span>Репетитор: <Link to={'/tutor/' + student.tutor_id} className={classes.highlight}>{student.tutor_name}</Link></span>,
+                    Boolean(student.tg_admin_username) 
+                        ? 
+                    `Рабочий аккаунт тг: ${student.tg_admin_username}`
+                        :
+                    <span className={classes.noTgID}>Нет рабочего аккаунта тг</span>
                 ]}
             />
             <DataList 

@@ -7,13 +7,19 @@
         text-align: center;
     }
 
-    .move, .lessons{
+    .loader{
+        margin-top: 40px;
+        margin-left: 40px;
+    }
+
+    .move {
         border-top: 2px solid black;
-        padding: 20px 0;
+        padding-top: 20px;
+        margin-top: 20px;
     }
 
-    .lessons{
-        min-height: 400px;
+    .move{
+        position: relative;
+        z-index: 9;
     }
-
 }
