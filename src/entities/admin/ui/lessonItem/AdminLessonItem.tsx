@@ -16,7 +16,7 @@ export const AdminLessonItem: FC<IProps & PropsWithChildren> = ({lesson, childre
             className={classes.item}
         >
             <td>
-                {getLocaleDate(new Date(lesson.created_at + 'Z'))}
+                {getLocaleDate(new Date(lesson.created_at + 'Z'), true)}
             </td>  
             <td>
                 <Link to={'/tutor/' + lesson.tutor_id}>{lesson.tutor_name}</Link>
