@@ -12,8 +12,11 @@ import { getDateUTC } from "../../../shared/lib/helpers/getDateUTC";
 import { OpenContainer } from "../../../features/openContainer";
 import { useAppSelector } from "../../../app/store/store";
 
+interface IProps {
+    studentId: number;
+}
 
-export const Lessons: FC = () => {
+export const Lessons: FC<IProps> = ({studentId}) => {
 
     const [lessons, setLessons] = useState<ILesson[] | null>(null) 
     const [count, setCount] = useState<number>(0)   
@@ -42,7 +45,7 @@ export const Lessons: FC = () => {
     const getLessons = async (from: string, to: string) => {
         try{
             setIsLoading(true)
-            const lessonsRes = await studentService.getLessons(my.id, from, to)
+            const lessonsRes = await studentService.getLessons(studentId, from, to)
             setLessons(lessonsRes.lessons)
             setCount(lessonsRes.lessons_count)
         }

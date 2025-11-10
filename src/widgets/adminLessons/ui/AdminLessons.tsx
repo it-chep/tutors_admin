@@ -42,7 +42,6 @@ export const AdminLessons: FC = () => {
         }
     }
     
-    
     const setDate = useCallback((startDate: Date | null, endDate: Date | null) => {
         if(startDate && endDate){
             getData(getDateUTC(startDate), getDateUTC(endDate))
@@ -50,8 +49,8 @@ export const AdminLessons: FC = () => {
     }, [])
 
     const setData = (ind: number) => {
-        return (date: string, duration_minutes: number) => {
-            setLessons(prev => prev ? prev.map((l, index) => index === ind ? {...l, date, duration_minutes} : l): prev)
+        return (date: string, duration_in_minutes: number) => {
+            setLessons(prev => prev ? prev.map((l, index) => index === ind ? {...l, date, duration_in_minutes} : l): prev)
         }
     }
 

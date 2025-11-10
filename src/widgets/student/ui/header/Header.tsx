@@ -59,11 +59,11 @@ export const Header: FC<IProps> = ({student}) => {
             </section>
             <section className={classes.features}>
                 {
-                    student.tg_id
-                        &&
-                    student.balance[0] === '-'
-                        &&
+                    (student.tg_id && student.balance[0] === '-')
+                        ?
                     <NotificationPush studentId={student.id} />
+                        :
+                    <></>
                 }
                 <img  
                     onClick={onEdit}

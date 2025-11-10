@@ -16,7 +16,7 @@ export const LessonItem: FC<IProps & PropsWithChildren> = ({lesson, showFio, chi
             className={classes.item}
         >
             <td className={classes.id}>
-                {getLocaleDate(new Date(lesson.date + 'Z'))}
+                {getLocaleDate(new Date(lesson.date + 'Z'), true)}
             </td>  
             {
                 showFio

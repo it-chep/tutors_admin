@@ -12,9 +12,6 @@ import { useGlobalMessageActions } from "../../../entities/globalMessage";
 import { useGlobalLoadingActions } from "../../../entities/globalLoading";
 import { studentService } from "../../../entities/student";
 import { ConfirmationAction } from "../../../shared/ui/confirmationAction";
-import { getDateUTC } from "../../../shared/lib/helpers/getDateUTC";
-import { formatDateForInput } from "../../../shared/lib/helpers/formatDateForInput";
-import { getLocaleDate } from "../../../shared/lib/helpers/getLocalDate";
 
 interface IProps{
     durationInit: string;
