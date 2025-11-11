@@ -7,6 +7,7 @@ import { adminService, IAdminFinance } from "../../../../entities/admin";
 import { useMyActions } from "../../../../entities/my";
 import { useGlobalMessageActions } from "../../../../entities/globalMessage";
 import { AuthError } from "../../../../shared/lib/helpers/AuthError";
+import { getDateUTC } from "../../../../shared/lib/helpers/getDateUTC";
 
 interface IProps {
     id: number;
@@ -43,7 +44,7 @@ export const AdminCalendar: FC<IProps> = ({id}) => {
 
     const setDate = (startDate: Date | null, endDate: Date | null) => {
         if(startDate && endDate){
-            getData(startDate.toISOString().split('T')[0], endDate.toISOString().split('T')[0])
+            getData(getDateUTC(startDate), getDateUTC(endDate))
         }
         if(!startDate && !endDate){
             setFinance(null)
