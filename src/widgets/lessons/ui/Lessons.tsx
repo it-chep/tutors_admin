@@ -10,7 +10,6 @@ import { DeleteAction } from "../../../features/deleteAction";
 import { ChangeDurationLesson } from "../../../features/changeDurationLesson";
 import { getDateUTC } from "../../../shared/lib/helpers/getDateUTC";
 import { OpenContainer } from "../../../features/openContainer";
-import { useAppSelector } from "../../../app/store/store";
 
 interface IProps {
     studentId: number;
@@ -23,7 +22,6 @@ export const Lessons: FC<IProps> = ({studentId}) => {
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const {setGlobalMessage} = useGlobalMessageActions()    
     const {setIsAuth} = useMyActions()
-    const {my} = useAppSelector(s => s.myReducer)
             
     const setDate = useCallback((startDate: Date | null, endDate: Date | null) => {
         if(startDate && endDate){

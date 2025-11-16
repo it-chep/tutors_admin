@@ -29,8 +29,8 @@ export const AdminWidget: FC<IProps & PropsWithChildren> = ({id, children}) => {
         try{
             if(id){
                 setIsLoading(true)
-                const studentRes = await adminService.get(+id)
-                setAdmin(studentRes)
+                const adminRes = await adminService.get(id)
+                setAdmin(adminRes)
             }
         }
         catch(e){
