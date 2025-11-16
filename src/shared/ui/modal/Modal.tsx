@@ -1,5 +1,6 @@
 import React, { FC, PropsWithChildren, useEffect } from "react";
 import classes from './modal.module.scss'
+import { createPortal } from "react-dom";
 
 interface IProps {
     open: boolean;
@@ -24,12 +25,15 @@ export const Modal: FC<IProps & PropsWithChildren> = ({open, setOpen, children})
     return (
         open
             ?
-        <section className={classes.wrapper}>
-            <section onClick={onDarkenCLick} className={classes.darken}></section>
-            <section className={classes.content}>
-                {children}
-            </section>
-        </section>
+        createPortal(
+            <section className={classes.wrapper}>
+                <section onClick={onDarkenCLick} className={classes.darken}></section>
+                <section className={classes.content}>
+                    {children}
+                </section>
+            </section>,
+            document.body
+        )
             :
         <></>
     )

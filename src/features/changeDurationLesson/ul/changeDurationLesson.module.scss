@@ -6,25 +6,25 @@
         height: 32px;
         cursor: pointer;
     }
+}
 
-    .change{
+.change{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 440px;
+    height: 300px;
+    padding: 30px 50px;
+    background-color: #fff;
+    border-radius: 20px;
+
+    .date{
         display: flex;
         flex-direction: column;
-        gap: 20px;
-        width: 440px;
-        height: 300px;
-        padding: 30px 50px;
-        background-color: #fff;
-        border-radius: 20px;
+    }
 
-        .date{
-            display: flex;
-            flex-direction: column;
-        }
-
-        .button{
-            margin-top: 10px;
-            height: 40px;
-        }
+    .button{
+        margin-top: 10px;
+        height: 40px;
     }
 }
