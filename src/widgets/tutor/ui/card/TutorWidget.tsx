@@ -1,4 +1,4 @@
-import { FC, PropsWithChildren, useEffect, useState } from "react";
+import React, { FC, PropsWithChildren, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import classes from './tutorWidget.module.scss'
 import { ITutor, ITutorData } from "../../../../entities/tutor/model/types";
@@ -14,9 +14,10 @@ import { StudentsMove } from "../../../../features/studentsMove";
 
 interface IProps {
     id: number;
+    tutorLessons?: React.ReactNode;
 }
 
-export const TutorWidget: FC<IProps & PropsWithChildren> = ({id, children}) => {
+export const TutorWidget: FC<IProps & PropsWithChildren> = ({id, tutorLessons, children}) => {
 
     const [isLoaing, setIsLoading] = useState<boolean>(true)
     const [tutor, setTutor] = useState<ITutorData>()
@@ -99,6 +100,13 @@ export const TutorWidget: FC<IProps & PropsWithChildren> = ({id, children}) => {
                                 tutorId={tutor.id}
                                 onSelected={onMove}
                                 />
+                        </section>
+                    }
+                    {
+                        tutorLessons
+                            &&
+                        <section className={classes.tutorLessons}>
+                            {tutorLessons}
                         </section>
                     }
                     <TutorStudents>
