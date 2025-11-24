@@ -9,4 +9,14 @@
         width: 260px;
     }
 
+    .fio{
+        a{
+            color: var(--blue);
+            transition: all .15s ease;
+
+            &:hover{
+                color: var(--blue-hover);
+            }
+        }
+    }
 }

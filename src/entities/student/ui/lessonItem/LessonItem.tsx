@@ -2,6 +2,7 @@ import { FC, PropsWithChildren } from "react";
 import classes from './lessonItem.module.scss'
 import { ILesson } from "../../model/types";
 import { getLocaleDate } from "../../../../shared/lib/helpers/getLocalDate";
+import { Link } from "react-router-dom";
 
 
 interface IProps {
@@ -22,7 +23,9 @@ export const LessonItem: FC<IProps & PropsWithChildren> = ({lesson, showFio, chi
                 showFio
                     &&
                 <td className={classes.fio}>
-                    {lesson.student_full_name}
+                    <Link to={'/student/' + lesson.student_id}>
+                        {lesson.student_full_name}
+                    </Link>
                 </td>
             }
             <td className={classes.duration}>
