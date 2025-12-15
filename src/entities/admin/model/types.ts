@@ -47,4 +47,7 @@ export interface IAdminFinance {
     lessons_count: number;
     base_lessons: number;
     trial_lessons: number;
+    hours: string;
+    salary: string;
+    debt: string;
 }

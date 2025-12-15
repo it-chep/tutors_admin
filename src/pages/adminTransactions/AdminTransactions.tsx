@@ -10,7 +10,6 @@ const roles: TRole[] = ['admin']
 export default function AdminTransactionsPage() {
 
     const {my} = useAppSelector(s => s.myReducer)
-
     const isAccess = roles.includes(my.role)
     
     if(!isAccess){

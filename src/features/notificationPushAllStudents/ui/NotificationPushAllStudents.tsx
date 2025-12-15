@@ -1,5 +1,5 @@
 import { FC, useState } from "react";
-import classes from './notificationPush.module.scss'
+import classes from './notificationPushAllStudents.module.scss'
 import tgImg from '../../../shared/lib/assets/tg.png'
 import { Modal } from "../../../shared/ui/modal";
 import { ConfirmationAction } from "../../../shared/ui/confirmationAction";
@@ -9,11 +9,8 @@ import { useMyActions } from "../../../entities/my";
 import { AuthError } from "../../../shared/err/AuthError";
 import { studentService } from "../../../entities/student";
 
-interface IProps {
-    studentId: number;
-}
 
-export const NotificationPush: FC<IProps> = ({studentId}) => {
+export const NotificationPushAllStudents: FC = () => {
 
     const [open, setOpen] = useState<boolean>(false)
     const {setGlobalMessage} = useGlobalMessageActions()
@@ -24,8 +21,8 @@ export const NotificationPush: FC<IProps> = ({studentId}) => {
         try{
             setIsLoading(true)
             setOpen(false)
-            await studentService.notificationPush(studentId)
-            setGlobalMessage({message: 'Уведомление успешно отправилось', type: 'ok'})
+            await studentService.notificationPushAllStudents()
+            setGlobalMessage({message: 'Уведомления успешно отправились', type: 'ok'})
         }
         catch(e){
             console.log(e)
@@ -34,7 +31,7 @@ export const NotificationPush: FC<IProps> = ({studentId}) => {
                 setGlobalMessage({message: e.message, type: 'error'})
             }
             else{
-                setGlobalMessage({message: 'Ошибка отправки уведомления', type: 'error'})
+                setGlobalMessage({message: 'Ошибка отправки уведомлений', type: 'error'})
             }
         }
         finally{
@@ -49,7 +46,7 @@ export const NotificationPush: FC<IProps> = ({studentId}) => {
                 <ConfirmationAction 
                     onClick={push}
                     setOpen={setOpen}
-                    title="Вы точно хотите отправить уведомление о задолженности ?"
+                    title="Вы точно хотите отправить уведомления о задолженностях ?"
                     type="send"
                 />
             </Modal>

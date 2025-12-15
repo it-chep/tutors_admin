@@ -78,7 +78,10 @@ export const StudentWidget: FC<IProps & PropsWithChildren> = ({id, children}) =>
                     my.role !== 'tutor'
                         ?
                     <>
-                        <Header student={student} />
+                        <Header 
+                            student={student} 
+                            setStudent={setStudent} 
+                        />
                         <StudentCard
                             student={student}
                         >

@@ -27,6 +27,15 @@
 
     &.nohighlight{
         background-color: #FFF;
+
+        .link{
+            color: var(--black);
+            transition: all .15s ease;
+
+            &:hover{
+                color: var(--black-hover);
+            }
+        }
     }
 
     td{
@@ -45,4 +54,6 @@
             color: #FFF;
         }
     }
+
+
 }

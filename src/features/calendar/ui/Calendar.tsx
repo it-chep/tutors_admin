@@ -1,7 +1,8 @@
-import React, { JSX, useState } from 'react';
+import React, { JSX, MouseEvent, useState } from 'react';
 import classes from './calendar.module.scss';
 import arrowLeft from '../../../shared/lib/assets/ArrowLeft.png'
 import arrowRight from '../../../shared/lib/assets/ArrowRight.png'
+import { MyButton } from '../../../shared/ui/button';
 
 interface CalendarProps {
     isLoading?: boolean;
@@ -151,14 +152,29 @@ export const Calendar: React.FC<CalendarProps> = ({onDateRangeSelect, isLoading,
         return days;
     };
 
-    const months = getThreeMonths();
+    const setToday = () => {
+        const nowDate = new Date()
+        const tagetDate = new Date(nowDate.getFullYear(), nowDate.getMonth(), nowDate.getDate(), 0, 0, 0)
+        setStartDate(tagetDate)
+        setEndDate(tagetDate)
+        onDateRangeSelect && onDateRangeSelect(getLocalDate(tagetDate), getLocalDate(tagetDate));
+    }
 
-    const onOpen = () => {
+    const onOpen = (e: MouseEvent) => {
         if(!isLoading){
-            setOpen(!open)
+            const target = e.target as Element;
+            if(target.closest(`.${classes.today}`)){
+                setOpen(false)
+                setToday()
+            }
+            else{
+                setOpen(!open)
+            }
         }
     }
 
+    const months = getThreeMonths();
+    
     return (
         <section className={classes.calendarContainer + (oneDate ? ` ${classes.oneDate}` : '')}>
             <section 
@@ -181,6 +197,11 @@ export const Calendar: React.FC<CalendarProps> = ({onDateRangeSelect, isLoading,
                         </>
                     }
                 </p>
+                <section className={classes.today}>
+                    <MyButton>
+                        Сегодня
+                    </MyButton>
+                </section>
             </section>
             {
                 open

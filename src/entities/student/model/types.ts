@@ -33,6 +33,7 @@ export interface IStudentData {
     tg_admin_username: string;
     is_newbie: boolean;
     tg_id?: number;
+    is_archive: boolean;
 }
 
 export interface IStudentChange {

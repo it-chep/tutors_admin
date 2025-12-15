@@ -41,6 +41,11 @@ export const STUDENTS_ROUTE: IRoute = {
     path: '/students'
 }
 
+export const STUDENTS_ARCHIVE_ROUTE: IRoute = {
+    name: 'Архив студентов',
+    path: '/students_archive'
+}
+
 export const STUDENT_CREATE_ROUTE: IRoute = {
     name: 'Студенты',
     path: '/student/create'

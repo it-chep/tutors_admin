@@ -13,6 +13,21 @@
             display: flex;
             gap: 20px;
 
+            .archive{   
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                font-size: .8rem;
+                cursor: pointer;
+                text-align: center;
+                line-height: 100%;
+
+                >img{
+                    width: 32px;
+                }
+            }
+
             .edit{
                 width: 32px;
                 height: 32px;

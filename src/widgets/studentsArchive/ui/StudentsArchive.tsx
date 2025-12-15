@@ -1,5 +1,5 @@
 import { FC, useEffect, useRef, useState } from "react";
-import classes from './studentsWidget.module.scss'
+import classes from './studentsArchive.module.scss'
 import { IStudent, StudentItem, studentService } from "../../../entities/student";
 import { MyButton } from "../../../shared/ui/button";
 import { LoaderSpinner } from "../../../shared/ui/spinner";
@@ -7,20 +7,12 @@ import { AuthError } from "../../../shared/lib/helpers/AuthError";
 import { useMyActions } from "../../../entities/my";
 import { useGlobalMessageActions } from "../../../entities/globalMessage";
 import { Link, useNavigate } from "react-router-dom";
-import { STUDENT_CREATE_ROUTE, STUDENTS_ARCHIVE_ROUTE } from "../../../app/router/routes";
 import { useAppSelector } from "../../../app/store/store";
-import { HintWrap } from "./hint/Hint";
 import { SearchItems } from "../../../features/searchItems";
 import { StudentFilters } from "../../../features/studentFilters";
-import { NotificationPushAllStudents } from "../../../features/notificationPushAllStudents";
+import { STUDENTS_ROUTE } from "../../../app/router/routes";
 
-interface IProps {
-    request: () => Promise<{students: IStudent[], students_count: number}>
-    add: boolean;
-    highlight?: boolean;
-}
-
-export const StudentsWidget: FC<IProps> = ({request, add, highlight=true}) => {
+export const StudentsArchive: FC = () => {
 
     const [isLoading, setIsLoading] = useState<boolean>(true)
     const [students, setStudents] = useState<IStudent[]>([])
@@ -64,62 +56,27 @@ export const StudentsWidget: FC<IProps> = ({request, add, highlight=true}) => {
             return
         }
         if(tgAdmins.length || isLost){
-            getData(() => studentService.getAllByFilters(tgAdmins, isLost))
+            getData(() => studentService.getAllByFilters(tgAdmins, isLost, true))
         }
         else{
-            getData(request)
+            getData(studentService.getArchiveAll)
         }
     }
 
     useEffect(() => {
-        getData(request)
+        getData(studentService.getArchiveAll)
     }, [])
 
     return (
         <section className={classes.container}>
-            {
-                (add || highlight)
-                    &&
-                <section className={classes.header}>
-                    {
-                        highlight
-                            &&
-                        <HintWrap />
-                    }
-                    {
-                        my.role === 'admin'
-                            &&
-                        <section className={classes.filter}>
-                            <StudentFilters onSelectedFilters={onSelectedFilters} />
-                        </section>
-                    }
-                    {
-                        my.role === 'admin'
-                            &&
-                        <Link to={STUDENTS_ARCHIVE_ROUTE.path}>
-                            К архиву
-                        </Link>
-                    }
-                    <section className={classes.right}>
-                        {
-                            my.role === 'admin'
-                                &&
-                            <section className={classes.push}>
-                                <NotificationPushAllStudents />
-                            </section>
-                        }
-                        {
-                            add 
-                                &&
-                            <section className={classes.add}> 
-                                <MyButton onClick={() => router(STUDENT_CREATE_ROUTE.path)}>
-                                    Добавить студента
-                                </MyButton>
-                            </section>
-                        }
-                    </section>
+            <section className={classes.header}>
+                <section className={classes.filter}>
+                    <StudentFilters onSelectedFilters={onSelectedFilters} />
                 </section>
-            }
+                <Link to={STUDENTS_ROUTE.path}>
+                    К активным студентам
+                </Link>
+            </section>
             <section className={classes.search}>
                 <section className={classes.searchItems}>
                     <SearchItems
@@ -165,7 +122,6 @@ export const StudentsWidget: FC<IProps> = ({request, add, highlight=true}) => {
                     <tbody>
                         {studentsSearch.map(student => 
                             <StudentItem 
-                                highlight={highlight}
                                 key={student.id}
                                 student={student}
                             >

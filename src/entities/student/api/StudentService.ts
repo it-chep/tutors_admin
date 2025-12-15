@@ -84,10 +84,16 @@ class StudentService {
         return {students, students_count}
     }
 
-    async getAllByFilters(tg_admins_usernames: string[], is_lost: boolean): Promise<{students: IStudent[], students_count: number}> {
+    async getArchiveAll(): Promise<{students: IStudent[], students_count: number}> {
+        const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/students/archive')
+        const {students, students_count}: {students: IStudent[], students_count: number} = await res.json()
+        return {students, students_count}
+    }
+
+    async getAllByFilters(tg_admins_usernames: string[], is_lost: boolean, is_archive?: boolean): Promise<{students: IStudent[], students_count: number}> {
         const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/students/filter', {
             method: 'POST',
-            body: JSON.stringify({tg_admins_usernames, is_lost})
+            body: JSON.stringify({tg_admins_usernames, is_lost, is_archive})
         })
         const {students, students_count}: {students: IStudent[], students_count: number} = await res.json()
         return {students, students_count}
@@ -104,6 +110,18 @@ class StudentService {
         await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/lessons/' + id, {
             method: "POST",
             body: JSON.stringify({date, duration})
+        })
+    }
+        
+    async archive(id: number){
+        await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/students/' + id + '/archive', {
+            method: "POST",
+        })
+    }
+
+    async unarchive(id: number){
+        await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/students/' + id + '/unarchive', {
+            method: "POST",
         })
     }
 
@@ -124,6 +142,12 @@ class StudentService {
 
     async notificationPush(id: number){
         await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/students/' + id + '/notifications/push', {
+            method: 'POST'
+        })
+    }
+
+    async notificationPushAllStudents(){
+        await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/students/push_all_students', {
             method: 'POST'
         })
     }

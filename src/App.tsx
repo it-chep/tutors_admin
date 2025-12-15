@@ -12,7 +12,7 @@ function App() {
 
   const {isLoading: globalIsLoading} = useAppSelector(s => s.globalLoadingReducer)
   const {globalMessage} = useAppSelector(s => s.globalMessageReducer)
-  const [isLoading, setIsLoading] = useState<boolean>(process.env.REACT_APP_USE_AUTH !== "false")
+  const [isLoading, setIsLoading] = useState<boolean>(true)
   const {setId, setRole, setIsAuth} = useMyActions()
   const {my} = useAppSelector(s => s.myReducer)
 
@@ -56,6 +56,7 @@ function App() {
       process.env.REACT_APP_ROLE && setRole(process.env.REACT_APP_ROLE as IMy['role'])
       process.env.REACT_APP_ID && setId(+process.env.REACT_APP_ID)
       setIsAuth(true)
+      setIsLoading(false)
     }
     else{
       auth()

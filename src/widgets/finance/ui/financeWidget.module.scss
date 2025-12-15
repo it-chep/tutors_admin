@@ -1,6 +1,12 @@
 
 
 .container{
+    display: flex;
+    justify-content: space-between;
+
+    .selectedTgAdmins{
+        
+    }
 
     .choose{
         margin-bottom: 20px;
