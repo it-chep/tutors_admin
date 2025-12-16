@@ -5,7 +5,7 @@ import { TRole } from "../../entities/my";
 import { LayoutPages } from "../layoutPages";
 import { AdminTransactions } from "../../widgets/adminTransactions";
 
-const roles: TRole[] = ['admin'] 
+const roles: TRole[] = ['admin', 'assistant'] 
 
 export default function AdminTransactionsPage() {
 

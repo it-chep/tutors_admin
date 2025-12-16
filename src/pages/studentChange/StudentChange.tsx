@@ -12,7 +12,7 @@ import { useState } from 'react'
 import { changeFormError } from '../../shared/lib/helpers/ChangeFormError'
 import { IFormError } from '../../shared/model/types'
 
-const roles: TRole[] = ['super_admin', 'admin'] 
+const roles: TRole[] = ['super_admin', 'admin', 'assistant'] 
 
 export default function StudentChangePage() {
 

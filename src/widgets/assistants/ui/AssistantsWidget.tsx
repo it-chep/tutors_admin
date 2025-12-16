@@ -1,20 +1,20 @@
 import { FC, useEffect, useState } from "react";
-import classes from './adminsWidget.module.scss'
+import classes from './assistantsWidget.module.scss'
 import { MyButton } from "../../../shared/ui/button";
 import { LoaderSpinner } from "../../../shared/ui/spinner";
 import { AuthError } from "../../../shared/lib/helpers/AuthError";
 import { useMyActions } from "../../../entities/my";
 import { useGlobalMessageActions } from "../../../entities/globalMessage";
 import { useNavigate } from "react-router-dom";
-import { ADMIN_CREATE_ROUTE } from "../../../app/router/routes";
-import { AdminItem, adminService, IAdmin } from "../../../entities/admin";
+import { ASSISTANT_CREATE_ROUTE } from "../../../app/router/routes";
+import { AssistantItem, assistantService, IAssistant } from "../../../entities/assistant";
 
 
-export const AdminsWidget: FC = () => {
+export const AssistantsWidget: FC = () => {
 
     const [isLoading, setIsLoading] = useState<boolean>(true)
 
-    const [admins, setAdmins] = useState<IAdmin[]>([])
+    const [assistants, setAssistants] = useState<IAssistant[]>([])
 
     const router = useNavigate()
 
@@ -24,8 +24,8 @@ export const AdminsWidget: FC = () => {
     const getData = async () => {
         try{
             setIsLoading(true)
-            const adminsRes = await adminService.getAll()
-            setAdmins(adminsRes)
+            const assistantsRes = await assistantService.getAll()
+            setAssistants(assistantsRes)
         }
         catch(e){
             console.log(e)
@@ -34,7 +34,7 @@ export const AdminsWidget: FC = () => {
                 setGlobalMessage({message: e.message, type: 'error'})
             }
             else{
-                setGlobalMessage({message: 'Ошибка при получении списка админов', type: 'error'})
+                setGlobalMessage({message: 'Ошибка при получении списка ассистентов', type: 'error'})
             }
         }
         finally{
@@ -50,8 +50,8 @@ export const AdminsWidget: FC = () => {
         <section className={classes.container}>
             <section className={classes.addStudentWrap}>
                 <section className={classes.button}> 
-                    <MyButton onClick={() => router(ADMIN_CREATE_ROUTE.path)}>
-                        Добавить админа
+                    <MyButton onClick={() => router(ASSISTANT_CREATE_ROUTE.path)}>
+                        Добавить ассистента
                     </MyButton>
                 </section>
             </section>
@@ -69,15 +69,15 @@ export const AdminsWidget: FC = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {admins.map(admin => 
-                            <AdminItem 
-                                key={admin.id}
-                                admin={admin}
+                        {assistants.map(assistant => 
+                            <AssistantItem 
+                                key={assistant.id}
+                                assistant={assistant}
                             >
-                                <MyButton onClick={() => router('/admin/' + admin.id)}>
+                                <MyButton onClick={() => router('/assistant/' + assistant.id)}>
                                     Подробнее
                                 </MyButton>
-                            </AdminItem>
+                            </AssistantItem>
                         )}
                     </tbody>
                 </table>

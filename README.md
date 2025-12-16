@@ -16,7 +16,7 @@ REACT_APP_SERVER_URL
 например, REACT_APP_USE_AUTH=false
 
 ### my role
-"tutor" | "admin" | "super_admin"
+"tutor" | "admin" | "super_admin" | "assistant"
 например, REACT_APP_ROLE='super_admin'
 
 ### my id 

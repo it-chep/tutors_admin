@@ -1,0 +1,5 @@
+export { AssistantCard } from './ui/card/AssistantCard'
+export { AssistantItem } from './ui/item/AssistantItem'
+export { assistantService } from './api/AssistantService'
+export { assistantChange } from './lib/helpers/assistantChange'
+export {type IAssistant, type IAssistantCreate, type IAssistantData} from './model/types'

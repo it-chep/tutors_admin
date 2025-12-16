@@ -1,0 +1,12 @@
+.card{
+    min-height: 300px;
+
+    .highlight{
+        color: var(--blue);
+        transition: all .15s ease;
+
+        &:hover{
+            color: var(--blue-hover);
+        }
+    }
+}

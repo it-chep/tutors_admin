@@ -35,13 +35,13 @@ class AdminService{
         return data
     }
 
-    async getFinanceByTgAdmins(from: string, to: string, admin_id: number, tg_admis_usernames: string[]): Promise<IAdminFinance> {
+    async getFinanceByTgAdmins(from: string, to: string, admin_id: number, tg_admins_usernames: string[]): Promise<IAdminFinance> {
         const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/finance_by_tgs', {
             method: "POST",
             body: JSON.stringify({
                 from,
                 to,
-                tg_admis_usernames,
+                tg_admins_usernames,
                 admin_id
             })
         })

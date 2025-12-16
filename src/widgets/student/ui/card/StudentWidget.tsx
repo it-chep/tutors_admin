@@ -98,7 +98,11 @@ export const StudentWidget: FC<IProps & PropsWithChildren> = ({id, children}) =>
                                 studentId={student.id} 
                             />
                         </section>
-                        <StudentCalendar id={student.id} />
+                        {
+                            (my.role === 'admin' || my.role === 'super_admin') 
+                                &&
+                            <StudentCalendar id={student.id} />
+                        }
                         <section className={classes.lessons}>
                             {children}
                         </section>

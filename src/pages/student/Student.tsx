@@ -22,10 +22,14 @@ export default function StudentPage() {
                 <Lessons studentId={+id} />
             </StudentWidget>
             {
-                my.role !== 'tutor'
+                (my.role === 'admin' || my.role === 'super_admin' || my.role === 'assistant')
                     &&
                 <section>
-                    <Transactions studentId={+id} />
+                    {
+                        my.role !== 'assistant'
+                            &&
+                        <Transactions studentId={+id} />
+                    }
                     <Notifications studentId={+id} />
                 </section>
             }

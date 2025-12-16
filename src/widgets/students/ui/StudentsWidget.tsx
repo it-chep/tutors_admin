@@ -87,14 +87,16 @@ export const StudentsWidget: FC<IProps> = ({request, add, highlight=true}) => {
                         <HintWrap />
                     }
                     {
-                        my.role === 'admin'
+                        (my.role === 'admin' || my.role === 'assistant')
                             &&
                         <section className={classes.filter}>
                             <StudentFilters onSelectedFilters={onSelectedFilters} />
                         </section>
                     }
                     {
-                        my.role === 'admin'
+                        (my.role === 'admin' || my.role === 'assistant')
+                            &&
+                        add
                             &&
                         <Link to={STUDENTS_ARCHIVE_ROUTE.path}>
                             К архиву
@@ -102,7 +104,9 @@ export const StudentsWidget: FC<IProps> = ({request, add, highlight=true}) => {
                     }
                     <section className={classes.right}>
                         {
-                            my.role === 'admin'
+                            (my.role === 'admin' || my.role === 'assistant')
+                                &&
+                            add
                                 &&
                             <section className={classes.push}>
                                 <NotificationPushAllStudents />

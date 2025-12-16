@@ -1,23 +1,24 @@
 import { FC, PropsWithChildren } from "react";
-import classes from './adminItem.module.scss'
-import { IAdmin } from "../../model/types";
+import classes from './assistantItem.module.scss'
+import { IAssistant } from "../../model/types";
+
 
 interface IProps {
-    admin: IAdmin;
+    assistant: IAssistant;
 }
 
-export const AdminItem: FC<IProps & PropsWithChildren> = ({admin, children}) => {
+export const AssistantItem: FC<IProps & PropsWithChildren> = ({assistant, children}) => {
 
     return (
         <tr className={classes.item}>
             <td className={classes.id}>
-                {admin.id}
+                {assistant.id}
             </td>  
             <td className={classes.fio}>
-                {admin.full_name}
+                {assistant.full_name}
             </td>
             <td className={classes.tg}>
-                <a target="_blank" className={classes.link} href={admin.tg}>
+                <a target="_blank" className={classes.link} href={assistant.tg}>
                     Написать в ТГ
                 </a>
             </td>

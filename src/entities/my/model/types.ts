@@ -1,5 +1,5 @@
 
-export type TRole = "tutor" | "admin" | "super_admin"
+export type TRole = "tutor" | "admin" | "super_admin" | "assistant"
 
 export interface IMy {
     id: number;
