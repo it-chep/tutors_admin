@@ -57,7 +57,7 @@ function App() {
       process.env.REACT_APP_ROLE && setRole(process.env.REACT_APP_ROLE as IMy['role'])
       process.env.REACT_APP_ID && setId(+process.env.REACT_APP_ID)
       if(process.env.REACT_APP_PAID_FUNCTIONS){
-        const fns: any[] = process.env.REACT_APP_PAID_FUNCTIONS.split(',')
+        const fns: string = process.env.REACT_APP_PAID_FUNCTIONS;
         const paidFns: Record<TPaidFunction, boolean> = {
           assistant: fns.includes('assistant'),
           student_archive: fns.includes('student_archive'),
