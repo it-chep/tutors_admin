@@ -1,15 +1,15 @@
 import { fetchAuth } from "../../../shared/api/ApiService"
 import { AuthError } from "../../../shared/err/AuthError"
-import { IMy } from "../model/types"
+import { IMy, TPaidFunction } from "../model/types"
 
 
 
 class MyService{
     
-    async getInfo(): Promise<Omit<IMy, 'email' | 'isAuth'>> {
+    async getInfo(): Promise<{user: Omit<IMy, 'email' | 'isAuth'>, paidFunctions: Map<TPaidFunction, boolean>}> {
         const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/user')
-        const {user}: {user: Omit<IMy, 'email' | 'isAuth'>} = await res.json()
-        return user
+        const {user, paidFunctions}: {user: Omit<IMy, 'email' | 'isAuth'>, paidFunctions: Map<TPaidFunction, boolean>} = await res.json()
+        return {user, paidFunctions}
     }
 
     async login(email: string, password: string){

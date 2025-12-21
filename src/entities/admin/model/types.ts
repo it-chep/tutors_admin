@@ -51,3 +51,11 @@ export interface IAdminFinance {
     salary: string;
     debt: string;
 }
+
+export interface IAdminFinanceByTgAdmins {
+    profit: string;
+    cash_flow: string;
+    hours: string;
+    salary: string;
+    debt: string;
+}

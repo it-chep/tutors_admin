@@ -88,8 +88,8 @@ export const Calendar: React.FC<CalendarProps> = ({onDateRangeSelect, isLoading,
             setOpen(false)
         }
 
-        if (onDateRangeSelect && newStartDate && newEndDate) {
-            onDateRangeSelect(getLocalDate(newStartDate), getLocalDate(newEndDate));
+        if (onDateRangeSelect) {
+            onDateRangeSelect(newStartDate && getLocalDate(newStartDate), newEndDate && getLocalDate(newEndDate));
         }
     };
 

@@ -7,6 +7,7 @@ export const MyInitialState: IMyInitialState = {
         email: '',
         isAuth: false,
         role: 'tutor',
+        paid_functions: new Map()
     },
     isLoading: false,
     error: ''

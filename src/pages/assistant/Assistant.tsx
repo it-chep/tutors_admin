@@ -12,7 +12,7 @@ export default function AssistantPage() {
     const {id} = useParams<{id: string}>()
     
     const {my} = useAppSelector(s => s.myReducer)
-    const isAccess = roles.includes(my.role)
+    const isAccess = roles.includes(my.role) && my.paid_functions.get('assistant')
     
     if(!isAccess){
         return (

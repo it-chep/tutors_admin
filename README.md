@@ -21,3 +21,7 @@ REACT_APP_SERVER_URL
 
 ### my id 
 REACT_APP_ID=12
+
+### paid_functions
+REACT_APP_PAID_FUNCTIONS='finance_by_tgs,student_archive,assistant'
+строка названий фичей, разделенных запятой без пробела 

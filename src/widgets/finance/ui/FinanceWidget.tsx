@@ -6,7 +6,7 @@ import { AuthError } from "../../../shared/lib/helpers/AuthError";
 import { Calendar } from "../../../features/calendar";
 import { useAppSelector } from "../../../app/store/store";
 import { useGlobalLoadingActions } from "../../../entities/globalLoading";
-import { adminService, IAdminFinance } from "../../../entities/admin";
+import { adminService, IAdminFinance, IAdminFinanceByTgAdmins } from "../../../entities/admin";
 import { getDateUTC } from "../../../shared/lib/helpers/getDateUTC";
 import { SelectedTgAdmins } from "../../../features/studentFilters";
 
@@ -17,7 +17,7 @@ export const FinanceWidget: FC = () => {
     const {setIsAuth} = useMyActions()
     const {setGlobalMessage} = useGlobalMessageActions()
     const {setIsLoading} = useGlobalLoadingActions()
-    const [finance, setFinance] = useState<IAdminFinance | null>(null)
+    const [finance, setFinance] = useState<IAdminFinanceByTgAdmins | null>(null)
     const [tgAdmins, setTgAdmins] = useState<string[]>([])
     
     const [startDate, setStartDate] = useState<Date | null>(null);
@@ -51,9 +51,9 @@ export const FinanceWidget: FC = () => {
     }
     
     const setDate = (startDate: Date | null, endDate: Date | null) => {
+        setStartDate(startDate)
+        setEndDate(endDate)
         if(startDate && endDate){
-            setStartDate(startDate)
-            setEndDate(endDate)
             getData(getDateUTC(startDate), getDateUTC(endDate))
         }
         if(!startDate && !endDate){
@@ -62,7 +62,7 @@ export const FinanceWidget: FC = () => {
     }
 
     useEffect(() => {
-        if(startDate && endDate){
+        if(startDate && endDate && my.paid_functions.get('finance_by_tgs')){
             getData(getDateUTC(startDate), getDateUTC(endDate))
         }
     }, [tgAdmins])
@@ -83,21 +83,21 @@ export const FinanceWidget: FC = () => {
                         </section>
                         <section className={classes.section}> 
                             <section className={classes.subtitle}>Репетиторы</section>
-                            <span>Количество оплаченных занятий : {finance.base_lessons}</span>
-                            <span>Количество пробных занятий: {finance.trial_lessons}</span>
-                            <span>Общее количество занятий: {finance.lessons_count}</span>
-                            <span>Конверсия: {finance.conversion} %</span>
                             <span>Общая зарплата: {finance.salary} ₽</span>
                             <span>Общее количество часов: {finance.hours}</span>
                         </section>
                     </section>
                 }
             </section>
-        <section className={classes.selectedTgAdmins}>
-            <SelectedTgAdmins 
-                setTgAdmins={setTgAdmins}
-            />
-        </section>
+            {
+                my.paid_functions.get('finance_by_tgs')
+                    &&
+                <section className={classes.selectedTgAdmins}>
+                    <SelectedTgAdmins 
+                        setTgAdmins={setTgAdmins}
+                    />
+                </section>
+            }
         </section>
     )
 }

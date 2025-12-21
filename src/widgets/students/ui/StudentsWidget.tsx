@@ -94,7 +94,7 @@ export const StudentsWidget: FC<IProps> = ({request, add, highlight=true}) => {
                         </section>
                     }
                     {
-                        (my.role === 'admin' || my.role === 'assistant')
+                        (my.role === 'admin' || my.role === 'assistant') && my.paid_functions.get('student_archive')
                             &&
                         add
                             &&

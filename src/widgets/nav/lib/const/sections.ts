@@ -61,6 +61,10 @@ export const getSections = (my: IMy): ISection[] => {
                         }
                     ]
                 },
+            )
+        }
+        if(my.role === 'admin' && my.paid_functions.get('assistant')){
+            paths.push(
                 {
                     title: 'Ассистенты',
                     sections: [
