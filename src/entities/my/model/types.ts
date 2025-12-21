@@ -7,7 +7,7 @@ export interface IMy {
     role: TRole,
     email: string;
     isAuth: boolean;
-    paid_functions: Map<TPaidFunction, boolean>;
+    paid_functions: Record<TPaidFunction, boolean>;
 }
 
 export interface IMyInitialState {

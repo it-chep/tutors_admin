@@ -6,13 +6,9 @@ import { IMy, TPaidFunction } from "../model/types"
 
 class MyService{
     
-    async getInfo(): Promise<{user: Omit<IMy, 'email' | 'isAuth'>, paidFunctions: Map<TPaidFunction, boolean>}> {
+    async getInfo(): Promise<{user: Omit<IMy, 'email' | 'isAuth' | 'paid_functions'>, paidFunctions: Record<TPaidFunction, boolean>}> {
         const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/user')
-        const {user, paidFunctions: paidFunctionsObj}: {user: Omit<IMy, 'email' | 'isAuth'>, paidFunctions: {[key in TPaidFunction]: boolean}} = await res.json()
-        const paidFunctions = new Map<TPaidFunction, boolean>()
-        for(let key in paidFunctionsObj){
-            paidFunctions.set(key as TPaidFunction, true)
-        }
+        const {user, paidFunctions: paidFunctions}: {user: Omit<IMy, 'email' | 'isAuth'>, paidFunctions: Record<TPaidFunction, boolean>} = await res.json()
         return {user, paidFunctions}
     }
 

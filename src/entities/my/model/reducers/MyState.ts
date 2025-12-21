@@ -7,7 +7,11 @@ export const MyInitialState: IMyInitialState = {
         email: '',
         isAuth: false,
         role: 'tutor',
-        paid_functions: new Map()
+        paid_functions: {
+            assistant: false,
+            finance_by_tgs: false,
+            student_archive: false,
+        },
     },
     isLoading: false,
     error: ''

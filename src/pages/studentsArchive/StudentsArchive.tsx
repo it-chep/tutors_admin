@@ -11,7 +11,7 @@ export default function StudentsArchivePage() {
 
     const {my} = useAppSelector(s => s.myReducer)
 
-    const isAccess = roles.includes(my.role) && my.paid_functions.get('student_archive')
+    const isAccess = roles.includes(my.role) && my.paid_functions['student_archive']
     
     if(!isAccess){
         return (

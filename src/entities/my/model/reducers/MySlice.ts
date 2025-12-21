@@ -25,7 +25,7 @@ export const MySlice = createSlice({
         setId(state, action: PayloadAction<number>){
             state.my.id = action.payload;
         },
-        setPaidFunctions(state, action: PayloadAction<Map<TPaidFunction, boolean>>){
+        setPaidFunctions(state, action: PayloadAction<Record<TPaidFunction, boolean>>){
             state.my.paid_functions = action.payload;
         },
     }

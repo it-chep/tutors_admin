@@ -58,7 +58,11 @@ function App() {
       process.env.REACT_APP_ID && setId(+process.env.REACT_APP_ID)
       if(process.env.REACT_APP_PAID_FUNCTIONS){
         const fns: any[] = process.env.REACT_APP_PAID_FUNCTIONS.split(',')
-        const paidFns: Map<TPaidFunction, boolean> = new Map(fns.map((fn) => ([fn, true])))
+        const paidFns: Record<TPaidFunction, boolean> = {
+          assistant: fns.includes('assistant'),
+          student_archive: fns.includes('student_archive'),
+          finance_by_tgs: fns.includes('finance_by_tgs'),
+        } 
         setPaidFunctions(paidFns)
       }
       setIsAuth(true)

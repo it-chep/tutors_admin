@@ -101,7 +101,7 @@ export const Header: FC<IProps> = ({student, setStudent}) => {
             </section>
             <section className={classes.features}>
                 {
-                    my.role === 'admin' && my.paid_functions.get('student_archive')
+                    my.role === 'admin' && my.paid_functions['student_archive']
                         &&
                     <>
                         <section  

@@ -62,7 +62,7 @@ export const FinanceWidget: FC = () => {
     }
 
     useEffect(() => {
-        if(startDate && endDate && my.paid_functions.get('finance_by_tgs')){
+        if(startDate && endDate && my.paid_functions['finance_by_tgs']){
             getData(getDateUTC(startDate), getDateUTC(endDate))
         }
     }, [tgAdmins])
@@ -90,7 +90,7 @@ export const FinanceWidget: FC = () => {
                 }
             </section>
             {
-                my.paid_functions.get('finance_by_tgs')
+                my.paid_functions['finance_by_tgs']
                     &&
                 <section className={classes.selectedTgAdmins}>
                     <SelectedTgAdmins 
