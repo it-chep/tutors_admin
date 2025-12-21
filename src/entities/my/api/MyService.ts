@@ -8,7 +8,7 @@ class MyService{
     
     async getInfo(): Promise<{user: Omit<IMy, 'email' | 'isAuth' | 'paid_functions'>, paidFunctions: Record<TPaidFunction, boolean>}> {
         const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/user')
-        const {user, paidFunctions: paidFunctions}: {user: Omit<IMy, 'email' | 'isAuth'>, paidFunctions: Record<TPaidFunction, boolean>} = await res.json()
+        const {user, paid_functions: paidFunctions}: {user: Omit<IMy, 'email' | 'isAuth'>, paid_functions: {[key in TPaidFunction]: boolean}} = await res.json()
         return {user, paidFunctions}
     }
 
