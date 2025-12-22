@@ -5,13 +5,13 @@ import { TRole } from '../../entities/my'
 import { StudentsArchive } from '../../widgets/studentsArchive/ui/StudentsArchive'
 import { LayoutPages } from '../layoutPages'
 
-const roles: TRole[] = ['admin'] 
+const roles: TRole[] = ['admin', 'assistant'] 
 
 export default function StudentsArchivePage() {
 
     const {my} = useAppSelector(s => s.myReducer)
 
-    const isAccess = roles.includes(my.role)
+    const isAccess = roles.includes(my.role) && my.paid_functions['student_archive']
     
     if(!isAccess){
         return (

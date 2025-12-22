@@ -1,17 +1,12 @@
 import { FC, PropsWithChildren } from "react";
 import classes from './adminItem.module.scss'
-import { useAppSelector } from "../../../../app/store/store";
 import { IAdmin } from "../../model/types";
-
 
 interface IProps {
     admin: IAdmin;
 }
 
-
 export const AdminItem: FC<IProps & PropsWithChildren> = ({admin, children}) => {
-
-    const {my} = useAppSelector(s => s.myReducer)
 
     return (
         <tr className={classes.item}>

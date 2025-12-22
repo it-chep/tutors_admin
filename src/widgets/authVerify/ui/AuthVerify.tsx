@@ -14,7 +14,7 @@ export const AuthVerify: FC = () => {
     const router = useNavigate()
 
     const {my, isLoading, error} = useAppSelector(s => s.myReducer)
-    const {setIsAuth, setId, setRole, setIsLoading, setError} = useMyActions()
+    const {setIsAuth, setId, setRole, setIsLoading, setError, setPaidFunctions} = useMyActions()
 
     const {pathname} = useLocation()
     const isLogin = pathname === LOGIN_ROUTE.path;
@@ -32,9 +32,10 @@ export const AuthVerify: FC = () => {
             else{
                 await myService.registerVerify(my.email, code)
             }
-            const user = await myService.getInfo()
+            const {user, paidFunctions} = await myService.getInfo()
             setId(user.id)
             setRole(user.role)
+            setPaidFunctions(paidFunctions)
             setIsAuth(true)
             router(HOME_ROUTE.path)
             setState(1)

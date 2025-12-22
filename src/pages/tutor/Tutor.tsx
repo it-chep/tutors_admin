@@ -8,7 +8,7 @@ import { useAppSelector } from '../../app/store/store'
 import { TRole } from '../../entities/my'
 import { TutorLessons } from '../../widgets/tutorLessons'
 
-const roles: TRole[] = ['super_admin', 'admin'] 
+const roles: TRole[] = ['super_admin', 'admin', 'assistant'] 
 
 export default function TutorPage() {
 

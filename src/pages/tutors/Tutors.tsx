@@ -6,7 +6,7 @@ import { tutorService } from '../../entities/tutor'
 import { TutorsWidget } from '../../widgets/tutors'
 import { LayoutPages } from '../layoutPages'
 
-const roles: TRole[] = ['super_admin', 'admin'] 
+const roles: TRole[] = ['super_admin', 'admin', 'assistant'] 
 
 export default function TutorsPage() {
 

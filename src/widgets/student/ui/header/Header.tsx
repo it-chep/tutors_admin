@@ -101,7 +101,7 @@ export const Header: FC<IProps> = ({student, setStudent}) => {
             </section>
             <section className={classes.features}>
                 {
-                    my.role === 'admin'
+                    (my.role === 'admin' || my.role === 'assistant') && my.paid_functions['student_archive']
                         &&
                     <>
                         <section  
@@ -109,7 +109,7 @@ export const Header: FC<IProps> = ({student, setStudent}) => {
                             onClick={() => setOpen(!open)}
                         >
                             {
-                                student.is_archive
+                                student.is_archive 
                                     ?
                                 <>
                                     <img src={folderMinus} />
@@ -133,7 +133,7 @@ export const Header: FC<IProps> = ({student, setStudent}) => {
                     </>
                 }
                 {
-                    (student.tg_id && student.balance[0] === '-')
+                    (student.tg_id && student.balance[0] === '-') || true
                         ?
                     <NotificationPush studentId={student.id} />
                         :

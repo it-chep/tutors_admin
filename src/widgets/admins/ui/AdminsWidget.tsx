@@ -46,7 +46,6 @@ export const AdminsWidget: FC = () => {
         getData()
     }, [])
 
-
     return (
         <section className={classes.container}>
             <section className={classes.addStudentWrap}>

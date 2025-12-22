@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { MyInitialState } from "./MyState";
-import { IMy } from "../types";
+import { IMy, TPaidFunction } from "../types";
 
 
 export const MySlice = createSlice({
@@ -24,7 +24,10 @@ export const MySlice = createSlice({
         },
         setId(state, action: PayloadAction<number>){
             state.my.id = action.payload;
-        }
+        },
+        setPaidFunctions(state, action: PayloadAction<Record<TPaidFunction, boolean>>){
+            state.my.paid_functions = action.payload;
+        },
     }
 })
 

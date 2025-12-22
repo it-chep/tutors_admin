@@ -7,6 +7,7 @@ import { useMyActions } from "../../../../entities/my";
 import { useGlobalMessageActions } from "../../../../entities/globalMessage";
 import { AuthError } from "../../../../shared/lib/helpers/AuthError";
 import { getDateUTC } from "../../../../shared/lib/helpers/getDateUTC";
+import { useAppSelector } from "../../../../app/store/store";
 
 interface IProps {
     id: number;
@@ -16,7 +17,7 @@ export const TutorCalendar: FC<IProps> = ({id}) => {
 
     const [finance, setFinance] = useState<ITutorFinance | null>(null)
     const [isLoading, setIsLoading] = useState<boolean>(false)
-    
+    const {my} = useAppSelector(s => s.myReducer)
     const {setIsAuth} = useMyActions()
     const {setGlobalMessage} = useGlobalMessageActions()
 
@@ -67,8 +68,14 @@ export const TutorCalendar: FC<IProps> = ({id}) => {
                     <section className={classes.sub}>Репетитор</section>
                     <span>Количество часов : {finance.hours_count}</span>
                     <span>Заработная плата: {finance.wages} ₽</span>
-                    <section className={classes.sub}>Общее</section>
-                    <span>Прибыль: {finance.amount} ₽</span>
+                    {
+                        (my.role === 'admin' || my.role === 'super_admin')
+                            &&
+                        <>
+                            <section className={classes.sub}>Общее</section>
+                            <span>Прибыль: {finance.amount} ₽</span>
+                        </>
+                    }
                 </section>
             }
         </section>

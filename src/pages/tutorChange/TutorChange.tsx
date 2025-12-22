@@ -12,7 +12,7 @@ import { adminService } from '../../entities/admin'
 import { IFormError } from '../../shared/model/types'
 import { changeFormError } from '../../shared/lib/helpers/ChangeFormError'
 
-const roles: TRole[] = ['super_admin', 'admin'] 
+const roles: TRole[] = ['super_admin', 'admin', 'assistant'] 
 
 export default function TutorChangePage() {
 

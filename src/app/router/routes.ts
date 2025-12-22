@@ -35,7 +35,6 @@ export const REGISTRATION_ROUTE: IRoute = {
     path: '/auth/registration'
 }
 
-
 export const STUDENTS_ROUTE: IRoute = {
     name: 'Студенты',
     path: '/students'
@@ -99,5 +98,20 @@ export const ADMIN_ROUTE: IRoute = {
 export const ADMIN_CREATE_ROUTE: IRoute = {
     name: 'Админы',
     path: '/admin/create'
+}
+
+export const ASSISTANTS_ROUTE: IRoute = {
+    name: 'Ассистенты',
+    path: '/assistants'
+}
+
+export const ASSISTANT_ROUTE: IRoute = {
+    name: 'Ассистент',
+    path: '/assistant/:id'
+}
+
+export const ASSISTANT_CREATE_ROUTE: IRoute = {
+    name: 'Ассистенты',
+    path: '/assistant/create'
 }
 

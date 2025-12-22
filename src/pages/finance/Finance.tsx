@@ -5,7 +5,7 @@ import { LayoutPages } from '../layoutPages'
 import { TRole } from '../../entities/my'
 import { Navigate } from 'react-router-dom'
 
-const roles: TRole[] = ['super_admin', 'admin'] 
+const roles: TRole[] = ['super_admin', 'admin', 'assistant'] 
 
 export default function FinancePage() {
 

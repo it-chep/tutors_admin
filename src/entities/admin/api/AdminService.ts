@@ -1,5 +1,5 @@
 import { fetchAuth } from "../../../shared/api/ApiService"
-import { IAdmin, IAdminCreate, IAdminData, IAdminFinance, IAdminLesson, ITransactionsAdmin } from "../model/types"
+import { IAdmin, IAdminCreate, IAdminData, IAdminFinance, IAdminFinanceByTgAdmins, IAdminLesson, ITransactionsAdmin } from "../model/types"
 
 
 
@@ -35,17 +35,17 @@ class AdminService{
         return data
     }
 
-    async getFinanceByTgAdmins(from: string, to: string, admin_id: number, tg_admis_usernames: string[]): Promise<IAdminFinance> {
+    async getFinanceByTgAdmins(from: string, to: string, admin_id: number, tg_admins_usernames: string[]): Promise<IAdminFinanceByTgAdmins> {
         const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/finance_by_tgs', {
             method: "POST",
             body: JSON.stringify({
                 from,
                 to,
-                tg_admis_usernames,
+                tg_admins_usernames,
                 admin_id
             })
         })
-        const {data}: {data: IAdminFinance} = await res.json()
+        const {data}: {data: IAdminFinanceByTgAdmins} = await res.json()
         return data
     }
 
