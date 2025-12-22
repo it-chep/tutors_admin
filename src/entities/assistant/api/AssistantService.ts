@@ -20,14 +20,14 @@ class AssistantService{
     async add_available_tg(id: number, tg_admin_username: string) {
         await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/assistant/' + id + '/add_available_tg', {
             method: 'POST',
-            body: JSON.stringify(tg_admin_username)
+            body: JSON.stringify({"tg_admin_username": tg_admin_username})
         })
     }
 
     async delete_available_tg(id: number, tg_admin_username: string) {
         await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/assistant/' + id + '/delete_available_tg', {
             method: 'POST',
-            body: JSON.stringify(tg_admin_username)
+            body: JSON.stringify({"tg_admin_username": tg_admin_username})
         })
     }
 
