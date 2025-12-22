@@ -1,1 +1,1 @@
-export { AssistantWidget } from "./ui/AssistantWidget";
+export { AssistantWidget } from "./ui/card/AssistantWidget";

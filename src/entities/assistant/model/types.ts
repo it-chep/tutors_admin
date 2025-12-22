@@ -10,6 +10,7 @@ export interface IAssistantData {
     full_name: string;
     phone: string;
     tg: string;
+    tg_admins_usernames: string[];
 }
 
 export interface IAssistantCreate {
@@ -17,4 +18,5 @@ export interface IAssistantCreate {
     phone: string;
     tg: string;
     email: string;
+    tg_admins_usernames: string[];
 }

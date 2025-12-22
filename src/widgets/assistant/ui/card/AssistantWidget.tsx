@@ -1,12 +1,13 @@
 import { FC, PropsWithChildren, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import classes from './assistantWidget.module.scss'
-import { AssistantCard, assistantService, IAssistantData } from "../../../entities/assistant";
-import { useMyActions } from "../../../entities/my";
-import { useGlobalMessageActions } from "../../../entities/globalMessage";
-import { AuthError } from "../../../shared/err/AuthError";
-import { ASSISTANTS_ROUTE } from "../../../app/router/routes";
-import { DeleteAction } from "../../../features/deleteAction";
+import { AssistantCard, assistantChange, assistantService, IAssistantData } from "../../../../entities/assistant";
+import { useMyActions } from "../../../../entities/my";
+import { useGlobalMessageActions } from "../../../../entities/globalMessage";
+import { AuthError } from "../../../../shared/err/AuthError";
+import { ASSISTANTS_ROUTE } from "../../../../app/router/routes";
+import { DeleteAction } from "../../../../features/deleteAction";
+import { AssistantChangeTgAdmins } from "../../../../features/assistantChangeTgAdmins";
 
 interface IProps {
     id: number;
@@ -76,6 +77,10 @@ export const AssistantWidget: FC<IProps & PropsWithChildren> = ({id, children}) 
                     </section>
                     <AssistantCard
                         assistant={assistant}
+                    />
+                    <AssistantChangeTgAdmins 
+                        assistant={assistant}
+                        setAssistant={setAssistant}
                     />
                 </>
             }

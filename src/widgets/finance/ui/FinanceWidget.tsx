@@ -6,7 +6,7 @@ import { AuthError } from "../../../shared/lib/helpers/AuthError";
 import { Calendar } from "../../../features/calendar";
 import { useAppSelector } from "../../../app/store/store";
 import { useGlobalLoadingActions } from "../../../entities/globalLoading";
-import { adminService, IAdminFinance, IAdminFinanceByTgAdmins } from "../../../entities/admin";
+import { adminService, IAdminFinanceByTgAdmins } from "../../../entities/admin";
 import { getDateUTC } from "../../../shared/lib/helpers/getDateUTC";
 import { SelectedTgAdmins } from "../../../features/studentFilters";
 
@@ -93,7 +93,7 @@ export const FinanceWidget: FC = () => {
                 my.paid_functions['finance_by_tgs']
                     &&
                 <section className={classes.selectedTgAdmins}>
-                    <SelectedTgAdmins 
+                    <SelectedTgAdmins
                         setTgAdmins={setTgAdmins}
                     />
                 </section>

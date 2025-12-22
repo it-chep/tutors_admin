@@ -18,13 +18,14 @@ export const AssistantCard: FC<IProps & PropsWithChildren> = ({assistant, childr
                     `ID: ${assistant.id}`,
                     `ФИО: ${assistant.full_name}`,
                     `Телефон: ${assistant.phone}`,
+                    `Доступные ТГ: ${assistant.tg_admins_usernames.join(', ')}`,
                     <a 
                         target="_blank" 
                         href={assistant.tg} 
                         className={classes.highlight}
                     >
                         Написать в тг
-                    </a>
+                    </a>,
                 ]}
             />
         </section>

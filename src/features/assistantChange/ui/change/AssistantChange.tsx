@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, PropsWithChildren, useState } from "react";
 import classes from './assistantChange.module.scss'
 import { MyInput } from "../../../../shared/ui/input";
 import { useGlobalLoadingActions } from "../../../../entities/globalLoading";
@@ -12,7 +12,12 @@ import { IFormError } from "../../../../shared/model/types";
 import { changeFormError } from "../../../../shared/lib/helpers/ChangeFormError";
 import { assistantChange, assistantService, IAssistantCreate } from "../../../../entities/assistant";
 
-export const AssistantChange: FC = () => {
+interface IProps {
+    assistant: IAssistantCreate;
+    setAssistant: (assistant: IAssistantCreate) => void;
+}
+
+export const AssistantChange: FC<IProps & PropsWithChildren> = ({assistant, setAssistant, children}) => {
 
     const {setIsLoading} = useGlobalLoadingActions()
     const {setGlobalMessage} = useGlobalMessageActions()
@@ -20,12 +25,7 @@ export const AssistantChange: FC = () => {
     const [formError, setFormError] = useState<IFormError<IAssistantCreate>[]>([])
     const setErrorFieldDelete = changeFormError(formError, setFormError)
 
-    const [assistant, setAssistant] = useState<IAssistantCreate>({
-        "full_name": '',
-        "phone": '',
-        "tg": '',
-        "email": '',
-    })
+   
 
     const {setTg, setFullName, setPhone, setEmail} = assistantChange(assistant, setAssistant)
 
@@ -99,6 +99,14 @@ export const AssistantChange: FC = () => {
                 error={formError.find(error => error.field === 'tg')?.text}
                 setError={setErrorFieldDelete('tg')}
             />
+            <section>
+                <section className={classes.sign}>
+                    Доступные ТГ
+                </section>
+                {
+                    children
+                }
+            </section>
             <section className={classes.button}>
                 <MyButton
                     onClick={onSend}

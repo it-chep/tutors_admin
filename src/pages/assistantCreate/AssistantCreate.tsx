@@ -4,6 +4,7 @@ import { TRole } from '../../entities/my'
 import { useAppSelector } from '../../app/store/store'
 import { Navigate } from 'react-router-dom'
 import { AssistantChange } from '../../features/assistantChange'
+import { AssistantCreate } from '../../widgets/assistantCreate'
 
 const roles: TRole[] = ['admin'] 
 
@@ -20,7 +21,7 @@ export default function AssistantCreatePage() {
 
     return (
         <LayoutPages title={ASSISTANT_CREATE_ROUTE.name}>
-            <AssistantChange />
+            <AssistantCreate />
         </LayoutPages>
     )
 }

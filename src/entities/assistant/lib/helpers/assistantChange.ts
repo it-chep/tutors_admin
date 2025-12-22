@@ -2,19 +2,22 @@ import { IAssistantCreate } from "../../model/types"
 
 
 
-export const assistantChange = (assistant: IAssistantCreate, setTutor: (assistant: IAssistantCreate) => void) => {
+export const assistantChange = (assistant: IAssistantCreate, setAssistant: (assistant: IAssistantCreate) => void) => {
     return {
         setFullName(full_name: string){
-            setTutor({...assistant, full_name})
+            setAssistant({...assistant, full_name})
         },
         setPhone(phone: string){
-            setTutor({...assistant, phone})
+            setAssistant({...assistant, phone})
         },
         setEmail(email: string){
-            setTutor({...assistant, email})
+            setAssistant({...assistant, email})
         },
         setTg(tg: string){
-            setTutor({...assistant, tg})
+            setAssistant({...assistant, tg})
         },
+        setTgAdmins(tg_admins_usernames: string[]){
+            setAssistant({...assistant, tg_admins_usernames})
+        }
     }
 }

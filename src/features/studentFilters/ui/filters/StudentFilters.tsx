@@ -18,9 +18,11 @@ export const StudentFilters: FC<IProps> = ({onSelectedFilters}) => {
 
     return (
         <section className={classes.container}>
-            <SelectedTgAdmins 
-                setTgAdmins={setTgAdmins}
-            />
+            <section className={classes.tgAdmins}>
+                <SelectedTgAdmins 
+                    setTgAdmins={setTgAdmins}
+                />
+            </section>
             <section className={classes.toggle}>
                 Должники: 
                 <ToggleSwitch 
