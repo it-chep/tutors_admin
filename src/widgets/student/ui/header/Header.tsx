@@ -30,6 +30,8 @@ export const Header: FC<IProps> = ({student, setStudent}) => {
     const {setIsAuth} = useMyActions()
     const {my} = useAppSelector(s => s.myReducer)
     const [open, setOpen] = useState<boolean>(false)
+    
+    const {setStudent: setStudentRedux} = useStudentActions()
 
     const onDelete = async () => {
         if(student.id){
@@ -39,7 +41,7 @@ export const Header: FC<IProps> = ({student, setStudent}) => {
     }
 
     const onEdit = () => {
-        setStudent(student)
+        setStudentRedux(student)
         router(STUDENT_UPDATE_ROUTE.path)
     }
 

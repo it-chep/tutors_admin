@@ -9,9 +9,10 @@ import { DropDownListSelected } from "../../../../shared/ui/dropDownSelected";
 
 interface IProps {
     setTgAdmins: (tgAdmins: string[]) => void;
+    initTgAdmins?: string[]
 }
 
-export const SelectedTgAdmins: FC<IProps> = ({setTgAdmins}) => {
+export const SelectedTgAdmins: FC<IProps> = ({setTgAdmins, initTgAdmins}) => {
     
     const [isLoading, setIsLoading] = useState<boolean>(true)
     const [tgAdminsItems, setTgAdminsItems] = useState<IItem[]>([])
@@ -23,7 +24,11 @@ export const SelectedTgAdmins: FC<IProps> = ({setTgAdmins}) => {
         try{
             setIsLoading(true)
             const adminsRes = await studentService.getTgAdmins()
-            setTgAdminsItems(adminsRes.map((a, ind) => ({id: Date.now() + ind, name: a})))
+            const items = adminsRes.map((a, ind) => ({id: Date.now() + ind, name: a}))
+            if(initTgAdmins){
+                setSelectedTgAdmins(items.filter(admin => initTgAdmins.includes(admin.name)).map(admin => admin.id))
+            }
+            setTgAdminsItems(items)
         }
         catch(e){
             console.log(e)

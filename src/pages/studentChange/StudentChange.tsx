@@ -8,7 +8,7 @@ import { IStudentChange, useStudentActions } from '../../entities/student'
 import { subjectService } from '../../entities/subject'
 import { tutorService } from '../../entities/tutor'
 import { TRole } from '../../entities/my'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { changeFormError } from '../../shared/lib/helpers/ChangeFormError'
 import { IFormError } from '../../shared/model/types'
 
@@ -21,7 +21,7 @@ export default function StudentChangePage() {
     const isCreate = pathname === STUDENT_CREATE_ROUTE.path;
 
     const {student} = useAppSelector(s => s.studentReducer)
-    const {setSubjectId, setTutorId} = useStudentActions()
+    const {setSubjectId, setTutorId, setInitialState} = useStudentActions()
 
     const {my} = useAppSelector(s => s.myReducer)
     const isAccess = roles.includes(my.role)
@@ -29,6 +29,12 @@ export default function StudentChangePage() {
     const [formError, setFormError] = useState<IFormError<IStudentChange>[]>([])
     const setErrorFieldDelete = changeFormError(formError, setFormError)
     
+    useEffect(() => {
+        return () => {
+            setInitialState()
+        }
+    }, [])
+
     if(!isAccess){
         return (
             <Navigate to={HOME_ROUTE.path} replace />

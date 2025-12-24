@@ -15,7 +15,9 @@ interface IProps {
     setErrorFieldDelete: (field: keyof IStudentChange) => () => void;
 }
 
-export const StudentChange: FC<IProps> = ({isCreate, chooseSubject, chooseTutor, formError, setErrorFieldDelete, setFormError}) => {
+export const StudentChange: FC<IProps> = (
+    {isCreate, chooseSubject, chooseTutor, formError, setErrorFieldDelete, setFormError}
+) => {
 
     const {student} = useAppSelector(s => s.studentReducer)
 

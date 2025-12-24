@@ -24,12 +24,8 @@ export default function StudentPage() {
             {
                 (my.role === 'admin' || my.role === 'super_admin' || my.role === 'assistant')
                     &&
-                <section>
-                    {
-                        my.role !== 'assistant'
-                            &&
-                        <Transactions studentId={+id} />
-                    }
+                <section>                
+                    <Transactions studentId={+id} />
                     <Notifications studentId={+id} />
                 </section>
             }

@@ -73,7 +73,7 @@ export const Calendar: React.FC<CalendarProps> = ({onDateRangeSelect, isLoading,
         if (!startDate || (startDate && endDate)) {
             newStartDate = date;
             newEndDate = null;
-        } else if (date > startDate) {
+        } else if (date >= startDate) {
             newEndDate = date;
         } else {
             newStartDate = date;
