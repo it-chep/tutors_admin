@@ -6,7 +6,6 @@ import classes from './navPages.module.scss'
 import { useAppSelector } from "../../../../app/store/store";
 
 
-
 export const NavPages: FC = () => {
 
     const links: ISection['sections'] = [{title: 'Главная', link: '/'}]
@@ -19,7 +18,7 @@ export const NavPages: FC = () => {
     const {pathname} = useLocation()
 
     return (
-        <nav className={classes.navPages}>
+        <section className={classes.navPages}>
             <ul className={classes.list}>
                 {links.map(link => 
                     <li 
@@ -33,6 +32,6 @@ export const NavPages: FC = () => {
                     </li>
                 )}
             </ul>
-        </nav>
+        </section>
     )
 }

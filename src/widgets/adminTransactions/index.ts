@@ -1,1 +1,1 @@
-export { AdminTransactions } from "./ui/AdminTransactions";
+export { AdminTransactions } from "./ui/adminTransactions/AdminTransactions";

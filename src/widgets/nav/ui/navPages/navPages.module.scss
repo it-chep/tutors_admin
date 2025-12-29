@@ -13,6 +13,7 @@
             display: flex;
             align-items: center;
             font-size: 18px;
+            padding: 10px 0;
 
             &.selected{
                 a{
@@ -23,6 +24,8 @@
             a{
                 display: flex;
                 align-items: center;
+                position: relative;
+
                 .linkVisible{
                     position: absolute;
                 }
@@ -35,6 +38,19 @@
                     font-weight: 500;
                 }
             }
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .navPages{
+        border-top: 1px solid black;
+        font-weight: 400;
+
+        .list{
+            flex-direction: column;
+            gap: 0px;
+            margin: 10px 30px;
         }
     }
 }

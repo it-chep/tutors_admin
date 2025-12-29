@@ -23,7 +23,7 @@
             align-self: flex-start;
             text-align: center;
             width: 240px;
-            min-width: 240px;
+            max-width: 100%;
 
             >a{
                 background-color: var(--blue-light);

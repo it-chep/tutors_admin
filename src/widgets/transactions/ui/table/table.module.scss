@@ -1,0 +1,26 @@
+
+
+.wrapTable{
+    overflow: auto;
+    height: 360px;
+    
+    .table{
+        border-collapse: collapse;
+        width: 100%;
+        text-align: start;
+    
+        .item{
+            border-bottom: 1px solid var(--black);
+            th{
+                text-align: start;
+                padding: 16px 6px;
+            }
+        }
+    }
+}
+
+@media (max-width: 400px) {
+    .wrapTable{
+        display: none;
+    }
+}

@@ -58,7 +58,6 @@ export const ChangeStudentBalance: FC<IProps> = ({studentId, setStudentBalance})
 
     return (
         <section className={classes.container}>
-            
             <img src={editImg} onClick={() => setOpen(true)} />
             <Modal open={open} setOpen={onClose}>
                 {

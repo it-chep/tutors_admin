@@ -1,3 +1,6 @@
+export { TransactionItemMobile } from "./ui/transactionItem/TransactionItemMobile";
+export { LessonItemMobile } from "./ui/lessonItem/LessonItemMobile";
+export { StudentItemMobile } from "./ui/item/StudentItemMobile";
 export { NotificationItem } from "./ui/notificationItem/NotificationItem";
 export { TransactionItem } from "./ui/transactionItem/TransactionItem";
 export { LessonItem } from "./ui/lessonItem/LessonItem";

@@ -7,14 +7,19 @@
 
     .buttonOpen{
         width: fit-content;
-        height: 44px;
+
+        .buttonText{
+            padding: 4px 0;      
+        }
     }
 
     .choose{
         width: 600px;
+        max-width: 100%;
     }
 
     .button{
         width: 220px;
+        max-width: 100%;
     }
 }

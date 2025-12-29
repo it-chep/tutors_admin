@@ -93,7 +93,7 @@ export const Conducted: FC<IProps> = ({id}) => {
     }
 
     return (
-        <section>
+        <>
             <section className={classes.title} onClick={() => setOpen(true)}>
                 Провести занятие
             </section>
@@ -138,6 +138,6 @@ export const Conducted: FC<IProps> = ({id}) => {
                     />
                 }
             </Modal>
-        </section>
+        </>
     )
 }

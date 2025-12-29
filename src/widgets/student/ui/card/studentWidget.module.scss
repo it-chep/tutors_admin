@@ -2,7 +2,6 @@
 
 
 .container{
-    
     .tutor{
         text-align: center;
     }
@@ -21,5 +20,9 @@
     .move{
         position: relative;
         z-index: 9;
+    }
+
+    .lessons{
+        text-align: start;
     }
 }

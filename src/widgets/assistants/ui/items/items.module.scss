@@ -1,0 +1,11 @@
+
+
+.items{
+    display: none;
+}
+
+@media (max-width: 650px) {
+    .items{
+        display: block;
+    }
+}

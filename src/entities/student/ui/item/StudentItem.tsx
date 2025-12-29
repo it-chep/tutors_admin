@@ -3,7 +3,6 @@ import classes from './studentItem.module.scss'
 import { IStudent } from "../../model/types";
 import { useAppSelector } from "../../../../app/store/store";
 
-
 interface IProps {
     student: IStudent;
     highlight?: boolean;
@@ -46,7 +45,7 @@ export const StudentItem: FC<IProps & PropsWithChildren> = ({student, highlight,
                             Написать в ТГ
                         </a>
                     </td>
-                    <td>
+                    <td className={classes.balance}>
                         {student.balance} ₽
                     </td>
                 </>

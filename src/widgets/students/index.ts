@@ -1,1 +1,1 @@
-export { StudentsWidget } from "./ui/StudentsWidget";
+export { StudentsWidget } from "./ui/students/StudentsWidget";

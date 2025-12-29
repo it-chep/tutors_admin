@@ -1,3 +1,4 @@
+export { TutorItemMobile } from './ui/item/TutorItemMobile'
 export { tutorChange } from './lib/helpers/tutorChange'
 export { TutorCard } from './ui/card/TutorCard'
 export { TutorItem } from './ui/item/TutorItem'

@@ -2,7 +2,6 @@ import { FC, PropsWithChildren } from "react";
 import classes from './confirmationAction.module.scss'
 import { LoaderSpinner } from "../spinner";
 
-
 interface IProps{
     setOpen: (open: boolean) => void;
     onClick: () => void;

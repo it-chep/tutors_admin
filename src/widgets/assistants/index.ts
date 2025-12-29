@@ -1,1 +1,1 @@
-export { AssistantsWidget } from "./ui/AssistantsWidget";
+export { AssistantsWidget } from "./ui/assistants/AssistantsWidget";

@@ -1,0 +1,16 @@
+
+
+
+
+
+@media (max-width: 950px) {
+    .items{
+        border-top: 1px solid var(--gray);
+        padding-top: 20px;
+
+        .button{
+            width: 240px;
+            max-width: 100%;
+        }
+    }
+}

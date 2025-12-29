@@ -1,49 +1,75 @@
 
 
 
-.wrapper{
+.header{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 70px;
+    background-color: var(--blue-light);
+    font-size: 20px;
+    font-weight: 500;
+    border-bottom: 1px solid black;
+    width: 100%;
+    max-width: 100%;
 
-    .header{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 70px;
-        background-color: var(--blue-light);
-        width: 100%;
-        min-width: 1300px;
-        font-size: 20px;
-        font-weight: 500;
-        border-bottom: 1px solid black;
+    .burger{
+        display: none;
     }
+}
     
-    .nav{
-        display: flex;
-        align-items: center;
-        height: 60px;
-        width: 100%;
-        min-width: 1300px;
-        box-shadow: 0 0 10px 5px #0000001a;
+.nav{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 60px;
+    box-shadow: 0 0 10px 5px #0000001a;
+    width: 100%;
+    max-width: 100%;
+        
+    .navWrapper{
+        margin: 0 20px;
+        width: 1260px;
+        max-width: 100%;
+        overflow: auto;
+    }
+}
 
-        .navWrapper{
-            margin: 0 auto;
-            padding: 0 20px;
-            width: 1300px;
-            
+.container{
+    display: flex;
+    flex-direction: column;
+    margin: 20px auto;
+    padding: 0 20px;
+    width: 1300px;
+    max-width: 100%;
+    padding-bottom: 200px;
+    min-height: 100vh;
+    overflow: hidden;
+
+    .main{
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .header{
+        top: 0;
+        position: fixed;
+        z-index: 99;
+        padding: 0 20px;
+
+        .burger{
+            display: block;
+            margin-left: auto;
+            position: relative;
         }
+    }
+        
+    .nav{
+        display: none;
     }
 
     .container{
-        display: flex;
-        flex-direction: column;
-        margin: 20px auto;
-        padding: 0 20px;
-        width: 1300px;
-        min-height: 100vh;
-        padding-bottom: 200px;
-
-        .main{
-            width: 100%;
-        }
-        
+        margin-top: 100px;
     }
 }

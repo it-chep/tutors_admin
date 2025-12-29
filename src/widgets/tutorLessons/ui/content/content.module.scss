@@ -1,0 +1,18 @@
+
+
+
+.loader{
+    margin-top: 40px;
+    margin-left: 40px;
+}
+    
+.count {
+    text-align: start;
+}
+
+@media (max-width: 650px) {
+    .count {
+        padding-bottom: 12px;
+        border-bottom: 1px solid var(--black);
+    }
+}

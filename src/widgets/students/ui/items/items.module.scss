@@ -1,0 +1,20 @@
+
+.items{
+    display: none;
+}
+
+@media (max-width: 950px) {
+    .items{
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+
+        border-top: 1px solid var(--gray);
+        padding-top: 20px;
+
+        .button{
+            width: 240px;
+            max-width: 100%;
+        }
+    }
+}

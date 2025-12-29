@@ -1,0 +1,13 @@
+
+
+.items{
+    display: none;
+}
+
+@media (max-width: 650px) {
+    .items{
+        display: block;
+        border-top: 1px solid var(--black);
+        margin-top: 12px;
+    }
+}

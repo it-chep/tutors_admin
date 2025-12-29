@@ -8,7 +8,8 @@
     gap: 60px;
     background-color: #FFF;
     padding: 60px 80px;
-    min-width: 560px;
+    width: 560px;
+    max-width: 100%;
     border-radius: 20px;
 
     .loader{
@@ -29,6 +30,7 @@
         display: flex;
         justify-content: center;
         gap: 8px;
+        width: 100%;
 
         button{
             border: 1px solid var(--black);
@@ -78,6 +80,19 @@
                     background-color: var(--blue-hover);
                 }
             }
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .container{
+        gap: 40px;
+        padding: 30px;
+
+        .buttons{
+            flex-direction: column;
+            width: 290px;
+            max-width: 100%;
         }
     }
 }
