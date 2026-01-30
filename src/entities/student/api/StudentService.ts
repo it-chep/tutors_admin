@@ -170,6 +170,12 @@ class StudentService {
         return {notifications, notifications_count}
     }
 
+    async changePayment(studentId: number, new_payment_id: number){
+        await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + `/students/${studentId}/change_payment`, {
+            method: "POST",
+            body: JSON.stringify({new_payment_id})
+        })
+    }
 }
 
 export const studentService = new StudentService()

@@ -1,5 +1,5 @@
 import { fetchAuth } from "../../../shared/api/ApiService"
-import { IAdmin, IAdminCreate, IAdminData, IAdminFinance, IAdminFinanceByTgAdmins, IAdminLesson, ITransactionsAdmin } from "../model/types"
+import { IAdmin, IAdminCreate, IAdminData, IAdminFinance, IAdminFinanceByTgAdmins, IAdminLesson, IPayment, ITransactionsAdmin } from "../model/types"
 
 
 
@@ -72,6 +72,12 @@ class AdminService{
         })
         const {lessons, lessons_count}: {lessons: IAdminLesson[], lessons_count: number} = await res.json()
         return {lessons, lessons_count}
+    }
+
+    async getPayments(): Promise<IPayment[]> {
+        const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/payments')
+        const {payments}: {payments: IPayment[]} = await res.json()
+        return payments
     }
 }
 

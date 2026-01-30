@@ -9,7 +9,6 @@ import { OpenContainer } from "../../../features/openContainer";
 import { LoaderSpinner } from "../../../shared/ui/spinner";
 import { getDateUTC } from "../../../shared/lib/helpers/getDateUTC";
 
-
 interface IProps {
     studentId: number;
 }

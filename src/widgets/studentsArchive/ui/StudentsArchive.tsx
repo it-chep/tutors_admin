@@ -115,6 +115,7 @@ export const StudentsArchive: FC = () => {
                                     <th>Фио родителя</th>
                                     <th>Телеграм</th>
                                     <th>Баланс</th>
+                                    <th>Платежка</th>
                                 </>
                             }
                         </tr>

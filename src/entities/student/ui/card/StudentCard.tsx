@@ -1,15 +1,16 @@
-import { FC, PropsWithChildren } from "react";
+import { FC, PropsWithChildren, ReactElement } from "react";
 import classes from './card.module.scss'
 import { DataList } from "../../../../shared/ui/dataList/DataList";
 import { IStudentData } from "../../model/types";
 import { Link } from "react-router-dom";
-import { MyButton } from "../../../../shared/ui/button";
 
 interface IProps {
     student: IStudentData;
+    paymentChange: ReactElement;
+    balanceChange: ReactElement;
 }
 
-export const StudentCard: FC<IProps & PropsWithChildren> = ({student, children}) => {
+export const StudentCard: FC<IProps & PropsWithChildren> = ({student, paymentChange, balanceChange}) => {
 
 
     return (
@@ -60,8 +61,8 @@ export const StudentCard: FC<IProps & PropsWithChildren> = ({student, children})
             <DataList
                 title="Финансы"
                 list={[
-                    `Кошелек: ${student.balance} ₽`,
-                    <section>{children}</section>
+                    <section className={classes.financeItem}>Кошелек: ${student.balance} ₽ {balanceChange}</section>,
+                    <section className={classes.financeItem}>Платежка: {student.payment_name} {paymentChange}</section>,
                 ]}
             />
         </section>

@@ -28,6 +28,7 @@ export const ChangeStudentBalance: FC<IProps> = ({studentId, setStudentBalance})
     const update = async () => {
         try{
             setOpen(false)
+            setConfirm(false)
             setIsLoading(true)
             await studentService.changeWallet(studentId, balance)
             setStudentBalance(balance)
@@ -58,7 +59,6 @@ export const ChangeStudentBalance: FC<IProps> = ({studentId, setStudentBalance})
 
     return (
         <section className={classes.container}>
-            
             <img src={editImg} onClick={() => setOpen(true)} />
             <Modal open={open} setOpen={onClose}>
                 {

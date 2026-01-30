@@ -13,6 +13,8 @@ import { StudentsMove } from "../../../../features/studentsMove";
 import { ITutor } from "../../../../entities/tutor";
 import { ChangeStudentBalance } from "../../../../features/changeStudentBalance";
 import { LoaderSpinner } from "../../../../shared/ui/spinner";
+import { ChangeStudentPayment } from "../../../../features/changeStudentPayment";
+import { IPayment } from "../../../../entities/admin";
 
 interface IProps {
     id: number;
@@ -65,6 +67,11 @@ export const StudentWidget: FC<IProps & PropsWithChildren> = ({id, children}) =>
             setStudent({...student, tutor_id: tutor.id, tutor_name: tutor.full_name})
     }
 
+    const setStudentPayment = (payment: IPayment) => {
+        if(student) 
+            setStudent({...student, payment_id: payment.payment_id, payment_name: payment.payment_name})
+    }
+
     return (
         <section className={classes.container}>   
             {
@@ -84,12 +91,21 @@ export const StudentWidget: FC<IProps & PropsWithChildren> = ({id, children}) =>
                         />
                         <StudentCard
                             student={student}
-                        >
-                            <ChangeStudentBalance 
-                                studentId={student.id} 
-                                setStudentBalance={setBalance} 
-                            />
-                        </StudentCard>
+                            paymentChange={
+                                <ChangeStudentPayment 
+                                    payment_id={student.payment_id}
+                                    payment_name={student.payment_name}
+                                    studentId={student.id}
+                                    setStudentPayment={setStudentPayment}   
+                                />
+                            }
+                            balanceChange={
+                                <ChangeStudentBalance 
+                                    studentId={student.id} 
+                                    setStudentBalance={setBalance} 
+                                />
+                            }
+                        />
                         <section className={classes.move}>
                             <StudentsMove 
                                 title="Смена репетитора у студента" 

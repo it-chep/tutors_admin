@@ -59,3 +59,8 @@ export interface IAdminFinanceByTgAdmins {
     salary: string;
     debt: string;
 }
+
+export interface IPayment {
+    payment_id: number;
+    payment_name: string;
+}
