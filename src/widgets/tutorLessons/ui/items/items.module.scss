@@ -7,9 +7,11 @@
 
 @media (max-width: 650px) {
     .items{
-        display: block;
+        display: flex;
+        flex-direction: column;
         overflow: auto;
         height: 360px;
+        gap: 30px;
 
         .features{
             display: flex;

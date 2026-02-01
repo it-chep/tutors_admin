@@ -1,5 +1,5 @@
 import { FC } from "react";
-import classes from '../students/studentsWidget.module.scss'
+import classes from './items.module.scss'
 import { IStudent, StudentItemMobile } from "../../../../entities/student";
 import { MyButton } from "../../../../shared/ui/button";
 import { useNavigate } from "react-router-dom";

@@ -39,7 +39,12 @@
             }
         }
     }
+}
 
-
-
+@media (max-width: 480px) {
+    .container{
+        .sections{
+            justify-content: center;
+        }
+    }
 }
