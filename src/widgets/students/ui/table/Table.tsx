@@ -28,6 +28,7 @@ export const Table: FC<IProps> = ({studentsSearch, highlight}) => {
                             <th>Фио родителя</th>
                             <th>Телеграм</th>
                             <th>Баланс</th>
+                            <th>Платежка</th>
                         </>
                     }
                 </tr>

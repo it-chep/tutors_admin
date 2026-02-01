@@ -56,6 +56,10 @@ export const StudentItemMobile: FC<IProps & PropsWithChildren> = ({student, high
                         label="Баланс"
                         text={student.balance + '₽'}
                     />
+                    <LabelText 
+                        label="Платежка"
+                        text={student.payment_name}
+                    />
                 </>
             }            
             <section className={classes.feature}>

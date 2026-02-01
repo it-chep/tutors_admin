@@ -18,6 +18,12 @@ export const Modal: FC<IProps & PropsWithChildren> = ({open, setOpen, children})
         }
     }, [open])
 
+    useEffect(() => {
+        return () => {
+            document.body.style.overflow = ''
+        }
+    }, [])
+
     const onDarkenCLick = () => {
         setOpen(false)
     }

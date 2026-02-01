@@ -10,6 +10,7 @@ export interface IStudent {
     is_balance_negative: boolean;
     is_newbie: boolean;
     balance: string;
+    payment_name: string;
 }
 
 export interface IStudentData {
@@ -31,6 +32,8 @@ export interface IStudentData {
     is_only_trial_finished: boolean;
     is_balance_negative: boolean;
     tg_admin_username: string;
+    payment_name: string;
+    payment_id: number;
     is_newbie: boolean;
     tg_id?: number;
     is_archive: boolean;
@@ -50,6 +53,11 @@ export interface IStudentChange {
     parent_phone: string;
     parent_tg: string;
     tg_admin_username: string;
+}
+
+export interface IPayment {
+    payment_id: number;
+    payment_name: string;
 }
 
 export interface IStudentInitialState {

@@ -28,6 +28,7 @@ export const ChangeStudentBalance: FC<IProps> = ({studentId, setStudentBalance})
     const update = async () => {
         try{
             setOpen(false)
+            setConfirm(false)
             setIsLoading(true)
             await studentService.changeWallet(studentId, balance)
             setStudentBalance(balance)

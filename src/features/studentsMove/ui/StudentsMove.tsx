@@ -12,7 +12,6 @@ import { IItem } from "../../../shared/model/types";
 import { studentService } from "../../../entities/student";
 import { MyButton } from "../../../shared/ui/button";
 
-
 interface IProps {
     title: string;
     tutorId: number;

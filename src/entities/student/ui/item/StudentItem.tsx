@@ -8,7 +8,6 @@ interface IProps {
     highlight?: boolean;
 }
 
-
 export const StudentItem: FC<IProps & PropsWithChildren> = ({student, highlight, children}) => {
 
     const {my} = useAppSelector(s => s.myReducer)
@@ -47,6 +46,9 @@ export const StudentItem: FC<IProps & PropsWithChildren> = ({student, highlight,
                     </td>
                     <td className={classes.balance}>
                         {student.balance} ₽
+                    </td>
+                    <td>
+                        {student.payment_name}
                     </td>
                 </>
             }            

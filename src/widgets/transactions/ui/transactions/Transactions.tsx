@@ -10,7 +10,6 @@ import { LoaderSpinner } from "../../../../shared/ui/spinner";
 import { getDateUTC } from "../../../../shared/lib/helpers/getDateUTC";
 import { Table } from "../table/Table";
 
-
 interface IProps {
     studentId: number;
 }
