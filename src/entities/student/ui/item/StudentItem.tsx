@@ -3,12 +3,10 @@ import classes from './studentItem.module.scss'
 import { IStudent } from "../../model/types";
 import { useAppSelector } from "../../../../app/store/store";
 
-
 interface IProps {
     student: IStudent;
     highlight?: boolean;
 }
-
 
 export const StudentItem: FC<IProps & PropsWithChildren> = ({student, highlight, children}) => {
 
@@ -48,6 +46,9 @@ export const StudentItem: FC<IProps & PropsWithChildren> = ({student, highlight,
                     </td>
                     <td>
                         {student.balance} ₽
+                    </td>
+                    <td>
+                        {student.payment_name}
                     </td>
                 </>
             }            
