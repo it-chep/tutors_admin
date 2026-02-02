@@ -20,3 +20,29 @@
         }
     }
 }
+
+
+.itemMobile{
+    display: none;
+}
+
+@media (max-width: 650px) {
+    .item{
+        display: none;
+
+    }
+    .itemMobile{
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        padding-bottom: 30px;
+        border-bottom: 1px solid var(--gray);
+
+        .feature{
+            margin-top: 20px;   
+            width: 240px;
+            max-width: 100%;         
+        }
+    }
+}

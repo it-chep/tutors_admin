@@ -5,3 +5,29 @@
         padding: 16px 6px;
     }
 }
+
+.itemMobile{
+    display: none;
+}
+
+@media (max-width: 400px) {
+    .item{
+        display: none;
+    }
+    .itemMobile{
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        padding-bottom: 30px;
+        border-bottom: 1px solid var(--gray);
+        
+        a{
+            color: var(--blue);
+            transition: all .15s ease;
+
+            &:hover{
+                color: var(--blue-hover);
+            }
+        }
+    }
+}

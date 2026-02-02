@@ -1,5 +1,5 @@
 import { FC, PropsWithChildren } from "react";
-import { NavPages } from "../../widgets/nav";
+import { NavMobile, NavPages } from "../../widgets/nav";
 import classes from './layoutPages.module.scss'
 
 interface IProps {
@@ -9,9 +9,12 @@ interface IProps {
 export const LayoutPages: FC<IProps & PropsWithChildren> = ({title, children}) => {
 
     return (
-        <section className={classes.wrapper}>
+        <>
             <header className={classes.header}>
                 {title}
+                <section className={classes.burger}>
+                    <NavMobile />
+                </section>
             </header>
             <section className={classes.nav}>
                 <section className={classes.navWrapper}>
@@ -23,6 +26,6 @@ export const LayoutPages: FC<IProps & PropsWithChildren> = ({title, children}) =
                     {children}
                 </main>
             </section>
-        </section>
+        </>
     )
 }

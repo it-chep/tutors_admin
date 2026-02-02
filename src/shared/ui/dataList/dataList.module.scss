@@ -4,20 +4,38 @@
 .container{
     margin-top: 20px;
 
+    &:first-child{
+        .title{
+            padding: 20px 0;
+        }
+        .list{
+            padding: 0;
+        }
+    }
+
+    &:last-child{
+        .title{
+            padding: 20px 0;
+        }
+        .list{
+            padding: 0;
+        }
+    }
+    
     .title{
         font-size: 20px;
         font-weight: 500;
-        padding: 20px 0;
+        padding: 20px 10px;
         border-bottom: 2px solid var(--black);
         border-top: 2px solid var(--black);
     }
-
+    
     .list{
         margin-top: 20px;
         font-size: 17px;
         display: flex;
         flex-direction: column;
         gap: 17px;
+        padding: 0 10px;
     }
-
 }

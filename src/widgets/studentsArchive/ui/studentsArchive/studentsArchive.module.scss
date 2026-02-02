@@ -1,0 +1,56 @@
+
+
+.container{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    .header{
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        width: 100%;
+        padding-bottom: 10px;
+        border-bottom: 1px solid var(--gray);
+
+        >a{
+            color: var(--blue);
+            transition: all .15s ease;
+
+            &:hover{
+                color: var(--blue-hover);
+            }
+        }
+    }
+
+    .search{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+
+        .searchItems{
+            width: 600px;
+            max-width: 100%;
+        }
+
+        .studentsCount{
+            white-space: nowrap;
+        }
+    }
+}
+
+@media (max-width: 700px) {
+    .container{
+        .header{
+            flex-direction: column-reverse;
+            align-items: start;
+        }
+
+        .search{
+            flex-direction: column;
+            align-items: start;
+            gap: 10px;
+        }
+    }
+}

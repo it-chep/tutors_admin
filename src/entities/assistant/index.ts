@@ -1,3 +1,4 @@
+export { AssistantItemMobile } from './ui/item/AssistantItemMobile'
 export { AssistantCard } from './ui/card/AssistantCard'
 export { AssistantItem } from './ui/item/AssistantItem'
 export { assistantService } from './api/AssistantService'

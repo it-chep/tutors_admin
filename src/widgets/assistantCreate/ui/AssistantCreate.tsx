@@ -17,16 +17,13 @@ export const AssistantCreate: FC = () => {
     const {setTgAdmins} = assistantChange(assistant, setAssistant)
 
     return (
-        <section>
-            <AssistantChange 
-                assistant={assistant}
-                setAssistant={setAssistant}
-            >
-                <SelectedTgAdmins 
-                    setTgAdmins={setTgAdmins}
-                />
-            </AssistantChange>
-            
-        </section>
+        <AssistantChange 
+            assistant={assistant}
+            setAssistant={setAssistant}
+        >
+            <SelectedTgAdmins 
+                setTgAdmins={setTgAdmins}
+            />
+        </AssistantChange>
     )
 }

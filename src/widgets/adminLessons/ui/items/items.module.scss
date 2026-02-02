@@ -1,0 +1,22 @@
+
+
+.items{
+    display: none;
+}
+
+@media (max-width: 850px) {
+    .items{
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        border-top: 1px solid var(--black);
+        margin-top: 12px;
+
+        .features{
+            display: flex;
+            align-items: start;
+            margin-top: 6px;
+            gap: 20px;
+        }
+    }
+}

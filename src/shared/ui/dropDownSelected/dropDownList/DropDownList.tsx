@@ -5,7 +5,6 @@ import { List } from "../list/List";
 import arrowDown from '../../../lib/assets/arrowDown.png'
 import { IItem } from "../../../model/types";
 
-
 interface IProps {
     items: IItem[];
     selectedIdItems: number[];

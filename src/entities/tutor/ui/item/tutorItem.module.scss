@@ -12,8 +12,6 @@
         background-color: var(--yellow-dark);
     }
 
-    
-    
     &.newbie, &.nohighlight{
         background-color: #FFF;
         
@@ -26,7 +24,6 @@
             }
         }
     }
-
 
     td{
         padding: 16px 6px;
@@ -42,6 +39,60 @@
 
         &:hover{
             color: #FFF;
+        }
+    }
+}
+
+.itemMobile{
+    display: none;
+}
+
+
+@media (max-width: 950px) {
+    .item{
+        display: none;
+    }
+    .itemMobile{
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        padding-bottom: 30px;
+        border-bottom: 1px solid var(--gray);
+
+        .feature{
+            margin-top: 20px;            
+        }
+
+        .highlight{
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            right: 0;
+            top: 6px;
+            background-color: var(--green);
+
+            &.balanceNegative{
+                background-color: var(--red);
+            }
+            
+            &.onlyTrial{
+                background-color: var(--yellow-dark);
+            }
+
+            &.newbie, &.nohighlight{
+                background-color: #FFF;
+                
+                .link{
+                    color: var(--black);
+                    transition: all .15s ease;
+                    
+                    &:hover{
+                        color: var(--black-hover);
+                    }
+                }
+            }
         }
     }
 }

@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import classes from './studentFilters.module.scss'
 import { ToggleSwitch } from "../../../../shared/ui/toggleSwitch";
 import { SelectedTgAdmins } from "../selectedTgAdmins/SelectedTgAdmins";
@@ -31,10 +31,16 @@ export const StudentFilters: FC<IProps> = ({onSelectedFilters}) => {
         }
         return newParams
     }
-
+    
+    const count = useRef<number>(0)
     useEffect(() => {
         onSelectedFilters(tgAdmins, isLost)
-        setParams(onSetParams())
+        if(count.current < 3){
+            count.current += 1;
+        }
+        else{
+            setParams(onSetParams())
+        }
     }, [tgAdmins, isLost])
 
     return (

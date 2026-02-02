@@ -7,7 +7,7 @@ import { useMyActions } from "../../../entities/my";
 import { useGlobalMessageActions } from "../../../entities/globalMessage";
 import { useNavigate } from "react-router-dom";
 import { TUTOR_CREATE_ROUTE } from "../../../app/router/routes";
-import { ITutor, TutorItem } from "../../../entities/tutor";
+import { ITutor, TutorItem, TutorItemMobile } from "../../../entities/tutor";
 import { HintWrap } from "./hint/Hint";
 import { SearchItems } from "../../../features/searchItems";
 
@@ -57,7 +57,6 @@ export const TutorsWidget: FC<IProps> = ({add, request, highlight=true}) => {
         getData()
     }, [])
 
-
     return (
         <section className={classes.container}>
             {
@@ -93,7 +92,7 @@ export const TutorsWidget: FC<IProps> = ({add, request, highlight=true}) => {
                 {
                     !isLoading
                         &&
-                    <section>
+                    <section className={classes.tutorsCount}>
                         Кол-во репетиторов: {tutorsCount}
                     </section>
                 }
@@ -103,28 +102,45 @@ export const TutorsWidget: FC<IProps> = ({add, request, highlight=true}) => {
                     ?
                 <section className="loader"><LoaderSpinner /></section>
                     :
-                <table className={classes.table}>
-                    <thead>
-                        <tr className={classes.item}>
-                            <th>ID</th>
-                            <th>Фио</th>
-                            <th>Телеграм</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {tutorsSearch.map(tutor => 
-                            <TutorItem 
-                                highlight={highlight}
+                <>
+                    <table className={classes.table}>
+                        <thead>
+                            <tr className={classes.item}>
+                                <th>ID</th>
+                                <th>ФИО</th>
+                                <th>Телеграм</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {tutorsSearch.map(tutor => 
+                                <TutorItem 
+                                    highlight={highlight}
+                                    key={tutor.id}
+                                    tutor={tutor}
+                                >
+                                    <MyButton onClick={() => router('/tutor/' + tutor.id)}>
+                                        Подробнее
+                                    </MyButton>
+                                </TutorItem>
+                            )}
+                        </tbody>
+                    </table>
+                    <section className={classes.items}>
+                       {tutorsSearch.map(tutor => 
+                            <TutorItemMobile
                                 key={tutor.id}
                                 tutor={tutor}
+                                highlight={highlight}
                             >
-                                <MyButton onClick={() => router('/tutor/' + tutor.id)}>
-                                    Подробнее
-                                </MyButton>
-                            </TutorItem>
+                                <section className={classes.button}>
+                                    <MyButton onClick={() => router('/tutor/' + tutor.id)}>
+                                        Подробнее
+                                    </MyButton>
+                                </section>
+                            </TutorItemMobile>
                         )}
-                    </tbody>
-                </table>
+                    </section>
+                </>
             }
         </section>
     )

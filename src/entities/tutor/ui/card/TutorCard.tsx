@@ -30,13 +30,18 @@ export const TutorCard: FC<IProps & PropsWithChildren> = ({tutor, children}) => 
                     `Предмет: ${tutor.subject_name}`,
                 ]}
             />
-            
-            <DataList 
-                title="Финансы"
-                list={[
-                    children
-                ]}
-            />
+            <section className={classes.finance}>
+                <DataList 
+                    title="Финансы"
+                    list={[
+                        children
+                    ]}
+                />
+            </section>
+            <section className={classes.financeMobile}>
+                <section className={classes.title}>Финансы</section>
+                {children}
+            </section>
         </section>
     )
 }

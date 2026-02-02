@@ -27,12 +27,18 @@ export const AdminCard: FC<IProps & PropsWithChildren> = ({admin, children}) => 
                     </a>
                 ]}
             />
-            <DataList 
-                title="Финансы"
-                list={[
-                    children
-                ]}
-            />
+            <section className={classes.finance}>
+                <DataList 
+                    title="Финансы"
+                    list={[
+                        children
+                    ]}
+                />
+            </section>
+            <section className={classes.financeMobile}>
+                <section className={classes.title}>Финансы</section>
+                {children}
+            </section>
         </section>
     )
 }

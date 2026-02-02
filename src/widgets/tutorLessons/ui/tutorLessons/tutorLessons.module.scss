@@ -1,3 +1,5 @@
+
+
 .container {
     min-height: 510px;
     
@@ -11,25 +13,12 @@
         padding-bottom: 20px;
     }
 
-    .loader{
-        margin-top: 40px;
-        margin-left: 40px;
-    }
-
-    .count {
-        margin-top: 20px;
-        text-align: start;
-    }
-
     .content {
+        display: flex;
+        flex-direction: column;
+        margin-top: 20px;
+        gap: 20px;
         height: 480px;
         overflow: hidden;
-        margin-top: 20px;
-    }
-
-    .wrapTable{
-        overflow: auto;
-        height: 360px;
-        margin-top: 20px;
     }
 }

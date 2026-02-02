@@ -111,7 +111,9 @@ export const StudentsMove: FC<IProps & PropsWithChildren> = ({title, tutorId, st
                 <MyButton 
                     onClick={() => setWidgetOpen(!widgetOpen)}
                 >
-                    {title}
+                    <section className={classes.buttonText}> 
+                        {title}
+                    </section>
                 </MyButton>
             </section>
             {   

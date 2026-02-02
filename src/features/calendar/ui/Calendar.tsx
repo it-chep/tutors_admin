@@ -1,4 +1,4 @@
-import React, { JSX, MouseEvent, useState } from 'react';
+import React, { JSX, MouseEvent, useEffect, useMemo, useState } from 'react';
 import classes from './calendar.module.scss';
 import arrowLeft from '../../../shared/lib/assets/ArrowLeft.png'
 import arrowRight from '../../../shared/lib/assets/ArrowRight.png'
@@ -17,6 +17,23 @@ export const Calendar: React.FC<CalendarProps> = ({onDateRangeSelect, isLoading,
     const [hoverDate, setHoverDate] = useState<Date | null>(null);
     const [open, setOpen] = useState<boolean>(false)
 
+    const getMonthCount = () => {
+        return window.innerWidth < 650 ? 1 : window.innerWidth < 950 ? 2 : 3
+    }
+
+    const [monthCount, setMonthCount] = useState<1 | 2 | 3>(getMonthCount())
+
+    useEffect(() => {
+
+        const setMonthCountWrap = () => {
+            setMonthCount(getMonthCount())
+        }
+
+        window.addEventListener('resize', setMonthCountWrap)
+
+        return () => window.removeEventListener('resize', setMonthCountWrap)
+    }, [])
+
     // Функции для навигации
     const prevMonth = (): void => {
         setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1));
@@ -27,9 +44,10 @@ export const Calendar: React.FC<CalendarProps> = ({onDateRangeSelect, isLoading,
     };
 
   // Получение дат для трех месяцев
+    
     const getThreeMonths = (): Date[] => {
         const months: Date[] = [];
-        let interval = oneDate ? [0, 0] : [-1, 1] 
+        let interval = monthCount === 3 ? oneDate ? [0, 0] : [-1, 1] :  monthCount === 2 ? [-1, 0] : [0, 0]
         for (let i = interval[0]; i <= interval[1]; i++) {
             const monthDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + i, 1);
             months.push(monthDate);
@@ -173,7 +191,7 @@ export const Calendar: React.FC<CalendarProps> = ({onDateRangeSelect, isLoading,
         }
     }
 
-    const months = getThreeMonths();
+    const months = useMemo(getThreeMonths, [monthCount])
     
     return (
         <section className={classes.calendarContainer + (oneDate ? ` ${classes.oneDate}` : '')}>

@@ -25,8 +25,6 @@ export const AssistantChange: FC<IProps & PropsWithChildren> = ({assistant, setA
     const [formError, setFormError] = useState<IFormError<IAssistantCreate>[]>([])
     const setErrorFieldDelete = changeFormError(formError, setFormError)
 
-   
-
     const {setTg, setFullName, setPhone, setEmail} = assistantChange(assistant, setAssistant)
 
     const router = useNavigate()

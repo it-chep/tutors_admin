@@ -1,11 +1,10 @@
+
+
 .calendarContainer {
   width: 900px;
-  min-width: 900px;
-  max-width: 900px;
+  max-width: 100%;
   position: relative;
   z-index: 9;
-  
-
 
   .selectedRange {
     padding: 15px;
@@ -28,6 +27,7 @@
 
     .today{
       width: 150px;
+      max-width: 100%;
     }
   }
     
@@ -170,13 +170,43 @@
       }
     }
   }
-    &.oneDate{
+  
+  &.oneDate{
     width: 300px;
     min-width: 300px;
     max-width: 300px; 
 
     .calendarMonths {
       grid-template-columns: repeat(1, 1fr);
+    }
+  }
+}
+
+
+@media (max-width: 950px) {
+  .calendarContainer {
+    .wrapper{
+      .calendarMonths {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  }
+}
+
+@media (max-width: 650px) {
+  .calendarContainer {
+    .selectedRange {
+      flex-direction: column;
+      gap: 15px;
+
+      .today{
+        width: 250px;
+      }
+    }
+    .wrapper{
+      .calendarMonths {
+        grid-template-columns: repeat(1, 1fr);
+      }
     }
   }
 }

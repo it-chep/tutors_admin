@@ -111,7 +111,7 @@ export const ChangeDurationLesson: FC<IProps> = ({lessonId, durationInit, dateIn
                         :
                     <section className={classes.change}>
                         <section className={classes.date}>
-                            <span>Дата в формате "YYYY-MM-DD HH:MM:SS"</span>
+                            <span>Дата в формате<span>&nbsp;"YYYY-MM-DD HH:MM:SS"</span></span>
                             <MyInput   
                                 value={date} 
                                 setValue={setDate} 

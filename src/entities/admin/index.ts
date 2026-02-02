@@ -1,3 +1,6 @@
+export { AdminItemMobile } from './ui/item/AdminItemMobile'
+export { AdminTransactionItemMobile } from './ui/transactionItem/AdminTransactionItemMobile'
+export { AdminLessonItemMobile } from './ui/lessonItem/AdminLessonItemMobile'
 export { AdminLessonItem } from './ui/lessonItem/AdminLessonItem'
 export { AdminTransactionItem } from './ui/transactionItem/AdminTransactionItem'
 export { adminChange } from './lib/helpers/adminChange'

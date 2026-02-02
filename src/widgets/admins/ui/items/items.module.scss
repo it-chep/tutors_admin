@@ -1,0 +1,21 @@
+
+
+
+.items{
+    display: none;
+}
+
+@media (max-width: 650px) {
+    .items{
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        .features{
+            display: flex;
+            align-items: start;
+            margin-top: 6px;
+            gap: 20px;
+        }
+    }
+}

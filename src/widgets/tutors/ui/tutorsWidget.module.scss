@@ -15,6 +15,7 @@
         
         .button{
             width: 220px;
+            max-width: 100%;
             margin-left: auto;
         }
     }
@@ -23,16 +24,16 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
+        gap: 20px;
+
+        .tutorsCount{
+            white-space: nowrap;
+        }
 
         .searchItems{
             width: 600px;
+            max-width: 100%;
         }
-    }
-
-    .detailed{
-        min-width: 260px;
-        max-width: 260px;
-        margin-left: auto;
     }
 
     .table{
@@ -47,4 +48,35 @@
         }
     }
 
+    .items{
+        display: none;
+    }
+}
+
+
+@media (max-width: 950px) {
+    .container{
+        .search{
+            flex-direction: column;
+            align-items: start;
+            gap: 10px;
+        }
+
+        .table{
+            display: none;
+        }
+        
+        .items{
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            border-top: 1px solid var(--gray);
+            padding-top: 20px;
+
+            .button{
+                width: 240px;
+                max-width: 100%;
+            }
+        }
+    }
 }

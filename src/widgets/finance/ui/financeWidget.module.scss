@@ -2,10 +2,20 @@
 
 .container{
     display: flex;
+    gap: 20px;
     justify-content: space-between;
+    width: 100%;
+
+    .calendar{
+        display: flex;
+        flex-direction: column;
+        width: fit-content;
+        max-width: 100%;
+    }
 
     .selectedTgAdmins{
         width: 260px;
+        max-width: 100%;
     }
 
     .choose{
@@ -31,5 +41,10 @@
             }
         }
     }
+}
 
+@media (max-width: 1250px) {
+    .container{
+        flex-direction: column-reverse;
+    }
 }

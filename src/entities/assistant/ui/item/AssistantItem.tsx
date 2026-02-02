@@ -2,7 +2,6 @@ import { FC, PropsWithChildren } from "react";
 import classes from './assistantItem.module.scss'
 import { IAssistant } from "../../model/types";
 
-
 interface IProps {
     assistant: IAssistant;
 }
