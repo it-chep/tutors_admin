@@ -162,6 +162,7 @@ export const StudentsWidget: FC<IProps> = ({request, add, highlight=true}) => {
                                     <th>Фио родителя</th>
                                     <th>Телеграм</th>
                                     <th>Баланс</th>
+                                    <th>Платежка</th>
                                 </>
                             }
                         </tr>

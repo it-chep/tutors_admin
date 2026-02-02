@@ -1,5 +1,5 @@
 import { FC, useCallback, useState } from "react";
-import { INotifications, ITransactions, NotificationItem, studentService, TransactionItem } from "../../../entities/student";
+import { INotifications, NotificationItem, studentService } from "../../../entities/student";
 import { useGlobalMessageActions } from "../../../entities/globalMessage";
 import { useMyActions } from "../../../entities/my";
 import { AuthError } from "../../../shared/err/AuthError";
@@ -8,7 +8,6 @@ import { Calendar } from "../../../features/calendar";
 import { OpenContainer } from "../../../features/openContainer";
 import { LoaderSpinner } from "../../../shared/ui/spinner";
 import { getDateUTC } from "../../../shared/lib/helpers/getDateUTC";
-
 
 interface IProps {
     studentId: number;
