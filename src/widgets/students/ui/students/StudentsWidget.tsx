@@ -1,12 +1,12 @@
-import { FC, useEffect, useRef, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import classes from './studentsWidget.module.scss'
-import { IStudent, StudentItem, studentService } from "../../../../entities/student";
+import { IStudent, studentService } from "../../../../entities/student";
 import { MyButton } from "../../../../shared/ui/button";
 import { LoaderSpinner } from "../../../../shared/ui/spinner";
 import { AuthError } from "../../../../shared/lib/helpers/AuthError";
 import { useMyActions } from "../../../../entities/my";
 import { useGlobalMessageActions } from "../../../../entities/globalMessage";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { STUDENT_CREATE_ROUTE, STUDENTS_ARCHIVE_ROUTE } from "../../../../app/router/routes";
 import { useAppSelector } from "../../../../app/store/store";
 import { HintWrap } from "../hint/Hint";
@@ -28,6 +28,8 @@ export const StudentsWidget: FC<IProps> = ({request, add, highlight=true}) => {
     const [students, setStudents] = useState<IStudent[]>([])
     const [studentsCount, setStudentsCount] = useState<number>(0)
     const [studentsSearch, setStudentsSearch] = useState<IStudent[]>([])
+
+    const [params, setParams] = useSearchParams()
 
     const router = useNavigate()
 
@@ -59,7 +61,9 @@ export const StudentsWidget: FC<IProps> = ({request, add, highlight=true}) => {
         }
     }
 
-    const onSelectedFilters = (tgAdmins: string[], isLost: boolean) => {
+    const onSelectedFilters = () => {
+        const isLost = !!params.get('is_lost');
+        const tgAdmins = params.getAll('tg_admins')
         if(tgAdmins.length || isLost){
             getData(() => studentService.getAllByFilters(tgAdmins, isLost))
         }
@@ -69,10 +73,8 @@ export const StudentsWidget: FC<IProps> = ({request, add, highlight=true}) => {
     }
 
     useEffect(() => {
-        if((!(my.role === 'admin') && !(my.role === 'assistant'))){
-            getData(request)
-        }
-    }, [])
+        onSelectedFilters()
+    }, [params])
 
     return (
         <section className={classes.container}>
