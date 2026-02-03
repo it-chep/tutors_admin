@@ -62,8 +62,10 @@ export const SelectedTgAdmins: FC<IProps> = ({setTgAdmins, initTgAdmins}) => {
     }
 
     useEffect(() => {
-        setTgAdmins(tgAdminsItems.filter(a => selectedTgAdmins.includes(a.id)).map(a => a.name))
-    }, [selectedTgAdmins])
+        if(!isLoading){
+            setTgAdmins(tgAdminsItems.filter(a => selectedTgAdmins.includes(a.id)).map(a => a.name))
+        }
+    }, [selectedTgAdmins, isLoading])
     
     useEffect(() => {
         getData()
