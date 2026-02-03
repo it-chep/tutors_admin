@@ -1,8 +1,8 @@
-import { FC, useEffect, useRef, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import classes from './studentFilters.module.scss'
 import { ToggleSwitch } from "../../../../shared/ui/toggleSwitch";
 import { SelectedTgAdmins } from "../selectedTgAdmins/SelectedTgAdmins";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 
 interface IProps {
     onSelectedFilters: (tgAdmins: string[], isLost: boolean) => void;
@@ -32,16 +32,13 @@ export const StudentFilters: FC<IProps> = ({onSelectedFilters}) => {
         return newParams
     }
     
-    const count = useRef<number>(0)
+    useEffect(() => {
+        setParams(onSetParams())
+    }, [tgAdmins, isLost])
+
     useEffect(() => {
         onSelectedFilters(tgAdmins, isLost)
-        if(count.current < 3){
-            count.current += 1;
-        }
-        else{
-            setParams(onSetParams())
-        }
-    }, [tgAdmins, isLost])
+    }, [params])
 
     return (
         <section className={classes.container}>

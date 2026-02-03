@@ -191,7 +191,7 @@ export const Calendar: React.FC<CalendarProps> = ({onDateRangeSelect, isLoading,
         }
     }
 
-    const months = useMemo(getThreeMonths, [monthCount])
+    const months = useMemo(getThreeMonths, [monthCount, currentDate])
     
     return (
         <section className={classes.calendarContainer + (oneDate ? ` ${classes.oneDate}` : '')}>

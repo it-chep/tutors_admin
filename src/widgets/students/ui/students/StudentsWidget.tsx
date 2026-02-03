@@ -59,12 +59,7 @@ export const StudentsWidget: FC<IProps> = ({request, add, highlight=true}) => {
         }
     }
 
-    const isOne = useRef<boolean>(true)
     const onSelectedFilters = (tgAdmins: string[], isLost: boolean) => {
-        if(isOne.current){
-            isOne.current = false
-            return
-        }
         if(tgAdmins.length || isLost){
             getData(() => studentService.getAllByFilters(tgAdmins, isLost))
         }
@@ -74,7 +69,9 @@ export const StudentsWidget: FC<IProps> = ({request, add, highlight=true}) => {
     }
 
     useEffect(() => {
-        getData(request)
+        if((!(my.role === 'admin') && !(my.role === 'assistant'))){
+            getData(request)
+        }
     }, [])
 
     return (
