@@ -4,6 +4,7 @@ import { DataList } from "../../../../shared/ui/dataList/DataList";
 import { IStudentData } from "../../model/types";
 import { Link } from "react-router-dom";
 import { Copy } from "../../../../shared/ui/copy";
+import { useAppSelector } from "../../../../app/store/store";
 
 interface IProps {
     student: IStudentData;
@@ -13,12 +14,14 @@ interface IProps {
 
 export const StudentCard: FC<IProps & PropsWithChildren> = ({student, paymentChange, balanceChange}) => {
 
+    const {my} = useAppSelector(s => s.myReducer)
+
     const financeList: (ReactElement | string)[] = [
         <section className={classes.financeItem}>Кошелек: ${student.balance} ₽ {balanceChange}</section>,
         <section className={classes.financeItem}>Платежка: {student.payment_name} {paymentChange}</section>,
     ]
 
-    if(student.payment_url){
+    if(student.payment_url && my.paid_functions.payment_landing){
         financeList.push(
             <section className={classes.payment}>
                 Ссылка на оплату: 
