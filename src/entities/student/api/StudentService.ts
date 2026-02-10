@@ -18,6 +18,13 @@ class StudentService {
         })
     }
 
+    async payment(hash: string, amount: string){
+        await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/payment/' + hash, {
+            method: "POST",
+            body: JSON.stringify({amount})
+        })
+    }
+
     async update(student: IStudentChange){
         await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/students/' + student.id, {
             method: "POST",

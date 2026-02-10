@@ -1,6 +1,6 @@
 
 export type TRole = "tutor" | "admin" | "super_admin" | "assistant"
-export type TPaidFunction = "finance_by_tgs" | "student_archive" | "assistant"
+export type TPaidFunction = "finance_by_tgs" | "student_archive" | "assistant" | "payment_landing"
 
 export interface IMy {
     id: number;

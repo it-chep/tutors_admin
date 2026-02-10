@@ -11,6 +11,7 @@ export const MyInitialState: IMyInitialState = {
             assistant: false,
             finance_by_tgs: false,
             student_archive: false,
+            payment_landing: false,
         },
     },
     isLoading: false,

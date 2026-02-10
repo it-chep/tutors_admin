@@ -12,11 +12,12 @@ function App() {
 
   const {isLoading: globalIsLoading} = useAppSelector(s => s.globalLoadingReducer)
   const {globalMessage} = useAppSelector(s => s.globalMessageReducer)
-  const [isLoading, setIsLoading] = useState<boolean>(true)
+  const {pathname} = useLocation()
+  const isPaymentLanding = pathname.includes("payment")
+  const [isLoading, setIsLoading] = useState<boolean>(!isPaymentLanding)
   const {setId, setRole, setIsAuth, setPaidFunctions} = useMyActions()
   const {my} = useAppSelector(s => s.myReducer)
 
-  const {pathname} = useLocation()
   const router = useNavigate()
 
   const isOne = useRef<boolean>(true)
@@ -48,7 +49,7 @@ function App() {
       console.log(e)
     }
     finally{
-      setTimeout(() => setIsLoading(false))
+      setTimeout(() => setIsLoading(false), 1)
     }
   }
 
@@ -62,13 +63,14 @@ function App() {
           assistant: fns.includes('assistant'),
           student_archive: fns.includes('student_archive'),
           finance_by_tgs: fns.includes('finance_by_tgs'),
+          payment_landing: fns.includes('payment_landing')
         } 
         setPaidFunctions(paidFns)
       }
       setIsAuth(true)
       setIsLoading(false)
     }
-    else{
+    else if(!isPaymentLanding){
       auth()
     }
   }, [])

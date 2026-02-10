@@ -37,6 +37,7 @@ export interface IStudentData {
     is_newbie: boolean;
     tg_id?: number;
     is_archive: boolean;
+    payment_url: string;
 }
 
 export interface IStudentChange {

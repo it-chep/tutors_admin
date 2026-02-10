@@ -50,6 +50,12 @@ export const STUDENT_CREATE_ROUTE: IRoute = {
     path: '/student/create'
 }
 
+export const STUDENT_PAYMENT_ROUTE: IRoute = {
+    name: 'Оплата',
+    path: '/payment/:hash'
+}
+
+
 export const STUDENT_UPDATE_ROUTE: IRoute = {
     name: 'Студенты',
     path: '/student/update'
