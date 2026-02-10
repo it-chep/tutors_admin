@@ -19,10 +19,17 @@ class StudentService {
     }
 
     async payment(hash: string, amount: string){
-        await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/payment/' + hash, {
+        const res = await fetchAuth(process.env.REACT_APP_SERVER_URL + '/payment/' + hash, {
             method: "POST",
             body: JSON.stringify({amount})
         })
+        const data = await res.json();
+
+        if (data.payment_url) {
+            window.location.href = data.payment_url;
+        } else {
+            throw new Error('No payment URL received');
+        }
     }
 
     async update(student: IStudentChange){
