@@ -1,11 +1,11 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import classes from './studentFilters.module.scss'
 import { ToggleSwitch } from "../../../../shared/ui/toggleSwitch";
 import { SelectedTgAdmins } from "../selectedTgAdmins/SelectedTgAdmins";
 import { useSearchParams } from "react-router-dom";
 
 interface IProps {
-    onSelectedFilters: (tgAdmins: string[], isLost: boolean) => void;
+    onSelectedFilters: () => void;
 }
 
 export const StudentFilters: FC<IProps> = ({onSelectedFilters}) => {
@@ -32,13 +32,15 @@ export const StudentFilters: FC<IProps> = ({onSelectedFilters}) => {
         return newParams
     }
     
+    const isOne = useRef<boolean>(true)
     useEffect(() => {
-        setParams(onSetParams())
+        if(isOne.current){
+            isOne.current = false;
+        }
+        else{
+            setParams(onSetParams())
+        }
     }, [tgAdmins, isLost])
-
-    useEffect(() => {
-        onSelectedFilters(tgAdmins, isLost)
-    }, [params])
 
     return (
         <section className={classes.container}>

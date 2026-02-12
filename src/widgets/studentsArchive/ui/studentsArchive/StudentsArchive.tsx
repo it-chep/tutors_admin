@@ -1,11 +1,11 @@
-import { FC, useEffect, useRef, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import classes from './studentsArchive.module.scss'
 import { IStudent, studentService } from "../../../../entities/student";
 import { LoaderSpinner } from "../../../../shared/ui/spinner";
 import { AuthError } from "../../../../shared/lib/helpers/AuthError";
 import { useMyActions } from "../../../../entities/my";
 import { useGlobalMessageActions } from "../../../../entities/globalMessage";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { SearchItems } from "../../../../features/searchItems";
 import { StudentFilters } from "../../../../features/studentFilters";
 import { STUDENTS_ROUTE } from "../../../../app/router/routes";
@@ -19,7 +19,7 @@ export const StudentsArchive: FC = () => {
     const [studentsCount, setStudentsCount] = useState<number>(0)
     const [studentsSearch, setStudentsSearch] = useState<IStudent[]>([])
 
-    const router = useNavigate()
+    const [params, setParams] = useSearchParams()
 
     const {setIsAuth} = useMyActions()
     const {setGlobalMessage} = useGlobalMessageActions()
@@ -47,12 +47,9 @@ export const StudentsArchive: FC = () => {
         }
     }
 
-    const isOne = useRef<boolean>(true)
-    const onSelectedFilters = (tgAdmins: string[], isLost: boolean) => {
-        if(isOne.current){
-            isOne.current = false
-            return
-        }
+    const onSelectedFilters = () => {
+        const isLost = !!params.get('is_lost');
+        const tgAdmins = params.getAll('tg_admins')
         if(tgAdmins.length || isLost){
             getData(() => studentService.getAllByFilters(tgAdmins, isLost, true))
         }
@@ -62,8 +59,8 @@ export const StudentsArchive: FC = () => {
     }
 
     useEffect(() => {
-        getData(studentService.getArchiveAll)
-    }, [])
+        onSelectedFilters()
+    }, [params])
 
     return (
         <section className={classes.container}>
