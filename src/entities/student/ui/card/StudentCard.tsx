@@ -67,6 +67,7 @@ export const StudentCard: FC<IProps & PropsWithChildren> = ({student, paymentCha
                     >
                         Написать в тг
                     </a>,
+                    `Ссылка для прикрепления: https://t.me/Payments_A_bot?start=id_${student.id}`,
                     Boolean(student.tg_id)
                         ?
                     `TgID: ${student.tg_id}`
