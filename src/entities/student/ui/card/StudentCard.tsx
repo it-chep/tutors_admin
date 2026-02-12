@@ -3,6 +3,8 @@ import classes from './card.module.scss'
 import { DataList } from "../../../../shared/ui/dataList/DataList";
 import { IStudentData } from "../../model/types";
 import { Link } from "react-router-dom";
+import { Copy } from "../../../../shared/ui/copy";
+import { useAppSelector } from "../../../../app/store/store";
 
 interface IProps {
     student: IStudentData;
@@ -12,6 +14,21 @@ interface IProps {
 
 export const StudentCard: FC<IProps & PropsWithChildren> = ({student, paymentChange, balanceChange}) => {
 
+    const {my} = useAppSelector(s => s.myReducer)
+
+    const financeList: (ReactElement | string)[] = [
+        <section className={classes.financeItem}>Кошелек: ${student.balance} ₽ {balanceChange}</section>,
+        <section className={classes.financeItem}>Платежка: {student.payment_name} {paymentChange}</section>,
+    ]
+
+    if(student.payment_url && my.paid_functions.payment_landing){
+        financeList.push(
+            <section className={classes.payment}>
+                Ссылка на оплату: 
+                <Copy text={student.payment_url} />
+            </section>
+        )
+    }
 
     return (
         <section className={classes.card}>
@@ -35,7 +52,7 @@ export const StudentCard: FC<IProps & PropsWithChildren> = ({student, paymentCha
                         ?
                     `Рабочий аккаунт тг: ${student.tg_admin_username}`
                         :
-                    <span className={classes.noTgID}>Нет рабочего аккаунта тг</span>
+                    <span className={classes.noTgID}>Нет рабочего аккаунта тг</span>,
                 ]}
             />
             <DataList
@@ -50,7 +67,6 @@ export const StudentCard: FC<IProps & PropsWithChildren> = ({student, paymentCha
                     >
                         Написать в тг
                     </a>,
-                    `Ссылка для прикрепления: https://t.me/Payments_A_bot?start=id_${student.id}`,
                     Boolean(student.tg_id)
                         ?
                     `TgID: ${student.tg_id}`
@@ -60,10 +76,7 @@ export const StudentCard: FC<IProps & PropsWithChildren> = ({student, paymentCha
             />
             <DataList
                 title="Финансы"
-                list={[
-                    <section className={classes.financeItem}>Кошелек: ${student.balance} ₽ {balanceChange}</section>,
-                    <section className={classes.financeItem}>Платежка: {student.payment_name} {paymentChange}</section>,
-                ]}
+                list={financeList}
             />
         </section>
     )

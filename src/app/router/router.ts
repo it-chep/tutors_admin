@@ -1,9 +1,9 @@
 import { RouteObject } from "react-router-dom";
-import { ADMIN_CREATE_ROUTE, ADMIN_LESSONS_ROUTE, ADMIN_ROUTE, ADMIN_TRANSACTIONS_ROUTE, ADMINS_ROUTE, ASSISTANT_CREATE_ROUTE, ASSISTANT_ROUTE, ASSISTANTS_ROUTE, AUTH_ROUTE, FINANCE_ROUTE, 
-    HOME_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE, STUDENT_CREATE_ROUTE, STUDENT_ROUTE, 
-    STUDENT_UPDATE_ROUTE, 
-    STUDENTS_ARCHIVE_ROUTE, 
-    STUDENTS_ROUTE, TUTOR_CREATE_ROUTE, TUTOR_LESSONS_ROUTE, TUTOR_ROUTE, TUTORS_ROUTE } from "./routes";
+import { ADMIN_CREATE_ROUTE, ADMIN_LESSONS_ROUTE, ADMIN_ROUTE, ADMIN_TRANSACTIONS_ROUTE, ADMINS_ROUTE, 
+    ASSISTANT_CREATE_ROUTE, ASSISTANT_ROUTE, ASSISTANTS_ROUTE, AUTH_ROUTE, FINANCE_ROUTE, 
+    HOME_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE, STUDENT_CREATE_ROUTE, STUDENT_PAYMENT_ROUTE, STUDENT_ROUTE, 
+    STUDENT_UPDATE_ROUTE, STUDENTS_ARCHIVE_ROUTE, STUDENTS_ROUTE, TUTOR_CREATE_ROUTE, TUTOR_LESSONS_ROUTE, 
+    TUTOR_ROUTE, TUTORS_ROUTE } from "./routes";
 import App from "../../App";
 import HomePage from "../../pages/home/HomePage";
 import AuthPage from "../../pages/auth/auth/AuthPage";
@@ -27,6 +27,7 @@ import StudentsArchivePage from "../../pages/studentsArchive/StudentsArchive";
 import AssistantsPage from "../../pages/assistants/Assistants";
 import AssistantCreatePage from "../../pages/assistantCreate/AssistantCreate";
 import AssistantPage from "../../pages/assistant/Assistant";
+import PaymentPage from "../../pages/payment/Payment";
 
 
 export const Router: RouteObject[] = [
@@ -128,6 +129,10 @@ export const Router: RouteObject[] = [
             {
                 path: ASSISTANT_ROUTE.path,
                 Component: AssistantPage
+            },
+            {
+                path: STUDENT_PAYMENT_ROUTE.path,
+                Component: PaymentPage
             }
         ]
     }

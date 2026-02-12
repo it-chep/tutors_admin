@@ -1,0 +1,20 @@
+
+
+
+.container{
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    max-width: 100%;
+    gap: 14px;
+
+    .title{
+        font-size: 18px;
+        font-weight: 500;
+        margin-bottom: -8px;
+    }
+
+    .fn{
+        height: 44px;
+    }
+}

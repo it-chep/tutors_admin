@@ -23,6 +23,16 @@
         align-items: center;
         gap: 16px;
     }
+
+    .payment{
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        >svg{
+            cursor: pointer;
+        }
+    }
 }
 
 @media (max-width: 850px) {

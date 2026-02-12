@@ -9,17 +9,12 @@ async function refreshToken(): Promise<string> {
         const {message}: {message: string} = await res.json()
         throw new AuthError(message)
     }
-    try {
-        const newToken = await fetch(`${process.env.REACT_APP_SERVER_URL}/auth/auth/refresh`, {
-            credentials: 'include'
-        })
-        if(!newToken.ok) await authError(newToken)
-        const res: {token: string} = await newToken.json()
-        return res.token;
-    } 
-    catch (error) {
-        throw new Error('Failed to refresh token');
-    }
+    const newToken = await fetch(`${process.env.REACT_APP_SERVER_URL}/auth/refresh`, {
+        credentials: 'include'
+    })
+    if(!newToken.ok) await authError(newToken)
+    const res: {token: string} = await newToken.json()
+    return res.token;
 }
 
 export async function handleUnauthorized(requestFn: () => Promise<Response>): Promise<Response> {
@@ -52,6 +47,7 @@ export async function handleUnauthorized(requestFn: () => Promise<Response>): Pr
 }
 
 export const fetchAuth = async (url: string, init?: RequestInit, isRetry?: boolean): Promise<Response> => {
+
     const newInit: RequestInit = {...init};
 
     newInit.headers = {
@@ -77,7 +73,8 @@ export const fetchAuth = async (url: string, init?: RequestInit, isRetry?: boole
             }
         }
         else{
-            throw new Error('Ошибка в запросе')
+            const textErr = await res.text()
+            throw new Error(textErr || 'Ошибка в запросе')
         }
     }
     
