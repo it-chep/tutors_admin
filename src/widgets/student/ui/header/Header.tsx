@@ -4,7 +4,7 @@ import { Message } from "../message/Message";
 import classes from './header.module.scss'
 import { useNavigate } from "react-router-dom";
 import { STUDENT_UPDATE_ROUTE, STUDENTS_ROUTE } from "../../../../app/router/routes";
-import { IStudentData, studentService, useStudentActions } from "../../../../entities/student";
+import { IStudentChange, IStudentData, studentService, useStudentActions } from "../../../../entities/student";
 import editImg from '../../../../shared/lib/assets/edit.png'
 import { NotificationPush } from "../../../../features/notificationPush";
 import { useAppSelector } from "../../../../app/store/store";
@@ -41,7 +41,22 @@ export const Header: FC<IProps> = ({student, setStudent}) => {
     }
 
     const onEdit = () => {
-        setStudentRedux(student)
+        const studentEdit: IStudentChange = {
+            id: student.id,
+            first_name: student.first_name,
+            last_name: student.first_name,
+            middle_name: student.middle_name,
+            phone: student.phone,
+            tg: student.tg,
+            cost_per_hour: student.cost_per_hour,
+            subject_id: student.subject_id,
+            tutor_id: student.tutor_id,
+            parent_full_name: student.parent_full_name,
+            parent_phone: student.parent_phone,
+            parent_tg: student.parent_tg,
+            tg_admin_username: student.tg_admin_username    
+        }
+        setStudentRedux(studentEdit)
         router(STUDENT_UPDATE_ROUTE.path)
     }
 
