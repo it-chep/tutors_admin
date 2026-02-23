@@ -1,5 +1,5 @@
 import { fetchAuth } from "../../../shared/api/ApiService"
-import { ILessonTutor, ITutor, ITutorCreate, ITutorData, ITutorFinance } from "../model/types";
+import { ILessonTutor, ITutor, ITutorCreate, ITutorData, ITutorFinance, ITutorUpdate } from "../model/types";
 
 
 
@@ -80,6 +80,40 @@ class TutorService {
         })
         const {lessons, lessons_count}: {lessons: ILessonTutor[], lessons_count: number} = await res.json()
         return {lessons, lessons_count}
+    }
+
+    async archive(id: number): Promise<void> {
+        await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/tutors/' + id + '/archive', {
+            method: "POST"
+        })
+    }
+
+    async unarchive(id: number): Promise<void> {
+        await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/tutors/' + id + '/unarchive', {
+            method: "POST"
+        })
+    }
+
+    async getArchiveAll(): Promise<{tutors: ITutor[], tutors_count: number}> {
+        const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/tutors/archive')
+        const {tutors, tutors_count}: {tutors: ITutor[], tutors_count: number} = await res.json()
+        return {tutors, tutors_count}
+    }
+
+    async getAllByFilters(tg_admins_usernames: string[], is_archive?: boolean): Promise<{tutors: ITutor[], tutors_count: number}> {
+        const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/tutors/filter', {
+            method: 'POST',
+            body: JSON.stringify({tg_admins_usernames, is_archive})
+        })
+        const {tutors, tutors_count}: {tutors: ITutor[], tutors_count: number} = await res.json()
+        return {tutors, tutors_count}
+    }
+
+    async update(id: number, data: ITutorUpdate): Promise<void> {
+        await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/tutors/' + id + '/update', {
+            method: "POST",
+            body: JSON.stringify(data)
+        })
     }
 
 }

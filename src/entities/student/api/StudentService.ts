@@ -104,10 +104,12 @@ class StudentService {
         return {students, students_count}
     }
 
-    async getAllByFilters(tg_admins_usernames: string[], is_lost: boolean, is_archive?: boolean): Promise<{students: IStudent[], students_count: number}> {
+    async getAllByFilters(tg_admins_usernames: string[], is_lost: boolean, is_archive?: boolean, payment_ids?: number[]): Promise<{students: IStudent[], students_count: number}> {
+        const body: Record<string, unknown> = {tg_admins_usernames, is_lost, is_archive}
+        if(payment_ids && payment_ids.length > 0) body.payment_ids = payment_ids
         const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/students/filter', {
             method: 'POST',
-            body: JSON.stringify({tg_admins_usernames, is_lost, is_archive})
+            body: JSON.stringify(body)
         })
         const {students, students_count}: {students: IStudent[], students_count: number} = await res.json()
         return {students, students_count}
@@ -139,13 +141,13 @@ class StudentService {
         })
     }
 
-    async getLessons(id: number, from: string, to: string): Promise<{lessons: ILesson[], lessons_count: number}> {
+    async getLessons(id: number, from: string, to: string): Promise<{lessons: ILesson[], lessons_count: number, total_hours: number}> {
         const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/students/' + id + '/lessons', {
             method: "POST",
             body: JSON.stringify({from, to})
         })
-        const {lessons, lessons_count}: {lessons: ILesson[], lessons_count: number} = await res.json()
-        return {lessons, lessons_count}
+        const {lessons, lessons_count, total_hours}: {lessons: ILesson[], lessons_count: number, total_hours: number} = await res.json()
+        return {lessons, lessons_count, total_hours: total_hours ?? 0}
     }
 
     async deleteLesson(id: number){
@@ -166,13 +168,29 @@ class StudentService {
         })
     }
 
-    async transactions(id: number, from: string, to: string): Promise<{transactions: ITransactions[], transactions_count: number}>{
+    async transactions(id: number, from: string, to: string): Promise<{transactions: ITransactions[], transactions_count: number, total_confirmed_amount: string}>{
         const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/students/' + id + '/transactions', {
             method: "POST",
             body: JSON.stringify({from, to})
         })
-        const {transactions, transactions_count}: {transactions: ITransactions[], transactions_count: number} = await res.json()
-        return {transactions, transactions_count}
+        const {transactions, transactions_count, total_confirmed_amount}: {transactions: ITransactions[], transactions_count: number, total_confirmed_amount: string} = await res.json()
+        return {transactions, transactions_count, total_confirmed_amount: total_confirmed_amount ?? '0'}
+    }
+
+    async addManualTransaction(studentId: number, amount: number): Promise<string> {
+        const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/students/' + studentId + '/transactions/manual', {
+            method: "POST",
+            body: JSON.stringify({amount})
+        })
+        const {id}: {id: string} = await res.json()
+        return id
+    }
+
+    async changeAllPayment(payment_id: number): Promise<void> {
+        await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/students/change_all_payment', {
+            method: "POST",
+            body: JSON.stringify({payment_id})
+        })
     }
 
     async notifications(id: number, from: string, to: string): Promise<{notifications: INotifications[], notifications_count: number}>{

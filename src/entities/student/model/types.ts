@@ -38,6 +38,7 @@ export interface IStudentData {
     tg_id?: number;
     is_archive: boolean;
     payment_url: string;
+    created_at?: string;
 }
 
 export interface IStudentChange {
@@ -70,6 +71,7 @@ export interface IStudentInitialState {
 export interface IStudentFinance {
     count: number;
     amount: string;
+    total_confirmed_amount?: string;
 }
 
 export interface ILesson{

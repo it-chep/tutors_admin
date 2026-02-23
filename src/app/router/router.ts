@@ -1,9 +1,9 @@
 import { RouteObject } from "react-router-dom";
-import { ADMIN_CREATE_ROUTE, ADMIN_LESSONS_ROUTE, ADMIN_ROUTE, ADMIN_TRANSACTIONS_ROUTE, ADMINS_ROUTE, 
-    ASSISTANT_CREATE_ROUTE, ASSISTANT_ROUTE, ASSISTANTS_ROUTE, AUTH_ROUTE, FINANCE_ROUTE, 
-    HOME_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE, STUDENT_CREATE_ROUTE, STUDENT_PAYMENT_ROUTE, STUDENT_ROUTE, 
-    STUDENT_UPDATE_ROUTE, STUDENTS_ARCHIVE_ROUTE, STUDENTS_ROUTE, TUTOR_CREATE_ROUTE, TUTOR_LESSONS_ROUTE, 
-    TUTOR_ROUTE, TUTORS_ROUTE } from "./routes";
+import { ADMIN_CREATE_ROUTE, ADMIN_LESSONS_ROUTE, ADMIN_ROUTE, ADMIN_TRANSACTIONS_ROUTE, ADMINS_ROUTE,
+    ASSISTANT_CREATE_ROUTE, ASSISTANT_ROUTE, ASSISTANTS_ROUTE, AUTH_ROUTE, FINANCE_ROUTE,
+    HOME_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE, STUDENT_CREATE_ROUTE, STUDENT_PAYMENT_ROUTE, STUDENT_ROUTE,
+    STUDENT_UPDATE_ROUTE, STUDENTS_ARCHIVE_ROUTE, STUDENTS_ROUTE, TUTOR_CREATE_ROUTE, TUTOR_LESSONS_ROUTE,
+    TUTOR_ROUTE, TUTOR_UPDATE_ROUTE, TUTORS_ARCHIVE_ROUTE, TUTORS_ROUTE } from "./routes";
 import App from "../../App";
 import HomePage from "../../pages/home/HomePage";
 import AuthPage from "../../pages/auth/auth/AuthPage";
@@ -13,6 +13,7 @@ import StudentPage from "../../pages/student/Student";
 import TutorsPage from "../../pages/tutors/Tutors";
 import TutorPage from "../../pages/tutor/Tutor";
 import TutorChangePage from "../../pages/tutorChange/TutorChange";
+import TutorsArchivePage from "../../pages/tutorsArchive/TutorsArchive";
 import FinancePage from "../../pages/finance/Finance";
 import AdminsPage from "../../pages/admins/Admins";
 import AdminPage from "../../pages/admin/Admin";
@@ -79,8 +80,16 @@ export const Router: RouteObject[] = [
                 Component: StudentPage
             },
             {
+                path: TUTORS_ARCHIVE_ROUTE.path,
+                Component: TutorsArchivePage
+            },
+            {
                 path: TUTORS_ROUTE.path,
                 Component: TutorsPage
+            },
+            {
+                path: TUTOR_UPDATE_ROUTE.path,
+                Component: TutorChangePage
             },
             {
                 path: TUTOR_ROUTE.path,

@@ -25,5 +25,8 @@ export const tutorChange = (tutor: ITutorCreate, setTutor: (tutor: ITutorCreate)
         setAdminId(admin_id: number){
             setTutor({...tutor, admin_id})
         },
+        setTgAdminUsername(tg_admin_username: string){
+            setTutor({...tutor, tg_admin_username})
+        },
     }
 }

@@ -1,4 +1,4 @@
-import { FC, PropsWithChildren, ReactElement } from "react";
+import React, { FC, PropsWithChildren, ReactElement } from "react";
 import classes from './card.module.scss'
 import { DataList } from "../../../../shared/ui/dataList/DataList";
 import { IStudentData } from "../../model/types";
@@ -34,9 +34,10 @@ export const StudentCard: FC<IProps & PropsWithChildren> = ({student, paymentCha
         <section className={classes.card}>
             <DataList
                 title="Данные студента"
-                list={[
+                list={([
                     `ID: ${student.id}`,
                     `ФИО: ${student.last_name} ${student.first_name} ${student.middle_name}`,
+                    `Дата регистрации: ${student.created_at}`,
                     `Телефон: ${student.phone}`,
                     `Стоимость часа: ${student.cost_per_hour} ₽`,
                     <a
@@ -53,7 +54,7 @@ export const StudentCard: FC<IProps & PropsWithChildren> = ({student, paymentCha
                     `Рабочий аккаунт тг: ${student.tg_admin_username}`
                         :
                     <span className={classes.noTgID}>Нет рабочего аккаунта тг</span>,
-                ]}
+                ] as (string | React.ReactNode)[]).filter(item => item !== null)}
             />
             <DataList
                 title="Данные родителя"

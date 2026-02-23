@@ -1,11 +1,9 @@
 
-
 .container{
     display: flex;
-    align-items: flex-start;
+    align-items: flex-end;
     gap: 20px;
-    flex-wrap: nowrap;
-    flex-direction: column;
+    flex-wrap: wrap;
 
     .label{
         display: block;
@@ -17,15 +15,5 @@
 
     .tgAdmins{
         width: 260px;
-    }
-
-    .payments{
-        width: 200px;
-    }
-
-    .toggle{
-        display: flex;
-        align-items: center;
-        padding-bottom: 8px;
     }
 }

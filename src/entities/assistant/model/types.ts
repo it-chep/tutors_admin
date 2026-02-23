@@ -11,6 +11,7 @@ export interface IAssistantData {
     phone: string;
     tg: string;
     tg_admins_usernames: string[];
+    created_at?: string;
 }
 
 export interface IAssistantCreate {

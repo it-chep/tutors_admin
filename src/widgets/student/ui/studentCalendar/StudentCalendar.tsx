@@ -69,6 +69,11 @@ export const StudentCalendar: FC<IProps> = ({id}) => {
                         <section className={classes.data}>
                             <span>Количество занятий: {finance?.count}</span>
                             <span>Прибыль: {finance?.amount} ₽</span>
+                            {
+                                finance?.total_confirmed_amount != null
+                                    &&
+                                <span>Сумма подтверждённых транзакций: {finance.total_confirmed_amount} ₽</span>
+                            }
                         </section>
                     }
                 </section>

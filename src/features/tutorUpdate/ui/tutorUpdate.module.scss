@@ -1,0 +1,20 @@
+
+.container {
+    display: inline-flex;
+    align-items: center;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-width: 300px;
+    max-height: 80vh;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+.title {
+    font-size: 18px;
+    font-weight: 600;
+}

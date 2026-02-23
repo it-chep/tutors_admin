@@ -17,8 +17,9 @@ interface IProps {
 
 export const Lessons: FC<IProps> = ({studentId}) => {
 
-    const [lessons, setLessons] = useState<ILesson[] | null>(null) 
-    const [count, setCount] = useState<number>(0)   
+    const [lessons, setLessons] = useState<ILesson[] | null>(null)
+    const [count, setCount] = useState<number>(0)
+    const [totalHours, setTotalHours] = useState<number>(0)
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const {setGlobalMessage} = useGlobalMessageActions()    
     const {setIsAuth} = useMyActions()
@@ -46,6 +47,7 @@ export const Lessons: FC<IProps> = ({studentId}) => {
             const lessonsRes = await studentService.getLessons(studentId, from, to)
             setLessons(lessonsRes.lessons)
             setCount(lessonsRes.lessons_count)
+            setTotalHours(lessonsRes.total_hours)
         }
         catch(e){
             console.log(e)
@@ -76,6 +78,7 @@ export const Lessons: FC<IProps> = ({studentId}) => {
                             &&
                         <>
                             <section className={classes.count}>Кол-во занятий: {count}</section>
+                            <section className={classes.count}>Всего часов: {totalHours.toFixed(1)}</section>
                         {
                             lessons?.length
                                 ?

@@ -15,6 +15,7 @@ import { StudentFilters } from "../../../../features/studentFilters";
 import { NotificationPushAllStudents } from "../../../../features/notificationPushAllStudents";
 import { Items } from "../items/Items";
 import { Table } from "../table/Table";
+import { ChangeAllStudentsPayment } from "../../../../features/changeAllStudentsPayment";
 
 interface IProps {
     request: () => Promise<{students: IStudent[], students_count: number}>
@@ -64,8 +65,9 @@ export const StudentsWidget: FC<IProps> = ({request, add, highlight=true}) => {
     const onSelectedFilters = () => {
         const isLost = !!params.get('is_lost');
         const tgAdmins = params.getAll('tg_admins')
-        if(tgAdmins.length || isLost){
-            getData(() => studentService.getAllByFilters(tgAdmins, isLost))
+        const paymentIds = params.getAll('payment_ids').map(id => parseInt(id, 10))
+        if(tgAdmins.length || isLost || paymentIds.length){
+            getData(() => studentService.getAllByFilters(tgAdmins, isLost, undefined, paymentIds))
         }
         else{
             getData(request)
@@ -113,6 +115,13 @@ export const StudentsWidget: FC<IProps> = ({request, add, highlight=true}) => {
                                 <section className={classes.notification}>
                                     <NotificationPushAllStudents />
                                 </section>
+                            }
+                            {
+                                my.role === 'admin'
+                                    &&
+                                add
+                                    &&
+                                <ChangeAllStudentsPayment onSuccess={onSelectedFilters} />
                             }
                         </section>
                         {

@@ -13,6 +13,17 @@
         justify-content: center;
     }
 
+    .tgAdmin{
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        .tgAdminDropdown{
+            width: 300px;
+            max-width: 100%;
+        }
+    }
+
     .button{
         margin-top: 20px;
     }

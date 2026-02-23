@@ -8,6 +8,7 @@ export interface ITutor {
     has_balance_negative: boolean;
     has_only_trial: boolean;
     has_newbie: boolean;
+    tg_admin_username?: string;
 }
 
 export interface ITutorData {
@@ -16,7 +17,20 @@ export interface ITutorData {
     tg: string;
     phone: string;
     subject_name: string;
+    subject_id: number;
     cost_per_hour: string;
+    created_at?: string;
+    tg_admin_username?: string;
+    is_archive?: boolean;
+}
+
+export interface ITutorUpdate {
+    full_name: string;
+    phone: string;
+    tg: string;
+    cost_per_hour: string;
+    subject_id: number;
+    tg_admin_username: string;
 }
 
 export interface ITutorFinance {
@@ -33,6 +47,7 @@ export interface ITutorCreate {
     subject_id: number;
     email: string;
     admin_id: number;
+    tg_admin_username: string;
 }
 
 
