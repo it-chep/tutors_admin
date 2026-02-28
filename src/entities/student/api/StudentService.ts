@@ -1,6 +1,6 @@
 import { fetchAuth } from "../../../shared/api/ApiService"
-import { ILesson, INotifications, IStudent, IStudentChange, IStudentData, 
-    IStudentFinance, ITransactions } from "../model/types"
+import { ILesson, INotifications, IStudent, IStudentChange, IStudentData,
+    IStudentFinance, ITgAdminUsername, ITransactions } from "../model/types"
 
 
 
@@ -86,9 +86,9 @@ class StudentService {
         })
     }
 
-    async getTgAdmins(): Promise<string[]> {
+    async getTgAdmins(): Promise<ITgAdminUsername[]> {
         const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/students/tg_admins_usernames')
-        const {tg_admins}: {tg_admins: string[]} = await res.json()
+        const {tg_admins}: {tg_admins: {id: number, name: string}[]} = await res.json()
         return tg_admins
     }
 
@@ -104,8 +104,8 @@ class StudentService {
         return {students, students_count}
     }
 
-    async getAllByFilters(tg_admins_usernames: string[], is_lost: boolean, is_archive?: boolean, payment_ids?: number[]): Promise<{students: IStudent[], students_count: number}> {
-        const body: Record<string, unknown> = {tg_admins_usernames, is_lost, is_archive}
+    async getAllByFilters(tg_admins_usernames_ids: number[], is_lost: boolean, is_archive?: boolean, payment_ids?: number[]): Promise<{students: IStudent[], students_count: number}> {
+        const body: Record<string, unknown> = {tg_admins_usernames_ids, is_lost, is_archive}
         if(payment_ids && payment_ids.length > 0) body.payment_ids = payment_ids
         const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/students/filter', {
             method: 'POST',

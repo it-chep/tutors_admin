@@ -59,9 +59,9 @@ export const TutorsWidget: FC<IProps> = ({add, request, highlight=true}) => {
     }
 
     const onSelectedFilters = () => {
-        const tgAdmins = params.getAll('tg_admins')
-        if(tgAdmins.length){
-            getData(() => tutorService.getAllByFilters(tgAdmins))
+        const tgAdminIds = params.getAll('tg_admin_ids').map(id => parseInt(id, 10)).filter(id => !isNaN(id))
+        if(tgAdminIds.length){
+            getData(() => tutorService.getAllByFilters(tgAdminIds))
         }
         else{
             getData(request)

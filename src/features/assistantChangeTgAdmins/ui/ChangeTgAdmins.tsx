@@ -25,8 +25,7 @@ export const AssistantChangeTgAdmins: FC<IProps> = ({assistant, setAssistant}) =
     const getData = async () => {
         try{
             setIsLoading(true)
-            const tgAdminsRes = await studentService.getTgAdmins()
-            const tgItems = tgAdminsRes.map((a, ind) => ({id: Date.now() + ind, name: a}))
+            const tgItems = await studentService.getTgAdmins()
             setTgAdminsItems(tgItems)
         }
         catch(e){
@@ -44,7 +43,7 @@ export const AssistantChangeTgAdmins: FC<IProps> = ({assistant, setAssistant}) =
         }
     }
 
-    const setTgAdmins = (tg_admins_usernames: string[]) => {
+    const updateTgAdmins = (tg_admins_usernames: {id: number, name: string}[]) => {
         setAssistant({...assistant, tg_admins_usernames} as IAssistantData)
     }
 
@@ -53,22 +52,17 @@ export const AssistantChangeTgAdmins: FC<IProps> = ({assistant, setAssistant}) =
         try{
             setIsLoadingGlobal(true)
             if(selected){
-                setTgAdmins([...assistant.tg_admins_usernames, item.name])
-                await assistantService.add_available_tg(assistant.id, item.name)
+                updateTgAdmins([...assistant.tg_admins_usernames, {id: item.id, name: item.name}])
+                await assistantService.add_available_tg(assistant.id, item.id)
             }
             else{
-                const ind = assistant.tg_admins_usernames.findIndex(tg => tg === item.name)
-                if(ind >= 0){
-                    const copy = [...assistant.tg_admins_usernames]
-                    copy.splice(ind, 1)
-                    setTgAdmins(copy)
-                }
-                await assistantService.delete_available_tg(assistant.id, item.name)
+                updateTgAdmins(assistant.tg_admins_usernames.filter(tg => tg.id !== item.id))
+                await assistantService.delete_available_tg(assistant.id, item.id)
             }
         }
         catch(e){
             console.log(e)
-            setTgAdmins(prevTgAdmins)
+            updateTgAdmins(prevTgAdmins)
             if(e instanceof AuthError){
                 setIsAuth(false)
                 setGlobalMessage({message: e.message, type: 'error'})
@@ -103,7 +97,7 @@ export const AssistantChangeTgAdmins: FC<IProps> = ({assistant, setAssistant}) =
                     isLoading={isLoading}
                     items={tgAdminsItems}
                     selectedIdItems={
-                        tgAdminsItems.filter(tgItem => assistant.tg_admins_usernames.includes(tgItem.name)).map(tgItem => tgItem.id)
+                        assistant.tg_admins_usernames.map(tg => tg.id)
                     }
                     onSelected={onSelected}
                 />

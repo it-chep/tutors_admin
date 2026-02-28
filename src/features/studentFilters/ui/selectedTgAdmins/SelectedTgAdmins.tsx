@@ -8,8 +8,8 @@ import { AuthError } from "../../../../shared/err/AuthError";
 import { DropDownListSelected } from "../../../../shared/ui/dropDownSelected";
 
 interface IProps {
-    setTgAdmins: (tgAdmins: string[]) => void;
-    initTgAdmins?: string[]
+    setTgAdmins: (tgAdminIds: number[]) => void;
+    initTgAdmins?: number[]
 }
 
 export const SelectedTgAdmins: FC<IProps> = ({setTgAdmins, initTgAdmins}) => {
@@ -23,10 +23,9 @@ export const SelectedTgAdmins: FC<IProps> = ({setTgAdmins, initTgAdmins}) => {
     const getData = async () => {
         try{
             setIsLoading(true)
-            const adminsRes = await studentService.getTgAdmins()
-            const items = adminsRes.map((a, ind) => ({id: Date.now() + ind, name: a}))
+            const items = await studentService.getTgAdmins()
             if(initTgAdmins){
-                setSelectedTgAdmins(items.filter(admin => initTgAdmins.includes(admin.name)).map(admin => admin.id))
+                setSelectedTgAdmins(items.filter(admin => initTgAdmins.includes(admin.id)).map(admin => admin.id))
             }
             setTgAdminsItems(items)
         }
@@ -63,7 +62,7 @@ export const SelectedTgAdmins: FC<IProps> = ({setTgAdmins, initTgAdmins}) => {
 
     useEffect(() => {
         if(!isLoading){
-            setTgAdmins(tgAdminsItems.filter(a => selectedTgAdmins.includes(a.id)).map(a => a.name))
+            setTgAdmins(selectedTgAdmins)
         }
     }, [selectedTgAdmins, isLoading])
     

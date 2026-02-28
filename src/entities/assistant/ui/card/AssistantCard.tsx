@@ -19,7 +19,7 @@ export const AssistantCard: FC<IProps & PropsWithChildren> = ({assistant, childr
                     `ФИО: ${assistant.full_name}`,
                     `Дата регистрации: ${assistant.created_at}`,
                     `Телефон: ${assistant.phone}`,
-                    `Доступные ТГ: ${assistant.tg_admins_usernames.join(', ')}`,
+                    `Доступные ТГ: ${assistant.tg_admins_usernames.map(tg => tg.name).join(', ')}`,
                     <a
                         target="_blank"
                         href={assistant.tg}

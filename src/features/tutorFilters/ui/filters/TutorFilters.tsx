@@ -11,14 +11,14 @@ export const TutorFilters: FC<IProps> = ({onSelectedFilters}) => {
 
     const [params, setParams] = useSearchParams()
 
-    const [tgAdmins, setTgAdmins] = useState<string[]>(params.getAll('tg_admins'))
+    const [tgAdminIds, setTgAdminIds] = useState<number[]>(params.getAll('tg_admin_ids').map(id => parseInt(id, 10)).filter(id => !isNaN(id)))
 
     const onSetParams = () => {
         const newParams = new URLSearchParams(params)
-        newParams.delete('tg_admins')
-        if(tgAdmins.length > 0){
-            for(let tg of tgAdmins){
-                newParams.append('tg_admins', tg)
+        newParams.delete('tg_admin_ids')
+        if(tgAdminIds.length > 0){
+            for(let id of tgAdminIds){
+                newParams.append('tg_admin_ids', String(id))
             }
         }
         return newParams
@@ -32,7 +32,7 @@ export const TutorFilters: FC<IProps> = ({onSelectedFilters}) => {
         else{
             setParams(onSetParams())
         }
-    }, [tgAdmins])
+    }, [tgAdminIds])
 
     return (
         <section className={classes.container}>
@@ -40,8 +40,8 @@ export const TutorFilters: FC<IProps> = ({onSelectedFilters}) => {
             <section className={classes.tgAdmins}>
                 <span className={classes.label}>ТГ админы:</span>
                 <SelectedTgAdmins
-                    setTgAdmins={setTgAdmins}
-                    initTgAdmins={params.getAll('tg_admins')}
+                    setTgAdmins={setTgAdminIds}
+                    initTgAdmins={params.getAll('tg_admin_ids').map(id => parseInt(id, 10)).filter(id => !isNaN(id))}
                 />
             </section>
         </section>
