@@ -1,9 +1,8 @@
 import { Navigate } from 'react-router-dom'
-import { HOME_ROUTE, STUDENTS_ARCHIVE_ROUTE } from '../../app/router/routes'
-import { useAppSelector } from '../../app/store/store'
-import { TRole } from '../../entities/my'
-import { LayoutPages } from '../layoutPages'
-import { StudentsArchive } from '../../widgets/studentsArchive'
+import { HOME_ROUTE } from '../../../app/router/routes'
+import { useAppSelector } from '../../../app/store/store'
+import { TRole } from '../../../entities/my'
+import { StudentsArchive } from '../../../widgets/studentsArchive'
 
 const roles: TRole[] = ['admin', 'assistant'] 
 
@@ -20,8 +19,6 @@ export default function StudentsArchivePage() {
     }
 
     return (
-        <LayoutPages title={STUDENTS_ARCHIVE_ROUTE.name}>
-            <StudentsArchive />
-        </LayoutPages>
+        <StudentsArchive />
     )
 }

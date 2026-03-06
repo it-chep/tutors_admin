@@ -1,29 +1,22 @@
 import { FC, useEffect, useState } from "react";
 import classes from './studentsWidget.module.scss'
 import { IStudent, studentService } from "../../../../entities/student";
-import { MyButton } from "../../../../shared/ui/button";
 import { LoaderSpinner } from "../../../../shared/ui/spinner";
 import { AuthError } from "../../../../shared/lib/helpers/AuthError";
 import { useMyActions } from "../../../../entities/my";
 import { useGlobalMessageActions } from "../../../../entities/globalMessage";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import { STUDENT_CREATE_ROUTE, STUDENTS_ARCHIVE_ROUTE } from "../../../../app/router/routes";
-import { useAppSelector } from "../../../../app/store/store";
-import { HintWrap } from "../hint/Hint";
+import { useSearchParams } from "react-router-dom";
 import { SearchItems } from "../../../../features/searchItems";
-import { StudentFilters } from "../../../../features/studentFilters";
-import { NotificationPushAllStudents } from "../../../../features/notificationPushAllStudents";
 import { Items } from "../items/Items";
 import { Table } from "../table/Table";
-import { ChangeAllStudentsPayment } from "../../../../features/changeAllStudentsPayment";
 
 interface IProps {
     request: () => Promise<{students: IStudent[], students_count: number}>
-    add: boolean;
     highlight?: boolean;
+    triggerReq?: boolean;
 }
 
-export const StudentsWidget: FC<IProps> = ({request, add, highlight=true}) => {
+export const StudentsWidget: FC<IProps> = ({request, highlight=false, triggerReq}) => {
 
     const [isLoading, setIsLoading] = useState<boolean>(true)
     const [students, setStudents] = useState<IStudent[]>([])
@@ -32,12 +25,8 @@ export const StudentsWidget: FC<IProps> = ({request, add, highlight=true}) => {
 
     const [params, setParams] = useSearchParams()
 
-    const router = useNavigate()
-
     const {setIsAuth} = useMyActions()
     const {setGlobalMessage} = useGlobalMessageActions()
-
-    const {my} = useAppSelector(s => s.myReducer)
 
     const getData = async (req: () => Promise<{students: IStudent[], students_count: number}>) => {
         try{
@@ -76,66 +65,10 @@ export const StudentsWidget: FC<IProps> = ({request, add, highlight=true}) => {
 
     useEffect(() => {
         onSelectedFilters()
-    }, [params])
+    }, [params, triggerReq])
 
     return (
         <section className={classes.container}>
-            {
-                (add || highlight)
-                    &&
-                <section className={classes.header}>
-                    {
-                        (my.role === 'admin' || my.role === 'assistant')
-                            &&
-                        <section className={classes.filter}>
-                            <StudentFilters onSelectedFilters={onSelectedFilters} />
-                        </section>
-                    }
-                    <section className={classes.right}>
-                        <section className={classes.features}>
-                            {
-                                highlight
-                                    &&
-                                <HintWrap />
-                            }
-                            {
-                                (my.role === 'admin' || my.role === 'assistant') && my.paid_functions['student_archive']
-                                    &&
-                                add
-                                    &&
-                                <Link to={STUDENTS_ARCHIVE_ROUTE.path}>
-                                    К архиву
-                                </Link>
-                            }
-                            {
-                                (my.role === 'admin' || my.role === 'assistant')
-                                    &&
-                                add
-                                    &&
-                                <section className={classes.notification}>
-                                    <NotificationPushAllStudents />
-                                </section>
-                            }
-                            {
-                                my.role === 'admin'
-                                    &&
-                                add
-                                    &&
-                                <ChangeAllStudentsPayment onSuccess={onSelectedFilters} />
-                            }
-                        </section>
-                        {
-                            add 
-                                &&
-                            <section className={classes.add}> 
-                                <MyButton onClick={() => router(STUDENT_CREATE_ROUTE.path)}>
-                                    Добавить студента
-                                </MyButton>
-                            </section>
-                        }
-                    </section>
-                </section>
-            }
             <section className={classes.search}>
                 <section className={classes.searchItems}>
                     <SearchItems

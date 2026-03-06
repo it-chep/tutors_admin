@@ -1,17 +1,28 @@
 
-
 .container{
     display: flex;
-    align-items: flex-start;
-    gap: 20px;
-    flex-wrap: nowrap;
-    flex-direction: column;
+    align-items: center;
+    gap: 36px;
+    flex-wrap: wrap;
+    width: 100%;
+
+    .title{
+        font-weight: 500;
+    }
+
+    .wrap{
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
 
     .label{
         display: block;
-        font-size: 14px;
+        font-size: 12px;
+        font-weight: 500;
         color: var(--black);
-        margin-bottom: 4px;
+        margin-bottom: 3px;
         white-space: nowrap;
     }
 
@@ -26,6 +37,14 @@
     .toggle{
         display: flex;
         align-items: center;
-        padding-bottom: 8px;
     }
+}
+
+@media (max-width: 850px) {
+    .container{
+        align-items: start;
+        flex-direction: column;
+        gap: 12px;
+    }
+
 }

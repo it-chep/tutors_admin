@@ -26,6 +26,7 @@ export const ChangeAllStudentsPayment: FC<IProps> = ({onSuccess}) => {
     const {setIsLoading: setIsLoadingGlobal} = useGlobalLoadingActions()
     const {setGlobalMessage} = useGlobalMessageActions()
     const {setIsAuth} = useMyActions()
+    const [error, setError] = useState<string>('')
 
     const getPayments = async () => {
         try{
@@ -62,6 +63,7 @@ export const ChangeAllStudentsPayment: FC<IProps> = ({onSuccess}) => {
 
     const onSelected = (item: IItem) => {
         return (selected: boolean) => {
+            setError('')
             if(selected){
                 const target = payments.find(p => p.payment_id === item.id)
                 if(target) setPayment(target)
@@ -98,9 +100,23 @@ export const ChangeAllStudentsPayment: FC<IProps> = ({onSuccess}) => {
         }
     }
 
+    const onCheckSelected = () => {
+        if(!payment){
+            setError('Выберите платежку')
+            return
+        }
+        setConfirm(true)
+    }
+
     return (
         <section className={classes.container}>
-            <MyButton onClick={() => setOpen(true)}>Сменить платежку всем</MyButton>
+            <section className={classes.button}>
+                <MyButton 
+                    onClick={() => setOpen(true)}
+                >
+                    Сменить платежку всем
+                </MyButton>
+            </section>
             <Modal open={open} setOpen={onClose}>
                 {
                     confirm
@@ -121,7 +137,12 @@ export const ChangeAllStudentsPayment: FC<IProps> = ({onSuccess}) => {
                             isLoading={isLoading}
                             oneChoice
                         />
-                        <MyButton onClick={() => setConfirm(true)}>Изменить</MyButton>
+                        <MyButton 
+                            error={error}
+                            onClick={onCheckSelected}
+                        >
+                            Изменить
+                        </MyButton>
                     </section>
                 }
             </Modal>

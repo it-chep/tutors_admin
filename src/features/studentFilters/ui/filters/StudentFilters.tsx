@@ -8,11 +8,7 @@ import { DropDownListSelected } from "../../../../shared/ui/dropDownSelected";
 import { IItem } from "../../../../shared/model/types";
 import { useGlobalMessageActions } from "../../../../entities/globalMessage";
 
-interface IProps {
-    onSelectedFilters: () => void;
-}
-
-export const StudentFilters: FC<IProps> = ({onSelectedFilters}) => {
+export const StudentFilters: FC = () => {
 
     const [params, setParams] = useSearchParams()
 
@@ -78,34 +74,36 @@ export const StudentFilters: FC<IProps> = ({onSelectedFilters}) => {
 
     return (
         <section className={classes.container}>
-            <span>Фильтры</span>
-            <section className={classes.tgAdmins}>
-                <span className={classes.label}>ТГ админы:</span>
-                <SelectedTgAdmins
-                    setTgAdmins={setTgAdmins}
-                    initTgAdmins={params.getAll('tg_admins')}
-                />
-            </section>
-            {
-                (isLoadingPayments || payments.length > 0)
-                    &&
-                <section className={classes.payments}>
-                    <span className={classes.label}>Платежки:</span>
-                    <DropDownListSelected
-                        selectedCount
-                        items={payments.map(p => ({id: p.payment_id, name: p.payment_name}))}
-                        selectedIdItems={selectedPaymentIds}
-                        onSelected={onPaymentSelected}
-                        isLoading={isLoadingPayments}
+            <span className={classes.title}>Фильтры</span>
+            <section className={classes.wrap}>
+                <section className={classes.tgAdmins}>
+                    <span className={classes.label}>ТГ админы:</span>
+                    <SelectedTgAdmins
+                        setTgAdmins={setTgAdmins}
+                        initTgAdmins={params.getAll('tg_admins')}
                     />
                 </section>
-            }
-            <section className={classes.toggle}>
-                Должники:
-                <ToggleSwitch
-                    checked={isLost}
-                    onSelected={setIsLost}
-                />
+                {
+                    (isLoadingPayments || payments.length > 0)
+                        &&
+                    <section className={classes.payments}>
+                        <span className={classes.label}>Платежки:</span>
+                        <DropDownListSelected
+                            selectedCount
+                            items={payments.map(p => ({id: p.payment_id, name: p.payment_name}))}
+                            selectedIdItems={selectedPaymentIds}
+                            onSelected={onPaymentSelected}
+                            isLoading={isLoadingPayments}
+                        />
+                    </section>
+                }
+                <section className={classes.toggle}>
+                    Должники:
+                    <ToggleSwitch
+                        checked={isLost}
+                        onSelected={setIsLost}
+                    />
+                </section>
             </section>
         </section>
     )

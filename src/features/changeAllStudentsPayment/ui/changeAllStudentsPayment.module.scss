@@ -2,13 +2,16 @@
 .container {
     display: inline-flex;
     align-items: center;
+
+    .button{
+        height: 40px;
+    }
 }
 
 .change {
     display: flex;
     flex-direction: column;
     gap: 16px;
-    min-width: 280px;
     background-color: #FFF;
     padding: 40px;
     border-radius: 20px;

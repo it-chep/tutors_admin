@@ -37,7 +37,6 @@ export default function TutorPage() {
                 }
             >
                 <StudentsWidget 
-                    add={false}
                     request={() => studentService.getAllByTutor(+id)}
                 />
             </TutorWidget>

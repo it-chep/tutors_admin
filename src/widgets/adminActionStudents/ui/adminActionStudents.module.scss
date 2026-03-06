@@ -1,0 +1,18 @@
+
+.actionSign{
+    font-weight: 500;
+}
+
+.features{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    .notification{
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 10px;
+        align-items: center;
+        white-space: nowrap;
+    }
+}

@@ -7,7 +7,7 @@ import { ADMIN_CREATE_ROUTE, ADMIN_LESSONS_ROUTE, ADMIN_ROUTE, ADMIN_TRANSACTION
 import App from "../../App";
 import HomePage from "../../pages/home/HomePage";
 import AuthPage from "../../pages/auth/auth/AuthPage";
-import StudentsPage from "../../pages/students/Students";
+import StudentsPage from "../../pages/students/students/Students";
 import StudentChangePage from "../../pages/studentChange/StudentChange";
 import StudentPage from "../../pages/student/Student";
 import TutorsPage from "../../pages/tutors/Tutors";
@@ -24,11 +24,12 @@ import NotFoundPage from "../../pages/notFound/NotFound";
 import TutorLessonsPage from "../../pages/tutorLessons/TutorLessons";
 import AdminTransactionsPage from "../../pages/adminTransactions/AdminTransactions";
 import AdminLessonsPage from "../../pages/adminLessons/AdminLessons";
-import StudentsArchivePage from "../../pages/studentsArchive/StudentsArchive";
+import StudentsArchivePage from "../../pages/students/archive/StudentsArchive";
 import AssistantsPage from "../../pages/assistants/Assistants";
 import AssistantCreatePage from "../../pages/assistantCreate/AssistantCreate";
 import AssistantPage from "../../pages/assistant/Assistant";
 import PaymentPage from "../../pages/payment/Payment";
+import StudentsLayoutPage from "../../pages/students/layout/StudentsLayout";
 
 
 export const Router: RouteObject[] = [
@@ -60,12 +61,18 @@ export const Router: RouteObject[] = [
                 ]
             },
             {
-                path: STUDENTS_ARCHIVE_ROUTE.path,
-                Component: StudentsArchivePage
-            },
-            {
                 path: STUDENTS_ROUTE.path,
-                Component: StudentsPage
+                Component: StudentsLayoutPage,
+                children: [
+                    {
+                        path: STUDENTS_ARCHIVE_ROUTE.path,
+                        Component: StudentsArchivePage
+                    },
+                    {
+                        path: STUDENTS_ROUTE.path,
+                        Component: StudentsPage
+                    },
+                ]
             },
             {
                 path: STUDENT_CREATE_ROUTE.path,

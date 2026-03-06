@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useCallback } from "react";
 import { getSections } from "../../lib/const/sections";
 import { Link, useLocation } from "react-router-dom";
 import { ISection } from "../../model/types";
@@ -17,12 +17,20 @@ export const NavPages: FC = () => {
 
     const {pathname} = useLocation()
 
+    const getSelected = useCallback((link: string) => {
+        if(link === '/'){
+            if(pathname === '/') return true
+            return false
+        }
+        return pathname.includes(link.slice(0, -1)) ? true : false
+    }, [])
+
     return (
         <section className={classes.navPages}>
             <ul className={classes.list}>
                 {links.map(link => 
                     <li 
-                        className={classes.link + (pathname === link.link ? ` ${classes.selected}` : '')} 
+                        className={classes.link + (getSelected(link.link) ? ` ${classes.selected}` : '')} 
                         key={link.title}
                     >
                         <Link to={link.link}>

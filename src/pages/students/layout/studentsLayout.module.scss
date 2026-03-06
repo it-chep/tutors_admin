@@ -1,0 +1,72 @@
+
+.header{
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 40px;
+    
+    .switchButton{
+        position: absolute;
+        transform: translateX(-50%);
+        left: 50%;
+        width: 500px;
+        max-width: 100%;
+    }
+
+    .wrap{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+
+        .hint{
+            display: flex;
+            align-items: center;
+        }
+        
+        .add{
+            display: flex;
+            width: 240px;
+            height: 40px;
+            max-width: 100%;
+        }
+    }
+}
+
+.filter{
+    margin: 20px 0;
+}
+
+.action{
+    margin: 20px 0;
+}
+
+.students{
+    &.permission{
+        margin-top: 20px;
+        border-top: 1px solid var(--gray);
+        padding-top: 10px;
+    }
+}
+
+.adminActionsStudents{
+    display: flex;
+}
+
+@media (max-width: 1100px) {
+    .header{
+        flex-direction: column;
+
+        .hint{
+            width: auto;
+        }
+
+        .switchButton{
+            position: relative;
+            margin: 0 auto;
+            left: auto;
+            transform: none;
+        }
+    }
+}

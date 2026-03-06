@@ -42,7 +42,7 @@ export const STUDENTS_ROUTE: IRoute = {
 
 export const STUDENTS_ARCHIVE_ROUTE: IRoute = {
     name: 'Архив студентов',
-    path: '/students_archive'
+    path: '/students/archive'
 }
 
 export const STUDENT_CREATE_ROUTE: IRoute = {
