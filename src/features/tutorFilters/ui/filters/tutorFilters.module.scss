@@ -1,9 +1,13 @@
 
 .container{
     display: flex;
-    align-items: flex-end;
-    gap: 20px;
+    align-items: center;
+    gap: 36px;
     flex-wrap: wrap;
+
+    .sign{
+        font-weight: 500;
+    }
 
     .label{
         display: block;

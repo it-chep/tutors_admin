@@ -27,8 +27,7 @@ export default function AdminPage() {
             ?
         <LayoutPages title={ADMIN_ROUTE.name}>
             <AdminWidget id={+id}>
-                <TutorsWidget 
-                    add={false}
+                <TutorsWidget
                     highlight={false}
                     request={() => tutorService.getAllByAdmin(+id)}
                 />

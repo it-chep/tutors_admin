@@ -36,6 +36,9 @@ export const TutorItem: FC<IProps & PropsWithChildren> = ({tutor, highlight, chi
                     Написать в ТГ
                 </a>
             </td>
+            <td>
+                {tutor.created_at}
+            </td>
             <td className={classes.feature}>
                 {children}
             </td>

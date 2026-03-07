@@ -5,10 +5,8 @@ import { LoaderSpinner } from "../../../../shared/ui/spinner";
 import { AuthError } from "../../../../shared/lib/helpers/AuthError";
 import { useMyActions } from "../../../../entities/my";
 import { useGlobalMessageActions } from "../../../../entities/globalMessage";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { SearchItems } from "../../../../features/searchItems";
-import { TutorFilters } from "../../../../features/tutorFilters";
-import { TUTORS_ROUTE } from "../../../../app/router/routes";
 import { MyButton } from "../../../../shared/ui/button";
 
 export const TutorsArchive: FC = () => {
@@ -63,14 +61,6 @@ export const TutorsArchive: FC = () => {
 
     return (
         <section className={classes.container}>
-            <section className={classes.header}>
-                <section className={classes.filter}>
-                    <TutorFilters onSelectedFilters={onSelectedFilters} />
-                </section>
-                <Link to={TUTORS_ROUTE.path}>
-                    К активным репетиторам
-                </Link>
-            </section>
             <section className={classes.search}>
                 <section className={classes.searchItems}>
                     <SearchItems
@@ -101,6 +91,7 @@ export const TutorsArchive: FC = () => {
                                 <th>ID</th>
                                 <th>ФИО</th>
                                 <th>Телеграм</th>
+                                <th>Дата создания</th>
                             </tr>
                         </thead>
                         <tbody>

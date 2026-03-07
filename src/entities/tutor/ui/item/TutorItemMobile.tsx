@@ -42,6 +42,10 @@ export const TutorItemMobile: FC<IProps & PropsWithChildren> = ({tutor, highligh
                     </a>
                 }
             />
+            <LabelText 
+                label="Дата создания"
+                text={tutor.created_at}
+            />
             <section className={classes.feature}>
                 {children}
             </section>

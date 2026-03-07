@@ -3,11 +3,7 @@ import classes from './tutorFilters.module.scss'
 import { SelectedTgAdmins } from "../../../studentFilters/ui/selectedTgAdmins/SelectedTgAdmins";
 import { useSearchParams } from "react-router-dom";
 
-interface IProps {
-    onSelectedFilters: () => void;
-}
-
-export const TutorFilters: FC<IProps> = ({onSelectedFilters}) => {
+export const TutorFilters: FC = () => {
 
     const [params, setParams] = useSearchParams()
 
@@ -36,7 +32,7 @@ export const TutorFilters: FC<IProps> = ({onSelectedFilters}) => {
 
     return (
         <section className={classes.container}>
-            <span>Фильтры</span>
+            <section className={classes.sign}>Фильтры</section>
             <section className={classes.tgAdmins}>
                 <span className={classes.label}>ТГ админы:</span>
                 <SelectedTgAdmins

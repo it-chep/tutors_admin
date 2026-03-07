@@ -10,10 +10,11 @@ import AuthPage from "../../pages/auth/auth/AuthPage";
 import StudentsPage from "../../pages/students/students/Students";
 import StudentChangePage from "../../pages/studentChange/StudentChange";
 import StudentPage from "../../pages/student/Student";
-import TutorsPage from "../../pages/tutors/Tutors";
+import TutorsLayoutPage from "../../pages/tutors/layout/TutorsLayout";
+import TutorsPage from "../../pages/tutors/tutors/Tutors";
+import TutorsArchivePage from "../../pages/tutors/archive/TutorsArchive";
 import TutorPage from "../../pages/tutor/Tutor";
 import TutorChangePage from "../../pages/tutorChange/TutorChange";
-import TutorsArchivePage from "../../pages/tutorsArchive/TutorsArchive";
 import FinancePage from "../../pages/finance/Finance";
 import AdminsPage from "../../pages/admins/Admins";
 import AdminPage from "../../pages/admin/Admin";
@@ -87,12 +88,18 @@ export const Router: RouteObject[] = [
                 Component: StudentPage
             },
             {
-                path: TUTORS_ARCHIVE_ROUTE.path,
-                Component: TutorsArchivePage
-            },
-            {
                 path: TUTORS_ROUTE.path,
-                Component: TutorsPage
+                Component: TutorsLayoutPage,
+                children: [
+                    {
+                        path: TUTORS_ARCHIVE_ROUTE.path,
+                        Component: TutorsArchivePage
+                    },
+                    {
+                        path: TUTORS_ROUTE.path,
+                        Component: TutorsPage
+                    },
+                ]
             },
             {
                 path: TUTOR_UPDATE_ROUTE.path,

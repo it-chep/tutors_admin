@@ -5,21 +5,16 @@ import { LoaderSpinner } from "../../../shared/ui/spinner";
 import { AuthError } from "../../../shared/lib/helpers/AuthError";
 import { useMyActions } from "../../../entities/my";
 import { useGlobalMessageActions } from "../../../entities/globalMessage";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import { TUTOR_CREATE_ROUTE, TUTORS_ARCHIVE_ROUTE } from "../../../app/router/routes";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { ITutor, TutorItem, TutorItemMobile, tutorService } from "../../../entities/tutor";
-import { HintWrap } from "./hint/Hint";
 import { SearchItems } from "../../../features/searchItems";
-import { TutorFilters } from "../../../features/tutorFilters";
-import { useAppSelector } from "../../../app/store/store";
 
 interface IProps {
     request: () => Promise<{tutors: ITutor[], tutors_count: number}>
-    add: boolean;
     highlight?: boolean;
 }
 
-export const TutorsWidget: FC<IProps> = ({add, request, highlight=true}) => {
+export const TutorsWidget: FC<IProps> = ({request, highlight=true}) => {
 
     const [isLoading, setIsLoading] = useState<boolean>(true)
 
@@ -33,7 +28,6 @@ export const TutorsWidget: FC<IProps> = ({add, request, highlight=true}) => {
 
     const {setIsAuth} = useMyActions()
     const {setGlobalMessage} = useGlobalMessageActions()
-    const {my} = useAppSelector(s => s.myReducer)
 
     const getData = async (req: () => Promise<{tutors: ITutor[], tutors_count: number}>) => {
         try{
@@ -74,46 +68,6 @@ export const TutorsWidget: FC<IProps> = ({add, request, highlight=true}) => {
 
     return (
         <section className={classes.container}>
-            {
-                (add || highlight)
-                    &&
-                <section className={classes.header}>
-                    {
-                        (my.role === 'admin' || my.role === 'assistant')
-                            &&
-                        <section className={classes.filter}>
-                            <TutorFilters onSelectedFilters={onSelectedFilters} />
-                        </section>
-                    }
-                    <section className={classes.right}>
-                        <section className={classes.features}>
-                            {
-                                highlight
-                                    &&
-                                <HintWrap />
-                            }
-                            {
-                                (my.role === 'admin' || my.role === 'assistant')
-                                    &&
-                                add
-                                    &&
-                                <Link to={TUTORS_ARCHIVE_ROUTE.path}>
-                                    К архиву
-                                </Link>
-                            }
-                        </section>
-                        {
-                            add
-                                &&
-                            <section className={classes.button}>
-                                <MyButton onClick={() => router(TUTOR_CREATE_ROUTE.path)}>
-                                    Добавить репетитора
-                                </MyButton>
-                            </section>
-                        }
-                    </section>
-                </section>
-            }
             <section className={classes.search}>
                 <section className={classes.searchItems}>
                     <SearchItems
@@ -144,6 +98,7 @@ export const TutorsWidget: FC<IProps> = ({add, request, highlight=true}) => {
                                 <th>ID</th>
                                 <th>ФИО</th>
                                 <th>Телеграм</th>
+                                <th>Дата создания</th>
                             </tr>
                         </thead>
                         <tbody>
