@@ -48,8 +48,7 @@ export const TutorChange: FC<IProps & PropsWithChildren> = ({
 
     useEffect(() => {
         studentService.getTgAdmins()
-            .then(usernames => {
-                const items = usernames.map((name, i) => ({id: i + 1, name}))
+            .then(items => {
                 setTgAdminItems(items)
                 if(currentTgAdmin){
                     const found = items.find(item => item.name === currentTgAdmin)

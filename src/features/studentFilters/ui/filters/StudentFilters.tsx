@@ -13,7 +13,7 @@ export const StudentFilters: FC = () => {
     const [params, setParams] = useSearchParams()
 
     const [isLost, setIsLost] = useState<boolean>(!!params.get('is_lost'))
-    const [tgAdmins, setTgAdmins] = useState<string[]>(params.getAll('tg_admins'))
+    const [tgAdminIds, setTgAdminIds] = useState<number[]>(params.getAll('tg_admin_ids').map(id => parseInt(id, 10)).filter(id => !isNaN(id)))
     const [payments, setPayments] = useState<IPayment[]>([])
     const [isLoadingPayments, setIsLoadingPayments] = useState<boolean>(true)
     const [selectedPaymentIds, setSelectedPaymentIds] = useState<number[]>(
@@ -23,10 +23,10 @@ export const StudentFilters: FC = () => {
 
     const onSetParams = () => {
         const newParams = new URLSearchParams(params)
-        newParams.delete('tg_admins')
-        if(tgAdmins.length > 0){
-            for(let tg of tgAdmins){
-                newParams.append('tg_admins', tg)
+        newParams.delete('tg_admin_ids')
+        if(tgAdminIds.length > 0){
+            for(let id of tgAdminIds){
+                newParams.append('tg_admin_ids', String(id))
             }
         }
         if(isLost){
@@ -52,7 +52,7 @@ export const StudentFilters: FC = () => {
         else{
             setParams(onSetParams())
         }
-    }, [tgAdmins, isLost, selectedPaymentIds])
+    }, [tgAdminIds, isLost, selectedPaymentIds])
 
     useEffect(() => {
         adminService.getPayments()
@@ -74,36 +74,34 @@ export const StudentFilters: FC = () => {
 
     return (
         <section className={classes.container}>
-            <span className={classes.title}>Фильтры</span>
-            <section className={classes.wrap}>
-                <section className={classes.tgAdmins}>
-                    <span className={classes.label}>ТГ админы:</span>
-                    <SelectedTgAdmins
-                        setTgAdmins={setTgAdmins}
-                        initTgAdmins={params.getAll('tg_admins')}
+            <span>Фильтры</span>
+            <section className={classes.tgAdmins}>
+                <span className={classes.label}>ТГ админы:</span>
+                <SelectedTgAdmins
+                    setTgAdmins={setTgAdminIds}
+                    initTgAdmins={params.getAll('tg_admin_ids').map(id => parseInt(id, 10)).filter(id => !isNaN(id))}
+                />
+            </section>
+            {
+                (isLoadingPayments || payments.length > 0)
+                    &&
+                <section className={classes.payments}>
+                    <span className={classes.label}>Платежки:</span>
+                    <DropDownListSelected
+                        selectedCount
+                        items={payments.map(p => ({id: p.payment_id, name: p.payment_name}))}
+                        selectedIdItems={selectedPaymentIds}
+                        onSelected={onPaymentSelected}
+                        isLoading={isLoadingPayments}
                     />
                 </section>
-                {
-                    (isLoadingPayments || payments.length > 0)
-                        &&
-                    <section className={classes.payments}>
-                        <span className={classes.label}>Платежки:</span>
-                        <DropDownListSelected
-                            selectedCount
-                            items={payments.map(p => ({id: p.payment_id, name: p.payment_name}))}
-                            selectedIdItems={selectedPaymentIds}
-                            onSelected={onPaymentSelected}
-                            isLoading={isLoadingPayments}
-                        />
-                    </section>
-                }
-                <section className={classes.toggle}>
-                    Должники:
-                    <ToggleSwitch
-                        checked={isLost}
-                        onSelected={setIsLost}
-                    />
-                </section>
+            }
+            <section className={classes.toggle}>
+                Должники:
+                <ToggleSwitch
+                    checked={isLost}
+                    onSelected={setIsLost}
+                />
             </section>
         </section>
     )

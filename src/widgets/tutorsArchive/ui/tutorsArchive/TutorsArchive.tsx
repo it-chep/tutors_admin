@@ -46,9 +46,9 @@ export const TutorsArchive: FC = () => {
     }
 
     const onSelectedFilters = () => {
-        const tgAdmins = params.getAll('tg_admins')
-        if(tgAdmins.length){
-            getData(() => tutorService.getAllByFilters(tgAdmins, true))
+        const tgAdminIds = params.getAll('tg_admin_ids').map(id => parseInt(id, 10)).filter(id => !isNaN(id))
+        if(tgAdminIds.length){
+            getData(() => tutorService.getAllByFilters(tgAdminIds, true))
         }
         else{
             getData(tutorService.getArchiveAll)

@@ -1,3 +1,4 @@
+import { ITgAdminUsername } from "../../student/model/types";
 
 export interface IAssistant {
     id: number;
@@ -10,7 +11,7 @@ export interface IAssistantData {
     full_name: string;
     phone: string;
     tg: string;
-    tg_admins_usernames: string[];
+    tg_admins_usernames: ITgAdminUsername[];
     created_at?: string;
 }
 
@@ -19,5 +20,5 @@ export interface IAssistantCreate {
     phone: string;
     tg: string;
     email: string;
-    tg_admins_usernames: string[];
+    tg_admins_usernames_ids: number[];
 }

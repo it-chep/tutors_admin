@@ -11,7 +11,7 @@ export const AssistantCreate: FC = () => {
         "phone": '',
         "tg": '',
         "email": '',
-        "tg_admins_usernames": []
+        "tg_admins_usernames_ids": []
     })
 
     const {setTgAdmins} = assistantChange(assistant, setAssistant)

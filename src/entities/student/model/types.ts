@@ -1,4 +1,9 @@
 
+export interface ITgAdminUsername {
+    id: number;
+    name: string;
+}
+
 export interface IStudent {
     id: number;
     first_name: string;

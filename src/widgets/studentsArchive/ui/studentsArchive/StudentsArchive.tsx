@@ -48,10 +48,10 @@ export const StudentsArchive: FC = () => {
 
     const onSelectedFilters = () => {
         const isLost = !!params.get('is_lost');
-        const tgAdmins = params.getAll('tg_admins')
+        const tgAdminIds = params.getAll('tg_admin_ids').map(id => parseInt(id, 10)).filter(id => !isNaN(id))
         const paymentIds = params.getAll('payment_ids').map(id => parseInt(id, 10))
-        if(tgAdmins.length || isLost || paymentIds.length){
-            getData(() => studentService.getAllByFilters(tgAdmins, isLost, true, paymentIds))
+        if(tgAdminIds.length || isLost || paymentIds.length){
+            getData(() => studentService.getAllByFilters(tgAdminIds, isLost, true, paymentIds))
         }
         else{
             getData(studentService.getArchiveAll)

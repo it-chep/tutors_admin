@@ -18,7 +18,7 @@ export const FinanceWidget: FC = () => {
     const {setGlobalMessage} = useGlobalMessageActions()
     const {setIsLoading} = useGlobalLoadingActions()
     const [finance, setFinance] = useState<IAdminFinanceByTgAdmins | null>(null)
-    const [tgAdmins, setTgAdmins] = useState<string[]>([])
+    const [tgAdminIds, setTgAdminIds] = useState<number[]>([])
     
     const [startDate, setStartDate] = useState<Date | null>(null);
     const [endDate, setEndDate] = useState<Date | null>(null);
@@ -26,8 +26,8 @@ export const FinanceWidget: FC = () => {
     const getData = async (startDate: string, endDate: string) => {
         try{
             setIsLoading(true)
-            if(tgAdmins.length){
-                const financeRes = await adminService.getFinanceByTgAdmins(startDate, endDate, my.id, tgAdmins)
+            if(tgAdminIds.length){
+                const financeRes = await adminService.getFinanceByTgAdmins(startDate, endDate, my.id, tgAdminIds)
                 setFinance(financeRes)
             }
             else{
@@ -65,7 +65,7 @@ export const FinanceWidget: FC = () => {
         if(startDate && endDate && my.paid_functions['finance_by_tgs']){
             getData(getDateUTC(startDate), getDateUTC(endDate))
         }
-    }, [tgAdmins])
+    }, [tgAdminIds])
 
     return (
         <section className={classes.container}>
@@ -94,7 +94,7 @@ export const FinanceWidget: FC = () => {
                     &&
                 <section className={classes.selectedTgAdmins}>
                     <SelectedTgAdmins
-                        setTgAdmins={setTgAdmins}
+                        setTgAdmins={setTgAdminIds}
                     />
                 </section>
             }

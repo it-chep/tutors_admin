@@ -100,10 +100,10 @@ class TutorService {
         return {tutors, tutors_count}
     }
 
-    async getAllByFilters(tg_admins_usernames: string[], is_archive?: boolean): Promise<{tutors: ITutor[], tutors_count: number}> {
+    async getAllByFilters(tg_admins_usernames_ids: number[], is_archive?: boolean): Promise<{tutors: ITutor[], tutors_count: number}> {
         const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/tutors/filter', {
             method: 'POST',
-            body: JSON.stringify({tg_admins_usernames, is_archive})
+            body: JSON.stringify({tg_admins_usernames_ids, is_archive})
         })
         const {tutors, tutors_count}: {tutors: ITutor[], tutors_count: number} = await res.json()
         return {tutors, tutors_count}
