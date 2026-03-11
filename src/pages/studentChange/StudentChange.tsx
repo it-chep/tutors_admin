@@ -1,5 +1,5 @@
 import { Navigate, useLocation } from 'react-router-dom'
-import { HOME_ROUTE, STUDENT_CREATE_ROUTE } from '../../app/router/routes'
+import { HOME_ROUTE, STUDENT_CREATE_ROUTE, STUDENTS_ROUTE } from '../../app/router/routes'
 import { StudentChange } from '../../features/studentChange'
 import { LayoutPages } from '../layoutPages'
 import { ChooseItems } from '../../features/chooseItems'
@@ -38,6 +38,12 @@ export default function StudentChangePage() {
     if(!isAccess){
         return (
             <Navigate to={HOME_ROUTE.path} replace />
+        )
+    }
+
+    if(!student.id && !isCreate){
+        return (
+            <Navigate to={STUDENTS_ROUTE.path} replace />
         )
     }
 

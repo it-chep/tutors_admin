@@ -86,7 +86,7 @@ export const TUTOR_CREATE_ROUTE: IRoute = {
 
 export const TUTOR_UPDATE_ROUTE: IRoute = {
     name: 'Репетиторы',
-    path: '/tutor/:id/update'
+    path: '/tutor/update'
 }
 
 export const TUTORS_ARCHIVE_ROUTE: IRoute = {

@@ -22,7 +22,8 @@ export const AssistantMocks: {[key: string]: any} = {
                 full_name: 'Калашников ПС',
                 phone: '8 888 888 88 88',
                 tg: 'https://TG...',
-                tg_admins_usernames: ['@kalashnikoff069', '@maxim_jordan']
+                created_at: '12.02.2026',
+                tg_admins_usernames: ['@kalashnikoff069', '@maxim_jordan'],
             },
     },
 };

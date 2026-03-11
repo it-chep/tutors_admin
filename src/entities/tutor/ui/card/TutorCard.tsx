@@ -20,6 +20,7 @@ export const TutorCard: FC<IProps & PropsWithChildren> = ({tutor, children}) => 
                     `ФИО: ${tutor.full_name}`,
                     `Дата регистрации: ${tutor.created_at}`,
                     `Телефон: ${tutor.phone}`,
+                    `Email: ${tutor.email}`,
                     `Стоимость часа: ${tutor.cost_per_hour} ₽`,
                     <a
                         target="_blank"

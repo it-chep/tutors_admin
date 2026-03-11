@@ -142,7 +142,7 @@ export const StudentMocks: {[key: string]: any} = {
                 "duration_minutes": 120
             }
         ],
-        lessons_count: 134
+        lessons_count: 1314
     },
     [`${urlAdmin}/students/:id/transactions`]: {
         transactions: [
@@ -169,9 +169,18 @@ export const StudentMocks: {[key: string]: any} = {
     },
     [`${urlAdmin}/students/tg_admins_usernames`]: {
         tg_admins: [
-            "@maxim_jordan",
-            "@danzelVash",
-            "@kalashnikoff069"
+            {
+                id: 1,
+                name: "@maxim_jordan",
+            },
+            {
+                id: 2,
+                name: "@danzelVash",
+            },
+             {
+                id: 3,
+                name: "@kalashnikoff069",
+            },
         ],
     },
     [`${urlAdmin}/subjects`]: {
@@ -197,6 +206,7 @@ export const StudentMocks: {[key: string]: any} = {
             "cost_per_hour": "600",
             "subject_name": "Математика",
             "tutor_id": 1,
+            created_at: '12.07.2025',
             "tutor_name": "12345",
             "parent_full_name": "Лвлвла",
             "parent_phone": "8383838",

@@ -78,7 +78,7 @@ export const Lessons: FC<IProps> = ({studentId}) => {
                             &&
                         <>
                             <section className={classes.count}>Кол-во занятий: {count}</section>
-                            <section className={classes.count}>Всего часов: {totalHours.toFixed(1)}</section>
+                            <section className={classes.count}>Общее количество часов: {totalHours.toFixed(1)}</section>
                         {
                             lessons?.length
                                 ?

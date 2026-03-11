@@ -68,12 +68,17 @@ export const TutorMocks: {[key: string]: any} = {
     [`${urlAdmin}/tutors/:id`]: {
         tutor: {
                 id: 2,
-                full_name: 'MAX',
+                full_name: 'MAX ff ff',
                 tg: "http",
+                phone: '89520941111',
+                subject_name: 'math',
+                subject_id: 1,
+                cost_per_hour: '12',
                 created_at: '12.04.5555',
-                has_balance_negative: true,
-                has_only_trial: true,
-                has_newbie: false
+                email: 'jopa@mail.ru',
+                tg_admin_username: '',
+                tg_admin_username_id: -1,
+                is_archive: false,
             },
     },
     [`${urlAdmin}/tutors/:id/finance`]: {

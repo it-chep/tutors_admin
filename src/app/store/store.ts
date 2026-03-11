@@ -4,6 +4,7 @@ import { myReducer } from "../../entities/my";
 import { globalMessageReducer } from "../../entities/globalMessage";
 import { globalLoadingReducer } from "../../entities/globalLoading";
 import { studentReducer } from "../../entities/student";
+import { tutorReducer } from "../../entities/tutor";
 
 const store = configureStore({
     reducer: {
@@ -11,6 +12,7 @@ const store = configureStore({
         globalMessageReducer,
         globalLoadingReducer,
         studentReducer,
+        tutorReducer,
     }
 })
 

@@ -99,7 +99,7 @@ export const AdminMocks: {[key: string]: any} = {
                 "student_name": 'Нечепорк Максим Алексеевич',
                 "tutor_name": "Нечепорк Максим Алексеевич брат близнец",
                 "created_at": "2023-01-02 15:37:00",
-                "duration_in_minutes": 90
+                "duration_in_minutes": 90,
             },
             {
                 "id": 2,
@@ -108,9 +108,10 @@ export const AdminMocks: {[key: string]: any} = {
                 "student_name": 'Нечепорк Максим Алексеевич 2',
                 "tutor_name": "Нечепорк Максим Алексеевич брат близнец 2",
                 "created_at": "2025-10-13 11:35:00",
-                "duration_in_minutes": 120
+                "duration_in_minutes": 120,
             }
         ],
+        total_hours: 12,
         lessons_count: 134
     },
 };

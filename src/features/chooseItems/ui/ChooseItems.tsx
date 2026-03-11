@@ -77,7 +77,7 @@ export const ChooseItems: FC<IProps & PropsWithChildren> = (
                 }
             </DropDownListSelected>
             <section className={classes.errorText}>
-                {error}
+                {error && <>*{error}</>}
             </section>
         </section>
     )

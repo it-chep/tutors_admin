@@ -1,5 +1,5 @@
 import { fetchAuth } from "../../../shared/api/ApiService"
-import { ILessonTutor, ITutor, ITutorCreate, ITutorData, ITutorFinance, ITutorUpdate } from "../model/types";
+import { ILessonTutor, ITutor, ITutorChange, ITutorData, ITutorFinance } from "../model/types";
 
 
 
@@ -10,7 +10,7 @@ class TutorService {
         this.controller = null;
     }
 
-    async create(tutor: ITutorCreate){
+    async create(tutor: ITutorChange){
         await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/tutors', {
             method: "POST",
             body: JSON.stringify(tutor)
@@ -109,10 +109,10 @@ class TutorService {
         return {tutors, tutors_count}
     }
 
-    async update(id: number, data: ITutorUpdate): Promise<void> {
-        await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/tutors/' + id + '/update', {
+    async update(tutor: ITutorChange): Promise<void> {
+        await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/tutors/' + tutor.id + '/update', {
             method: "POST",
-            body: JSON.stringify(data)
+            body: JSON.stringify(tutor)
         })
     }
 

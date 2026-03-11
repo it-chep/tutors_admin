@@ -88,7 +88,7 @@ class StudentService {
 
     async getTgAdmins(): Promise<ITgAdminUsername[]> {
         const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/students/tg_admins_usernames')
-        const {tg_admins}: {tg_admins: {id: number, name: string}[]} = await res.json()
+        const {tg_admins}: {tg_admins: ITgAdminUsername[]} = await res.json()
         return tg_admins
     }
 

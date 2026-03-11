@@ -1,11 +1,10 @@
 import React, { FC, PropsWithChildren, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import classes from './tutorWidget.module.scss'
-import { ITutor, ITutorData } from "../../../../entities/tutor/model/types";
 import { useMyActions } from "../../../../entities/my";
 import { useGlobalMessageActions } from "../../../../entities/globalMessage";
 import { useGlobalLoadingActions } from "../../../../entities/globalLoading";
-import { TutorCard, tutorService } from "../../../../entities/tutor";
+import { ITutor, ITutorChange, ITutorData, TutorCard, tutorService, useTutorActions } from "../../../../entities/tutor";
 import { AuthError } from "../../../../shared/lib/helpers/AuthError";
 import { TutorCalendar } from "../calendar/TutorCalendar";
 import { TutorStudents } from "../students/TutorStudents";
@@ -30,7 +29,7 @@ export const TutorWidget: FC<IProps & PropsWithChildren> = ({id, tutorLessons, c
     const [newTutor, setNewTutor] = useState<ITutor>()
     const {setIsAuth} = useMyActions()
     const {setGlobalMessage} = useGlobalMessageActions()
-
+    const {setTutor: setTutorChange} = useTutorActions()
     const [isStudentsMove, setIsStudentsMove] = useState<boolean>(false)
     const [archiveOpen, setArchiveOpen] = useState<boolean>(false)
     const {setIsLoading: setIsLoadingGlobal} = useGlobalLoadingActions()
@@ -104,6 +103,25 @@ export const TutorWidget: FC<IProps & PropsWithChildren> = ({id, tutorLessons, c
         setIsStudentsMove(true)
     }
 
+    const onEdit = () => {
+        if(tutor){
+            const tutorChange: ITutorChange = {
+                id: tutor?.id,
+                subject_id: tutor.subject_id,
+                email: tutor.email,
+                tg: tutor.tg,
+                tg_admin_username: tutor.tg_admin_username || '',
+                tg_admin_username_id: tutor.tg_admin_username_id || -1,
+                full_name: tutor.full_name,
+                cost_per_hour: tutor.cost_per_hour,
+                phone: tutor.phone,
+            }
+            setTutorChange(tutorChange)
+            router(TUTOR_UPDATE_ROUTE.path)
+        }
+
+    }
+
     return (
         <section className={classes.container}>   
             {
@@ -137,7 +155,7 @@ export const TutorWidget: FC<IProps & PropsWithChildren> = ({id, tutorLessons, c
                             className={classes.edit}
                             src={editImg}
                             alt="Редактирование"
-                            onClick={() => router(TUTOR_UPDATE_ROUTE.path.replace(':id', String(tutor.id)))}
+                            onClick={onEdit}
                         />
                         <DeleteAction
                             successText="Репетитор удален"
