@@ -1,8 +1,9 @@
-import React, { JSX, MouseEvent, useEffect, useMemo, useState } from 'react';
+﻿import React, { JSX, MouseEvent, useEffect, useMemo, useState } from 'react';
 import classes from './calendar.module.scss';
 import arrowLeft from '../../../shared/lib/assets/ArrowLeft.png'
 import arrowRight from '../../../shared/lib/assets/ArrowRight.png'
 import { MyButton } from '../../../shared/ui/button';
+import { formatUtcToMsk } from '../../../shared/lib/helpers/formatUtcToMsk';
 
 interface CalendarProps {
     isLoading?: boolean;
@@ -24,7 +25,6 @@ export const Calendar: React.FC<CalendarProps> = ({onDateRangeSelect, isLoading,
     const [monthCount, setMonthCount] = useState<1 | 2 | 3>(getMonthCount())
 
     useEffect(() => {
-
         const setMonthCountWrap = () => {
             setMonthCount(getMonthCount())
         }
@@ -43,11 +43,10 @@ export const Calendar: React.FC<CalendarProps> = ({onDateRangeSelect, isLoading,
         setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1));
     };
 
-  // Получение дат для трех месяцев
-    
+    // Получение дат для трех месяцев
     const getThreeMonths = (): Date[] => {
         const months: Date[] = [];
-        let interval = monthCount === 3 ? oneDate ? [0, 0] : [-1, 1] :  monthCount === 2 ? [-1, 0] : [0, 0]
+        const interval = monthCount === 3 ? oneDate ? [0, 0] : [-1, 1] : monthCount === 2 ? [-1, 0] : [0, 0]
         for (let i = interval[0]; i <= interval[1]; i++) {
             const monthDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + i, 1);
             months.push(monthDate);
@@ -69,11 +68,10 @@ export const Calendar: React.FC<CalendarProps> = ({onDateRangeSelect, isLoading,
 
     const getLocalDate = (date: Date) => {
         return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0)
-    } 
+    }
 
     // Обработчик клика по дате
     const handleDateClick = (date: Date): void => {
-
         if(oneDate){
             const newStartDate: Date | null = date;
             setStartDate(newStartDate);
@@ -122,11 +120,11 @@ export const Calendar: React.FC<CalendarProps> = ({onDateRangeSelect, isLoading,
     const renderMonth = (monthDate: Date): JSX.Element[] => {
         const year = monthDate.getFullYear();
         const month = monthDate.getMonth();
-        
+
         const firstDay = new Date(year, month, 1);
         const lastDay = new Date(year, month + 1, 0);
         const daysInMonth = lastDay.getDate();
-        
+
         const startDay = firstDay.getDay();
         const days: JSX.Element[] = [];
 
@@ -191,13 +189,20 @@ export const Calendar: React.FC<CalendarProps> = ({onDateRangeSelect, isLoading,
         }
     }
 
+    const formatCalendarDate = (date: Date) => {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return formatUtcToMsk(`${year}-${month}-${day}`);
+    }
+
     const months = useMemo(getThreeMonths, [monthCount, currentDate])
-    
+
     return (
         <section className={classes.calendarContainer + (oneDate ? ` ${classes.oneDate}` : '')}>
-            <section 
+            <section
                 onMouseDown={e => e.preventDefault()}
-                onClick={onOpen} 
+                onClick={onOpen}
                 className={classes.selectedRange + (isLoading ? ` ${classes.disabled}` : '')}
             >
                 <p>
@@ -205,13 +210,13 @@ export const Calendar: React.FC<CalendarProps> = ({onDateRangeSelect, isLoading,
                         oneDate
                             ?
                         <>
-                            Дата: {!startDate ? 'Выберите дату' : startDate?.toLocaleDateString()}
+                            Дата: {!startDate ? 'Выберите дату' : formatCalendarDate(startDate)}
                         </>
                             :
                         <>
-                            Период: {(!startDate && !endDate) ? 'Выберите даты' : 
-                            (startDate && !endDate) ? 'Выберите вторую дату' :  
-                            endDate && `${startDate?.toLocaleDateString()} - ${endDate.toLocaleDateString()}`}
+                            Период: {(!startDate && !endDate) ? 'Выберите даты' :
+                            (startDate && !endDate) ? 'Выберите вторую дату' :
+                            startDate && endDate && `${formatCalendarDate(startDate)} - ${formatCalendarDate(endDate)} (мск)`}
                         </>
                     }
                 </p>

@@ -1,8 +1,8 @@
-import { FC } from "react";
+﻿import { FC } from "react";
 import classes from './transactionItem.module.scss'
 import { ITransactionsAdmin } from "../../model/types";
 import { Link } from "react-router-dom";
-import { getLocaleDate } from "../../../../shared/lib/helpers/getLocalDate";
+import { formatUtcToMsk } from "../../../../shared/lib/helpers/formatUtcToMsk";
 import { LabelText } from "../../../../shared/ui/sign";
 
 interface IProps {
@@ -10,27 +10,26 @@ interface IProps {
 }
 
 export const AdminTransactionItemMobile: FC<IProps> = ({transaction}) => {
-
     return (
-        <section 
+        <section
             className={classes.itemMobile}
         >
-            <LabelText 
+            <LabelText
                 label="Дата"
-                text={getLocaleDate(new Date(transaction.created_at + 'Z'), true)}
+                text={formatUtcToMsk(transaction.created_at) + " (мск)"}
             />
-            <LabelText 
+            <LabelText
                 label="Сумма"
                 text={transaction.amount}
             />
-            <LabelText 
+            <LabelText
                 label="Подтвержденная"
                 text={transaction.is_confirmed ? <>&#9989;</> : <>&#10060;</>}
             />
-            <LabelText 
+            <LabelText
                 label="ФИО студента"
                 text={<Link to={'/student/' + transaction.student_id}>{transaction.student_name}</Link>}
             />
         </section>
-       )
+    )
 }

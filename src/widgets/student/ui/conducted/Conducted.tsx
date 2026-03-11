@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+﻿import { FC, useEffect, useState } from "react";
 import classes from './conducted.module.scss'
 import { Choose } from "../../../../shared/ui/choose";
 import { useGlobalMessageActions } from "../../../../entities/globalMessage";
@@ -11,7 +11,7 @@ import { Modal } from "../../../../shared/ui/modal";
 import { ConfirmationAction } from "../../../../shared/ui/confirmationAction";
 import { MyButton } from "../../../../shared/ui/button";
 import { getDateUTC } from "../../../../shared/lib/helpers/getDateUTC";
-import { getLocaleDate } from "../../../../shared/lib/helpers/getLocalDate";
+import { formatUtcToMsk } from "../../../../shared/lib/helpers/formatUtcToMsk";
 import { SelectDate } from "../../../../features/selectDate";
 
 interface IProps{
@@ -72,7 +72,7 @@ export const Conducted: FC<IProps> = ({id}) => {
             setIsLoading(false)
             setStage(1)
         }
-    }   
+    }
 
     const onSelected = (value: string) => {
         setError('')
@@ -107,7 +107,7 @@ export const Conducted: FC<IProps> = ({id}) => {
                     <section className={classes.content}>
                         <section className={classes.h2}>Провести занятие</section>
                         <section className={classes.selectedHour}>
-                            <Choose 
+                            <Choose
                                 title="Выбрать продолжительность"
                                 selected={selected.name}
                                 onSelected={onSelected}
@@ -117,7 +117,7 @@ export const Conducted: FC<IProps> = ({id}) => {
                         <section className={classes.calendar}>
                             {/* <Calendar oneDate /> */}
                             Выберите дату
-                            <SelectDate 
+                            <SelectDate
                                 date={date}
                                 setDate={setDate}
                                 setError={setError}
@@ -130,10 +130,10 @@ export const Conducted: FC<IProps> = ({id}) => {
                         </section>
                     </section>
                         :
-                    <ConfirmationAction 
+                    <ConfirmationAction
                         setOpen={onOpenStage}
                         onClick={onSession}
-                        title={`Вы уверены что вы провели занятие длительностью ${selected.name} ${getLocaleDate(date)}`}
+                        title={`Вы уверены что вы провели занятие длительностью ${selected.name} ${formatUtcToMsk(getDateUTC(date).split(" ")[0])}`}
                         type="delete"
                     />
                 }

@@ -1,8 +1,8 @@
-import { FC } from "react";
+﻿import { FC } from "react";
 import classes from './transactionItem.module.scss'
 import { ITransactionsAdmin } from "../../model/types";
 import { Link } from "react-router-dom";
-import { getLocaleDate } from "../../../../shared/lib/helpers/getLocalDate";
+import { formatUtcToMsk } from "../../../../shared/lib/helpers/formatUtcToMsk";
 
 interface IProps {
     transaction: ITransactionsAdmin;
@@ -15,7 +15,7 @@ export const AdminTransactionItem: FC<IProps> = ({transaction}) => {
             className={classes.item}
         >
             <td>
-                {getLocaleDate(new Date(transaction.created_at + 'Z'), true)}
+                {formatUtcToMsk(transaction.created_at)} (мск)
             </td>  
             <td>
                 {transaction.amount}

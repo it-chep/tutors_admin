@@ -1,10 +1,9 @@
-import { FC, PropsWithChildren } from "react";
+﻿import { FC, PropsWithChildren } from "react";
 import classes from './lessonItem.module.scss'
 import { ILesson } from "../../model/types";
-import { getLocaleDate } from "../../../../shared/lib/helpers/getLocalDate";
+import { formatUtcToMsk } from "../../../../shared/lib/helpers/formatUtcToMsk";
 import { Link } from "react-router-dom";
 import { LabelText } from "../../../../shared/ui/sign";
-
 
 interface IProps {
     lesson: ILesson;
@@ -12,14 +11,13 @@ interface IProps {
 }
 
 export const LessonItemMobile: FC<IProps & PropsWithChildren> = ({lesson, showFio, children}) => {
-
     return (
         <section
             className={classes.itemMobile}
         >
             <LabelText
                 label="Дата"
-                text={getLocaleDate(new Date(lesson.date + 'Z'), true)}
+                text={formatUtcToMsk(lesson.date) + (" (мск)")}
             />
             {
                 showFio

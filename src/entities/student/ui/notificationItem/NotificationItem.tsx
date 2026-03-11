@@ -1,7 +1,7 @@
-import { FC } from "react";
+﻿import { FC } from "react";
 import { INotifications } from "../../model/types";
 import classes from './notificationItem.module.scss'
-import { getLocaleDate } from "../../../../shared/lib/helpers/getLocalDate";
+import { formatUtcToMsk } from "../../../../shared/lib/helpers/formatUtcToMsk";
 
 
 interface IProps {
@@ -15,7 +15,7 @@ export const NotificationItem: FC<IProps> = ({notification}) => {
             className={classes.item}
         >
             <td>
-                {getLocaleDate(new Date(notification.created_at + 'Z'), true)}
+                {formatUtcToMsk(notification.created_at)} (мск)
             </td>  
         </tr>
        )

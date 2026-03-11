@@ -1,9 +1,8 @@
-import { FC, PropsWithChildren } from "react";
+﻿import { FC, PropsWithChildren } from "react";
 import classes from './lessonItem.module.scss'
 import { IAdminLesson } from "../../model/types";
-import { getLocaleDate } from "../../../../shared/lib/helpers/getLocalDate";
+import { formatUtcToMsk } from "../../../../shared/lib/helpers/formatUtcToMsk";
 import { Link } from "react-router-dom";
-
 
 interface IProps {
     lesson: IAdminLesson;
@@ -16,7 +15,7 @@ export const AdminLessonItem: FC<IProps & PropsWithChildren> = ({lesson, childre
             className={classes.item}
         >
             <td>
-                {getLocaleDate(new Date(lesson.created_at + 'Z'), true)}
+                {formatUtcToMsk(lesson.created_at)} (мск)
             </td>  
             <td>
                 <Link to={'/tutor/' + lesson.tutor_id}>{lesson.tutor_name}</Link>
