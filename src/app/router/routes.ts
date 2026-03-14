@@ -55,6 +55,11 @@ export const STUDENT_PAYMENT_ROUTE: IRoute = {
     path: '/payment/:hash'
 }
 
+export const THANK_YOU_ROUTE: IRoute = {
+    name: 'Спасибо',
+    path: '/spasibo'
+}
+
 
 export const STUDENT_UPDATE_ROUTE: IRoute = {
     name: 'Студенты',
@@ -120,4 +125,3 @@ export const ASSISTANT_CREATE_ROUTE: IRoute = {
     name: 'Ассистенты',
     path: '/assistant/create'
 }
-

@@ -13,8 +13,8 @@ function App() {
   const {isLoading: globalIsLoading} = useAppSelector(s => s.globalLoadingReducer)
   const {globalMessage} = useAppSelector(s => s.globalMessageReducer)
   const {pathname} = useLocation()
-  const isPaymentLanding = pathname.includes("payment")
-  const [isLoading, setIsLoading] = useState<boolean>(!isPaymentLanding)
+  const isPublicPage = pathname.includes("payment") || pathname === "/spasibo"
+  const [isLoading, setIsLoading] = useState<boolean>(!isPublicPage)
   const {setId, setRole, setIsAuth, setPaidFunctions} = useMyActions()
   const {my} = useAppSelector(s => s.myReducer)
 
@@ -70,7 +70,7 @@ function App() {
       setIsAuth(true)
       setIsLoading(false)
     }
-    else if(!isPaymentLanding){
+    else if(!isPublicPage){
       auth()
     }
   }, [])
