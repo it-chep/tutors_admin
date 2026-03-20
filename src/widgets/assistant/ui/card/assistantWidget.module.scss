@@ -1,8 +1,20 @@
 
 
 .container{
+
+    .loader{
+        margin-top: 20px;
+    }
+
     .delete{
         display: flex;
         justify-content: end;
     }
+
+    .widget{
+        border-top: 2px solid black;
+        margin-top: 40px;
+        padding-top: 40px;
+    }
+    
 }

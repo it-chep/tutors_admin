@@ -4,7 +4,7 @@ import { ILesson, studentService } from "../../../../entities/student";
 import { useGlobalMessageActions } from "../../../../entities/globalMessage";
 import { useMyActions } from "../../../../entities/my";
 import { AuthError } from "../../../../shared/err/AuthError";
-import { Calendar } from "../../../../features/calendar";
+import { Calendar } from "../../../../shared/ui/calendar";
 import { LoaderSpinner } from "../../../../shared/ui/spinner";
 import { getDateUTC } from "../../../../shared/lib/helpers/getDateUTC";
 import { OpenContainer } from "../../../../features/openContainer";

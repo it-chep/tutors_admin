@@ -5,7 +5,7 @@ import { AuthError } from "../../../../shared/err/AuthError";
 import { useMyActions } from "../../../../entities/my";
 import { useGlobalMessageActions } from "../../../../entities/globalMessage";
 import { LoaderSpinner } from "../../../../shared/ui/spinner";
-import { Calendar } from "../../../../features/calendar";
+import { Calendar } from "../../../../shared/ui/calendar";
 import { getDateUTC } from "../../../../shared/lib/helpers/getDateUTC";
 import { Table } from "../table/Table";
 import { Items } from "../items/Items";

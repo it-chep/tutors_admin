@@ -1,8 +1,14 @@
 
 
 .nav{
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
     font-size: 18px;
+}
+
+@media (max-width: 550px) {
+    .nav{
+        grid-template-columns: repeat(1, 1fr);
+    }
 }

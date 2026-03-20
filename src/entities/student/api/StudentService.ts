@@ -1,6 +1,6 @@
 import { fetchAuth } from "../../../shared/api/ApiService"
-import { ILesson, INotifications, IStudent, IStudentChange, IStudentData,
-    IStudentFinance, ITgAdminUsername, ITransactions } from "../model/types"
+import { IComment, ILesson, INotification, IStudent, IStudentChange, IStudentData,
+    IStudentFinance, ITgAdminUsername, ITransaction } from "../model/types"
 
 
 
@@ -168,12 +168,12 @@ class StudentService {
         })
     }
 
-    async transactions(id: number, from: string, to: string): Promise<{transactions: ITransactions[], transactions_count: number, total_confirmed_amount: string}>{
+    async transactions(id: number, from: string, to: string): Promise<{transactions: ITransaction[], transactions_count: number, total_confirmed_amount: string}>{
         const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/students/' + id + '/transactions', {
             method: "POST",
             body: JSON.stringify({from, to})
         })
-        const {transactions, transactions_count, total_confirmed_amount}: {transactions: ITransactions[], transactions_count: number, total_confirmed_amount: string} = await res.json()
+        const {transactions, transactions_count, total_confirmed_amount}: {transactions: ITransaction[], transactions_count: number, total_confirmed_amount: string} = await res.json()
         return {transactions, transactions_count, total_confirmed_amount: total_confirmed_amount ?? '0'}
     }
 
@@ -193,12 +193,12 @@ class StudentService {
         })
     }
 
-    async notifications(id: number, from: string, to: string): Promise<{notifications: INotifications[], notifications_count: number}>{
+    async notifications(id: number, from: string, to: string): Promise<{notifications: INotification[], notifications_count: number}>{
         const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/students/' + id + '/notifications', {
             method: "POST",
             body: JSON.stringify({from, to})
         })
-        const {notifications, notifications_count}: {notifications: INotifications[], notifications_count: number} = await res.json()
+        const {notifications, notifications_count}: {notifications: INotification[], notifications_count: number} = await res.json()
         return {notifications, notifications_count}
     }
 
@@ -206,6 +206,25 @@ class StudentService {
         await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + `/students/${studentId}/change_payment`, {
             method: "POST",
             body: JSON.stringify({new_payment_id})
+        })
+    }
+
+    async getComments(id: number){
+        const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/students/' + id + '/comments')
+        const {comments, comments_count}: {comments: IComment[], comments_count: number} = await res.json()
+        return {comments, comments_count}
+    }
+
+    async addComment(studentId: number, text: string){
+        await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/students/' + studentId + '/comments', {
+            method: "POST",
+            body: JSON.stringify({text})
+        })
+    }
+    
+    async deleteComment(studentId: number, commentId: number){
+        await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/students/' + studentId + '/comments/' + commentId, {
+            method: "DELETE",
         })
     }
 }

@@ -74,7 +74,7 @@ export const StudentFilters: FC = () => {
 
     return (
         <section className={classes.container}>
-            <span>Фильтры</span>
+            <span className={classes.sign}>Фильтры</span>
             <section className={classes.tgAdmins}>
                 <span className={classes.label}>ТГ админы:</span>
                 <SelectedTgAdmins

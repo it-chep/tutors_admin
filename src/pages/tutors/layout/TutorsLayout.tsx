@@ -8,6 +8,7 @@ import { TutorFilters } from "../../../features/tutorFilters";
 import { HintWrap } from "../../../widgets/tutors";
 import { MyButton } from "../../../shared/ui/button";
 import { TRole } from "../../../entities/my";
+import { AdminDownloadTutors } from "../../../widgets/adminDownloadTutors";
 
 const roles: TRole[] = ['super_admin', 'admin', 'assistant'] 
 
@@ -40,7 +41,10 @@ export default function TutorsLayoutPage() {
 
     return (
         <LayoutPages title={title}>
-                <section className={classes.header}>
+            <section className={classes.header}>
+                {
+                    my.paid_functions['tutor_archive']
+                        &&
                     <section className={classes.switchButton}>
                         <SwitchButton
                             text1="Репетиторы"
@@ -49,27 +53,38 @@ export default function TutorsLayoutPage() {
                             selected={isTutors ? 1 : 2}
                         />
                     </section>
-                    <section className={classes.wrap}>
-                        {
-                            isTutors
-                                &&
-                            <>
-                            <section className={classes.hint}>
-                                <HintWrap />
-                            </section>
-
-                            <section className={classes.add}>
-                                <MyButton onClick={() => router(TUTOR_CREATE_ROUTE.path)}>
-                                    Добавить репетитора
-                                </MyButton>
-                            </section>
-                            </>
-                        }
-                    </section>
+                }
+                <section className={classes.wrap}>
+                    {
+                        isTutors
+                            &&
+                        <>
+                        <section className={classes.hint}>
+                            <HintWrap />
+                        </section>
+                        <section className={classes.add}>
+                            <MyButton onClick={() => router(TUTOR_CREATE_ROUTE.path)}>
+                                Добавить репетитора
+                            </MyButton>
+                        </section>
+                        </>
+                    }
                 </section>
+            </section>
+            {
+                my.paid_functions['tutor_filter_by_tg']
+                    &&
                 <section className={classes.filter}>
                     <TutorFilters />
                 </section>
+            }
+            {
+                isTutors
+                    &&
+                <section className={classes.adminDownloadTutors}>
+                    <AdminDownloadTutors />
+                </section>
+            }
             <section className={classes.tutors}>
                 <Outlet />
             </section>

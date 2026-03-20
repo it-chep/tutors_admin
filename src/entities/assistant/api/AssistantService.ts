@@ -44,6 +44,21 @@ class AssistantService{
         })
     }
 
+    async changePermissionsGPH(assistantId: number, can_view_contracts: boolean){
+        await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + `/assistants/${assistantId}/permissions_gph`, {
+            method: "POST",
+            body: JSON.stringify({can_view_contracts})
+        })
+    }
+
+    async changePermissions(assistantId: number, can_penalize_assistants: number[]){
+        await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + `/assistants/${assistantId}/permissions`, {
+            method: "POST",
+            body: JSON.stringify({can_penalize_assistants})
+        })
+    }
+    
+
 }
 
 export const assistantService = new AssistantService()

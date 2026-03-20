@@ -26,7 +26,7 @@ export const AdminActionsStudents: FC<IProps> = ({trigger, setTrigger}) => {
                     </section>
                 }
                 {
-                    my.role === 'admin'
+                    (my.role === 'admin') && my.paid_functions['change_all_students_payment']
                         &&
                     <section>
                         <ChangeAllStudentsPayment onSuccess={() => setTrigger(!trigger)} />

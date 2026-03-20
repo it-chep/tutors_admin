@@ -1,6 +1,106 @@
 const urlAdmin = process.env.REACT_APP_SERVER_URL_ADMIN
 
 export const TutorMocks: {[key: string]: any} = {
+    [`${urlAdmin}/tutors/:id/contract`]: {
+        contract_url: 'https://pfktpa.ru/api/uploads/pdfs/size-1748088919927-1.pdf'
+    },
+    [`${urlAdmin}/tutors/receipt/failer_check`]: {
+        is_failer: false
+    },
+    [`${urlAdmin}/tutors/:id/penalties_bonuses`]: {
+        items: [
+            {
+                id: 1,
+                type: 'bonus',
+                amount: '2 000',
+                comment: 'Сообщение 1',
+                created_at: '2025-11-09 23:38:10',
+            },
+            {
+                id: 2,
+                type: 'bonus',
+                amount: '6 000',
+                comment: 'Сообщение 2 Сообщение 2 Сообщение 2 Сообщение 2 Сообщение 2 Сообщение 2 Сообщение 2 Сообщение 2',
+                created_at: '2025-11-09 23:38:10',
+            },
+            {
+                id: 3,
+                type: 'penalty',
+                amount: '4 000',
+                comment: 'Сообщение 3',
+                created_at: '2025-04-11 10:04:52',
+            },
+            {
+                id: 4,
+                type: 'bonus',
+                amount: '10 000',
+                comment: 'Сообщение 4',
+                created_at: '2025-04-11 10:04:52',
+            },
+        ],
+        summary: {
+            penalties: '132',
+            bonuses: '20'
+        }
+    },
+    [`${urlAdmin}/tutors/penalties_bonuses`]: {
+        items: [
+            {
+                id: 1,
+                type: 'bonus',
+                amount: '2 000',
+                comment: 'Сообщение 1',
+                created_at: '2025-11-09 23:38:10',
+            },
+            {
+                id: 2,
+                type: 'bonus',
+                amount: '6 000',
+                comment: 'Сообщение 2 Сообщение 2 Сообщение 2 Сообщение 2 Сообщение 2 Сообщение 2 Сообщение 2 Сообщение 2',
+                created_at: '2025-11-09 23:38:10',
+            },
+            {
+                id: 3,
+                type: 'penalty',
+                amount: '4 000',
+                comment: 'Сообщение 3',
+                created_at: '2025-04-11 10:04:52',
+            },
+            {
+                id: 4,
+                type: 'bonus',
+                amount: '10 000',
+                comment: 'Сообщение 4',
+                created_at: '2025-04-11 10:04:52',
+            },
+        ],
+        summary: {
+            penalties: '132',
+            bonuses: '20'
+        }
+    },
+    [`${urlAdmin}/tutors/:id/accruals`]: {
+        accruals: [
+            {
+                id: 1,
+                date: '2025-11-09 23:38:10',
+                amount: '20 000',
+                is_receipt: false,
+            },
+            {
+                id: 22,
+                date: '2025-10-14 12:40:00',
+                amount: '28 000',
+                is_receipt: false,
+            },
+            {
+                id: 33,
+                date: '2025-04-11 10:04:52',
+                amount: '5 000',
+                is_receipt: true,
+            }
+        ]
+    },
     [`${urlAdmin}/tutors/archive`]: {
         tutors: [
             {
@@ -42,7 +142,8 @@ export const TutorMocks: {[key: string]: any} = {
                 created_at: '02.04.2444',
                 has_balance_negative: true,
                 has_only_trial: false,
-                has_newbie: true
+                has_newbie: true,
+                is_failer: true,
             },
             {
                 id: 2,
@@ -51,7 +152,8 @@ export const TutorMocks: {[key: string]: any} = {
                 created_at: '12.04.2042',
                 has_balance_negative: true,
                 has_only_trial: true,
-                has_newbie: false
+                has_newbie: false,
+                is_failer: true,
             },
             {
                 id: 3,
@@ -60,7 +162,8 @@ export const TutorMocks: {[key: string]: any} = {
                 created_at: '12.04.2042',
                 has_balance_negative: false,
                 has_only_trial: false,
-                has_newbie: false
+                has_newbie: false,
+                is_failer: true,
             },
         ],
         tutors_count: 22
@@ -97,7 +200,8 @@ export const TutorMocks: {[key: string]: any} = {
                 created_at: '12.04.2042',
                 has_balance_negative: true,
                 has_only_trial: false,
-                has_newbie: true
+                has_newbie: true,
+                is_failer: true,
             },
             {
                 id: 2,
@@ -106,7 +210,8 @@ export const TutorMocks: {[key: string]: any} = {
                 created_at: '12.11.2020',
                 has_balance_negative: true,
                 has_only_trial: true,
-                has_newbie: false
+                has_newbie: false,
+                is_failer: false,
             },
             {
                 id: 3,
@@ -115,7 +220,8 @@ export const TutorMocks: {[key: string]: any} = {
                 created_at: '12.04.2042',
                 has_balance_negative: false,
                 has_only_trial: false,
-                has_newbie: false
+                has_newbie: false,
+                is_failer: true,
             },
         ],
         tutors_count: 22

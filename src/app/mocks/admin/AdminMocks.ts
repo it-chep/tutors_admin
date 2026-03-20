@@ -1,6 +1,24 @@
 const urlAdmin = process.env.REACT_APP_SERVER_URL_ADMIN
 
 export const AdminMocks: {[key: string]: any} = {
+    [`${urlAdmin}/finance_by_tgs`]: {  // общая ручка с assistant
+        data: {
+            profit: '1234',
+            cash_flow: '44',
+            hours: '14',
+            salary: '200',
+            debt: '10',
+        }
+    },
+    [`${urlAdmin}/finance`]: {  // общая ручка с assistant
+        data: {
+            profit: '1234',
+            cash_flow: '44',
+            hours: '14',
+            salary: '200',
+            debt: '10',
+        }
+    },
     [`${urlAdmin}/admins`]: {
         admins:  [
             {

@@ -1,0 +1,15 @@
+
+
+.add{
+    color: var(--blue);
+    transition: all .15s ease;
+    cursor: pointer;
+
+    input{
+        display: none;
+    }
+
+    &:hover{
+        color: var(--blue-hover);
+    }
+}

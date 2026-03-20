@@ -1,0 +1,19 @@
+
+
+.container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--blue);
+    cursor: pointer;
+    transition: all .15s ease;
+
+    img{
+        object-fit: cover;
+        width: 36px;
+    }
+
+    &:hover{
+        color: var(--blue-hover);
+    }
+}

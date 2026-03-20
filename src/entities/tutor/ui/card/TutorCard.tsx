@@ -2,7 +2,7 @@ import React, { FC, PropsWithChildren } from "react";
 import classes from './card.module.scss'
 import { ITutorData } from "../../model/types";
 import { DataList } from "../../../../shared/ui/dataList";
-import { Calendar } from "../../../../features/calendar";
+import { Calendar } from "../../../../shared/ui/calendar";
 
 interface IProps {
     tutor: ITutorData;

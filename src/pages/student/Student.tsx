@@ -6,6 +6,7 @@ import { Lessons } from '../../widgets/lessons'
 import { useAppSelector } from '../../app/store/store'
 import { Transactions } from '../../widgets/transactions'
 import { Notifications } from '../../widgets/notifications'
+import { StudentComments } from '../../widgets/studentComments'
 
 export default function StudentPage() {
 
@@ -27,6 +28,11 @@ export default function StudentPage() {
                 <section>                
                     <Transactions studentId={+id} />
                     <Notifications studentId={+id} />
+                    {
+                        my.paid_functions['student_comments']
+                            &&
+                        <StudentComments studentId={+id} />
+                    }
                 </section>
             }
         </LayoutPages>

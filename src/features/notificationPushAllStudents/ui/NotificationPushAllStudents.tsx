@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import classes from './notificationPushAllStudents.module.scss'
 import tgImg from '../../../shared/lib/assets/tg.png'
 import { Modal } from "../../../shared/ui/modal";

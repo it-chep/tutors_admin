@@ -53,7 +53,6 @@ export const Conducted: FC<IProps> = ({id}) => {
         try{
             setIsLoading(true)
             setOpen(false)
-            console.log(id, +selected.value, getDateUTC(date))
             await tutorService.conductLesson(id, +selected.value, getDateUTC(date))
             setGlobalMessage({message: 'Занятие проведено', type: 'ok'})
             onOpenStage(false)

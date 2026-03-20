@@ -4,6 +4,8 @@ import { FinanceWidget } from '../../widgets/finance'
 import { LayoutPages } from '../layoutPages'
 import { TRole } from '../../entities/my'
 import { Navigate } from 'react-router-dom'
+import { AssistantPenaltyBonus } from '../../widgets/assistantPenaltyBonus'
+import classes from './finance.module.scss'
 
 const roles: TRole[] = ['super_admin', 'admin', 'assistant'] 
 
@@ -20,7 +22,18 @@ export default function FinancePage() {
 
     return (
         <LayoutPages title={FINANCE_ROUTE.name}>
-            <FinanceWidget />
+            <section className={classes.container}>
+                <section className={classes.finance}>
+                    <FinanceWidget />
+                </section>
+                {
+                    (my.role === 'assistant')
+                        &&
+                    <AssistantPenaltyBonus 
+                        assistantId={null} 
+                    />
+                }
+            </section>
         </LayoutPages>
     )
 }

@@ -1,6 +1,5 @@
 
 
-
 .container{
     position: relative;
     z-index: 1;
@@ -28,6 +27,7 @@
         box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
         padding: 20px;
         width: fit-content;
+        max-width: calc(100vw - 40px);
         height: fit-content;
     }
 

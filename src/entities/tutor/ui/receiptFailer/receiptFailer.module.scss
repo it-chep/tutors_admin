@@ -1,0 +1,12 @@
+
+
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: var(--red-hover);
+    color: #fff;
+    padding: 12px;
+    border-radius: 6px;
+}

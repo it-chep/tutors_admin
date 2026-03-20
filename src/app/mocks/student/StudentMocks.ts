@@ -18,6 +18,29 @@ export const StudentMocks: {[key: string]: any} = {
         ],
         notifications_count: 3
     },
+    [`${urlAdmin}/students/:id/comments`]: {
+        comments: [
+            {
+                id: 1,
+                text: 'Какое-то сообщение',
+                author_full_name: 'Калашников Павел Сергеевич',
+                created_at: '2025-11-09 23:38:10',
+            },
+            {
+                id: 2,
+                text: 'Какое-то сообщение Какое-то сообщение Какое-то сообщение Какое-то сообщение Какое-то сообщение Какое-то сообщение Какое-то сообщение Какое-то сообщение Какое-то сообщение',
+                author_full_name: 'Нечепорук Максим Алексеевич',
+                created_at: '2025-11-09 15:53:00',
+            },
+             {
+                id: 3,
+                text: 'sdsdsddddddddddddddddddddddddddddddddddddddddddddddddddddddd',
+                author_full_name: 'GGG',
+                created_at: '2025-10-03 12:30:00',
+            },
+        ],
+        comments_count: 11
+    },
     [`${urlAdmin}/students`]: {
         students:  [
             {
@@ -32,6 +55,7 @@ export const StudentMocks: {[key: string]: any} = {
                 "is_newbie": false,
                 balance: '1000',
                 payment_name: 'Альфа',
+                comments_count: 10,
             },
             {
                 "id": 2,
@@ -45,6 +69,8 @@ export const StudentMocks: {[key: string]: any} = {
                 "is_newbie": false,
                 balance: '44000',
                 payment_name: 'Точка',
+                comments_count: 0,
+
             },
             {
                 "id": 3,
@@ -58,6 +84,7 @@ export const StudentMocks: {[key: string]: any} = {
                 "is_newbie": false,
                 balance: '12000',
                 payment_name: 'Т-Банк',
+                comments_count: 40,
             },
         ],
         students_count: 100,
@@ -151,18 +178,21 @@ export const StudentMocks: {[key: string]: any} = {
                 created_at: "29.12.2025, 18:30",
                 amount: "1200",
                 is_confirmed: true,
+                is_manual: false,
             },
             {
                 id: "3",
                 created_at: "23.12.2025, 12:30",
                 amount: "34400",
                 is_confirmed: false,
+                is_manual: false,
             },
             {
                 id: "5",
                 created_at: "12.04.2025, 21:30",
                 amount: "14000",
-                is_confirmed: true
+                is_confirmed: true,
+                is_manual: true,
             },
         ],
         transactions_count: 25

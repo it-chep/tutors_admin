@@ -16,6 +16,7 @@ export interface IStudent {
     is_newbie: boolean;
     balance: string;
     payment_name: string;
+    comments_count: number;
 }
 
 export interface IStudentData {
@@ -79,7 +80,7 @@ export interface IStudentFinance {
     total_confirmed_amount?: string;
 }
 
-export interface ILesson{
+export interface ILesson {
     id: number;
     student_id: number;
     tutor_id: number;
@@ -88,14 +89,23 @@ export interface ILesson{
     duration_minutes: number;
 }
 
-export interface ITransactions {
+export interface ITransaction {
     id: string;
     created_at: string;
     amount: string;
     is_confirmed: boolean;
+    is_manual: boolean;
 }
 
-export interface INotifications {
+export interface INotification {
     id: number;
+    created_at: string;
+}
+
+
+export interface IComment {
+    id: number;
+    text: string;
+    author_full_name: string;
     created_at: string;
 }

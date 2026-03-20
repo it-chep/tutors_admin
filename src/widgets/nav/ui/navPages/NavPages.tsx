@@ -8,12 +8,12 @@ import { useAppSelector } from "../../../../app/store/store";
 
 export const NavPages: FC = () => {
 
-    const links: ISection['sections'] = [{title: 'Главная', link: '/'}]
+    const links: ISection[] = [{title: 'Главная', link: '/'}]
 
     const {my} = useAppSelector(s => s.myReducer)
     const sections = getSections(my)
 
-    sections.forEach(section => section.sections.forEach(s => links.push(s)))
+    sections.forEach(s => links.push(s))
 
     const {pathname} = useLocation()
 

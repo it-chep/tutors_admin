@@ -6,7 +6,7 @@ export default function TutorLessonsPage() {
 
     return (
         <LayoutPages title={TUTOR_LESSONS_ROUTE.name}>
-            <TutorLessons />
+            <TutorLessons  />
         </LayoutPages>
     )
 }

@@ -1,6 +1,7 @@
 
 
 .container{
+
     .title{
         display: flex;
         gap: 8px;
@@ -15,7 +16,7 @@
     }
 
     .content {
-        height: 0;
+        height: 0px;
         overflow: hidden;
         transition: height 1s ease;
     }

@@ -4,7 +4,7 @@ import { TutorChange } from '../../features/tutorChange'
 import { LayoutPages } from '../layoutPages'
 import { ChooseItems } from '../../features/chooseItems'
 import { TRole } from '../../entities/my'
-import { Navigate, useLocation, useParams } from 'react-router-dom'
+import { Navigate, useLocation } from 'react-router-dom'
 import { useAppSelector } from '../../app/store/store'
 import { adminService } from '../../entities/admin'
 import { IFormError } from '../../shared/model/types'
@@ -23,7 +23,7 @@ export default function TutorChangePage() {
     const isCreate = pathname === TUTOR_CREATE_ROUTE.path
 
     const {my} = useAppSelector(s => s.myReducer)
-    const isAccess = roles.includes(my.role)
+    const isAccess = roles.includes(my.role) && my.paid_functions['tutor_update']
 
     const [formError, setFormError] = useState<IFormError<ITutorChange>[]>([])
     const setErrorFieldDelete = changeFormError(formError, setFormError)

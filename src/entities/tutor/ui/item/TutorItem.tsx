@@ -1,6 +1,7 @@
 import { FC, PropsWithChildren } from "react";
 import classes from './tutorItem.module.scss'
 import { ITutor } from "../../model/types";
+import { NoReceipt } from "../noReceipt/NoReceipt";
 
 
 interface IProps {
@@ -35,6 +36,13 @@ export const TutorItem: FC<IProps & PropsWithChildren> = ({tutor, highlight, chi
                 <a target="_blank" className={classes.link} href={tutor.tg}>
                     Написать в ТГ
                 </a>
+            </td>
+            <td>
+                {
+                    tutor.is_failer
+                        &&
+                    <NoReceipt />
+                }
             </td>
             <td className={classes.feature}>
                 {children}

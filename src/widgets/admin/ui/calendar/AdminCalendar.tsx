@@ -2,7 +2,7 @@ import { FC, useState } from "react";
 import classes from './adminCalendar.module.scss'
 import { LoaderSpinner } from "../../../../shared/ui/spinner";
 import {  } from "../../../../entities/tutor";
-import { Calendar } from "../../../../features/calendar";
+import { Calendar } from "../../../../shared/ui/calendar";
 import { adminService, IAdminFinance } from "../../../../entities/admin";
 import { useMyActions } from "../../../../entities/my";
 import { useGlobalMessageActions } from "../../../../entities/globalMessage";

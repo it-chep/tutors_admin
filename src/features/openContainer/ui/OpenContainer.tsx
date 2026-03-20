@@ -1,24 +1,32 @@
-import { FC, PropsWithChildren, useRef, useState } from "react";
+import { FC, PropsWithChildren, useEffect, useRef, useState } from "react";
 import classes from './openContainer.module.scss'
 
 
 interface IProps {
     title: string;
+    trigger?: number;
 }
 
-export const OpenContainer: FC<IProps & PropsWithChildren> = ({title, children}) => {
+export const OpenContainer: FC<IProps & PropsWithChildren> = ({title, trigger, children}) => {
 
 
     const contentRef = useRef<HTMLDivElement>(null)
     const [open, setOpen] = useState<boolean>(false)
+
+    const setHeight = () => {
+        if(contentRef.current){
+            const height = contentRef.current.getBoundingClientRect().height
+            const contentHeight = Math.max(contentRef.current.scrollHeight, height);
+            contentRef.current.style.height = contentHeight + 'px';
+        }
+    }
 
     const onOpen = () => {
         if(contentRef.current){
             const newOpen = !open;
             
             if(newOpen){
-                const contentHeight = contentRef.current.scrollHeight;
-                contentRef.current.style.height = contentHeight + 'px';
+                setHeight()
             }
             else{
                 contentRef.current.style.height = '0px'
@@ -27,6 +35,16 @@ export const OpenContainer: FC<IProps & PropsWithChildren> = ({title, children})
             setOpen(newOpen)
         }
     }
+
+    const changeHeight = () => {
+        if(open && contentRef.current){
+            setHeight()
+        }
+    }
+
+    useEffect(() => {
+        changeHeight()
+    }, [trigger])
 
     return (
         <section className={classes.container}>

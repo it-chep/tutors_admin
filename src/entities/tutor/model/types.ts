@@ -5,6 +5,7 @@ export interface ITutor {
     id: number;
     full_name: string;
     tg: string;
+    is_failer: boolean;
     has_balance_negative: boolean;
     has_only_trial: boolean;
     has_newbie: boolean;
@@ -57,4 +58,11 @@ export interface ITutorInitState {
     tutor: ITutorChange;
     isLoading: boolean;
     error: string;
+}
+
+export interface ITutorAccrual {
+    id: number;
+    date: string;
+    amount: string;
+    is_receipt: boolean;
 }

@@ -1,10 +1,10 @@
 ﻿import { FC } from "react";
-import { ITransactions } from "../../model/types";
+import { ITransaction } from "../../model/types";
 import classes from './transactionItem.module.scss'
 import { formatUtcToMsk } from "../../../../shared/lib/helpers/formatUtcToMsk";
 
 interface IProps {
-    transaction: ITransactions;
+    transaction: ITransaction;
 }
 
 export const TransactionItem: FC<IProps> = ({transaction}) => {
@@ -21,6 +21,9 @@ export const TransactionItem: FC<IProps> = ({transaction}) => {
             </td>
             <td>
                 {transaction.is_confirmed ? <>&#9989;</> : <>&#10060;</>}
+            </td>
+            <td>
+                {transaction.is_manual ? <>&#9989;</> : <>&#10060;</>}
             </td>
         </tr>
     )

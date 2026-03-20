@@ -1,5 +1,5 @@
 import { FC, useState } from "react";
-import { Calendar } from "../../../../features/calendar";
+import { Calendar } from "../../../../shared/ui/calendar";
 import { ILesson } from "../../../../entities/student";
 import { useGlobalMessageActions } from "../../../../entities/globalMessage";
 import { useMyActions } from "../../../../entities/my";

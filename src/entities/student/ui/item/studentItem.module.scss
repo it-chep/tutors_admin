@@ -46,9 +46,9 @@
     .balance{
         white-space: nowrap;
     }
-
+    
     .feature{
-        width: 260px;
+        width: 220px;
     }
 
     .link{
@@ -63,6 +63,13 @@
 
 .itemMobile{
     display: none;
+}
+
+
+.commentsCount{
+    display: flex;
+    align-items: center;
+    gap: 4px;
 }
 
 @media (max-width: 950px) {

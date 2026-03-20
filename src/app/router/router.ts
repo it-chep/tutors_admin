@@ -3,7 +3,8 @@ import { ADMIN_CREATE_ROUTE, ADMIN_LESSONS_ROUTE, ADMIN_ROUTE, ADMIN_TRANSACTION
     ASSISTANT_CREATE_ROUTE, ASSISTANT_ROUTE, ASSISTANTS_ROUTE, AUTH_ROUTE, FINANCE_ROUTE,
     HOME_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE, STUDENT_CREATE_ROUTE, STUDENT_PAYMENT_ROUTE, STUDENT_ROUTE,
     STUDENT_UPDATE_ROUTE, STUDENTS_ARCHIVE_ROUTE, STUDENTS_ROUTE, TUTOR_CREATE_ROUTE, TUTOR_LESSONS_ROUTE,
-    TUTOR_ROUTE, TUTOR_UPDATE_ROUTE, TUTORS_ARCHIVE_ROUTE, TUTORS_ROUTE } from "./routes";
+    TUTOR_ROUTE, TUTOR_UPDATE_ROUTE, TUTORS_ARCHIVE_ROUTE, TUTORS_ROUTE, TUTOR_ACCRUALS_ROUTE, 
+    TUTOR_FINANCE_ROUTE } from "./routes";
 import App from "../../App";
 import HomePage from "../../pages/home/HomePage";
 import AuthPage from "../../pages/auth/auth/AuthPage";
@@ -31,6 +32,8 @@ import AssistantCreatePage from "../../pages/assistantCreate/AssistantCreate";
 import AssistantPage from "../../pages/assistant/Assistant";
 import PaymentPage from "../../pages/payment/Payment";
 import StudentsLayoutPage from "../../pages/students/layout/StudentsLayout";
+import TutorAccrualsPage from "../../pages/tutorAccruals/TutorAccruals";
+import TutorFinancePage from "../../pages/tutorFinance/TutorFinance";
 
 
 export const Router: RouteObject[] = [
@@ -88,6 +91,10 @@ export const Router: RouteObject[] = [
                 Component: StudentPage
             },
             {
+                path: TUTOR_FINANCE_ROUTE.path,
+                Component: TutorFinancePage
+            },
+            {
                 path: TUTORS_ROUTE.path,
                 Component: TutorsLayoutPage,
                 children: [
@@ -100,6 +107,10 @@ export const Router: RouteObject[] = [
                         Component: TutorsPage
                     },
                 ]
+            },
+            {
+                path: TUTOR_ACCRUALS_ROUTE.path,
+                Component: TutorAccrualsPage
             },
             {
                 path: TUTOR_UPDATE_ROUTE.path,

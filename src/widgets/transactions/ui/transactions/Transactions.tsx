@@ -1,10 +1,10 @@
-import { FC, useCallback, useRef, useState } from "react";
-import { ITransactions, studentService, TransactionItemMobile } from "../../../../entities/student";
+import { FC, useCallback, useEffect, useRef, useState } from "react";
+import { ITransaction, studentService, TransactionItemMobile } from "../../../../entities/student";
 import { useGlobalMessageActions } from "../../../../entities/globalMessage";
 import { useMyActions } from "../../../../entities/my";
 import { AuthError } from "../../../../shared/err/AuthError";
 import classes from './transactions.module.scss'
-import { Calendar } from "../../../../features/calendar";
+import { Calendar } from "../../../../shared/ui/calendar";
 import { OpenContainer } from "../../../../features/openContainer";
 import { LoaderSpinner } from "../../../../shared/ui/spinner";
 import { getDateUTC } from "../../../../shared/lib/helpers/getDateUTC";
@@ -18,7 +18,7 @@ interface IProps {
 
 export const Transactions: FC<IProps> = ({studentId}) => {
 
-    const [transactions, setTransactions] = useState<ITransactions[] | null>(null)
+    const [transactions, setTransactions] = useState<ITransaction[] | null>(null)
     const [count, setCount] = useState<number>(0)
     const [totalConfirmedAmount, setTotalConfirmedAmount] = useState<string>('0')
     const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -65,14 +65,19 @@ export const Transactions: FC<IProps> = ({studentId}) => {
         }
     }
 
+    const [trigger, setTrigger] = useState<number>(0)
+    useEffect(() => {
+        setTrigger(trigger + 1)
+    }, [isLoading, transactions])
+
     return (
         <section className={classes.container}>
-            <OpenContainer title="Транзакции">
+            <OpenContainer title="Транзакции" trigger={trigger}>
                 <section className={classes.content}>
                     <section className={classes.header}>
                         <Calendar onDateRangeSelect={setDate} />
                         {
-                            (my.role === 'admin' || my.role === 'assistant')
+                            (my.role === 'admin' || my.role === 'assistant') && my.paid_functions['manual_transaction']
                                 &&
                             <AddManualTransaction studentId={studentId} onSuccess={onManualTransactionAdded} />
                         }

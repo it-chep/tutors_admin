@@ -1,0 +1,42 @@
+
+
+
+.container{
+    display: grid;
+    grid-template-columns: 52px 260px 260px 1fr;
+    align-items: center;
+
+    .iconBox{
+        display: flex;
+        width: fit-content;
+        align-items: center;
+        background-color: var(--blue);
+        border-radius: 100%;
+        padding: 6px;
+
+        svg{
+            stroke: #fff;
+        }
+
+    }
+
+    .amountWrap{
+        display: flex;
+        align-items: center;
+        
+        .amount{
+            font-weight: 600;
+        }
+    }
+
+    .date{
+        color: #a5a5a5;
+    }
+
+    .check{
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-weight: 600;
+    }
+}

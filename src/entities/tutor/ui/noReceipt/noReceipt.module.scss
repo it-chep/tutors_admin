@@ -1,0 +1,16 @@
+
+
+
+.wrapper{
+    position: relative;
+
+    .line{
+        position: absolute;
+        width: 36px;
+        height: 2px;
+        transform: rotate(-30deg);
+        top: 12px;
+        left: -4px;
+        background-color: black;
+    }
+}

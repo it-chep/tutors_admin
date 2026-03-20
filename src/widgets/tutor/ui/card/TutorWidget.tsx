@@ -1,4 +1,4 @@
-import React, { FC, PropsWithChildren, useEffect, useState } from "react";
+import { FC, PropsWithChildren, useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import classes from './tutorWidget.module.scss'
 import { useMyActions } from "../../../../entities/my";
@@ -7,7 +7,6 @@ import { useGlobalLoadingActions } from "../../../../entities/globalLoading";
 import { ITutor, ITutorChange, ITutorData, TutorCard, tutorService, useTutorActions } from "../../../../entities/tutor";
 import { AuthError } from "../../../../shared/lib/helpers/AuthError";
 import { TutorCalendar } from "../calendar/TutorCalendar";
-import { TutorStudents } from "../students/TutorStudents";
 import { DeleteAction } from "../../../../features/deleteAction";
 import { TUTORS_ROUTE, TUTOR_UPDATE_ROUTE } from "../../../../app/router/routes";
 import { StudentsMove } from "../../../../features/studentsMove";
@@ -16,13 +15,15 @@ import { ConfirmationAction } from "../../../../shared/ui/confirmationAction";
 import editImg from '../../../../shared/lib/assets/edit.png';
 import folderPlus from '../../../student/lib/assets/folderPlus.png';
 import folderMinus from '../../../student/lib/assets/folderMinus.png';
+import { useAppSelector } from "../../../../app/store/store";
 
 interface IProps {
     id: number;
-    tutorLessons?: React.ReactNode;
+    isStudentsMove: boolean;
+    setIsStudentsMove: (isStudentsMove: boolean) => void; 
 }
 
-export const TutorWidget: FC<IProps & PropsWithChildren> = ({id, tutorLessons, children}) => {
+export const TutorWidget: FC<IProps & PropsWithChildren> = ({id, isStudentsMove, setIsStudentsMove}) => {
 
     const [isLoaing, setIsLoading] = useState<boolean>(true)
     const [tutor, setTutor] = useState<ITutorData>()
@@ -30,9 +31,9 @@ export const TutorWidget: FC<IProps & PropsWithChildren> = ({id, tutorLessons, c
     const {setIsAuth} = useMyActions()
     const {setGlobalMessage} = useGlobalMessageActions()
     const {setTutor: setTutorChange} = useTutorActions()
-    const [isStudentsMove, setIsStudentsMove] = useState<boolean>(false)
     const [archiveOpen, setArchiveOpen] = useState<boolean>(false)
     const {setIsLoading: setIsLoadingGlobal} = useGlobalLoadingActions()
+    const {my} = useAppSelector(s => s.myReducer)
 
     const router = useNavigate()
 
@@ -98,12 +99,12 @@ export const TutorWidget: FC<IProps & PropsWithChildren> = ({id, tutorLessons, c
         }
     }
 
-    const onMove = (tutor: ITutor) => {
+    const onMove = useCallback((tutor: ITutor) => {
         setNewTutor(tutor)
         setIsStudentsMove(true)
-    }
+    }, [])
 
-    const onEdit = () => {
+    const onEdit = useCallback(() => {
         if(tutor){
             const tutorChange: ITutorChange = {
                 id: tutor?.id,
@@ -119,8 +120,7 @@ export const TutorWidget: FC<IProps & PropsWithChildren> = ({id, tutorLessons, c
             setTutorChange(tutorChange)
             router(TUTOR_UPDATE_ROUTE.path)
         }
-
-    }
+    }, [])
 
     return (
         <section className={classes.container}>   
@@ -132,31 +132,39 @@ export const TutorWidget: FC<IProps & PropsWithChildren> = ({id, tutorLessons, c
                 tutor
                     &&
                 <>
-                    <section className={classes.delete}>
-                        <section
-                            className={classes.archive}
-                            onClick={() => setArchiveOpen(true)}
-                        >
-                            {
-                                tutor.is_archive
-                                    ?
-                                <>
-                                    <img src={folderMinus} />
-                                    Разархивировать<br/> репетитора
-                                </>
-                                    :
-                                <>
-                                    <img src={folderPlus} />
-                                    Архивировать<br/> репетитора
-                                </>
-                            }
-                        </section>
-                        <img
-                            className={classes.edit}
-                            src={editImg}
-                            alt="Редактирование"
-                            onClick={onEdit}
-                        />
+                    <section className={classes.header}>
+                        {
+                            my.paid_functions['tutor_archive']
+                                &&
+                            <section
+                                className={classes.archive}
+                                onClick={() => setArchiveOpen(true)}
+                            >
+                                {
+                                    tutor.is_archive
+                                        ?
+                                    <>
+                                        <img src={folderMinus} />
+                                        Разархивировать<br/> репетитора
+                                    </>
+                                        :
+                                    <>
+                                        <img src={folderPlus} />
+                                        Архивировать<br/> репетитора
+                                    </>
+                                }
+                            </section>
+                        }
+                        {
+                            my.paid_functions['tutor_update']
+                                &&
+                            <img
+                                className={classes.edit}
+                                src={editImg}
+                                alt="Редактирование"
+                                onClick={onEdit}
+                            />
+                        }
                         <DeleteAction
                             successText="Репетитор удален"
                             errorText="Ошибка при удалении репетитора"
@@ -188,22 +196,6 @@ export const TutorWidget: FC<IProps & PropsWithChildren> = ({id, tutorLessons, c
                                 />
                         </section>
                     }
-                    {
-                        tutorLessons
-                            &&
-                        <section className={classes.tutorLessons}>
-                            {tutorLessons}
-                        </section>
-                    }
-                    <TutorStudents>
-                        {
-                            isStudentsMove
-                                ?
-                            <span>Студенты были перемещены к репетитору: {newTutor?.full_name}</span>
-                                :
-                            children
-                        }
-                    </TutorStudents>
                 </>
             }
         </section>

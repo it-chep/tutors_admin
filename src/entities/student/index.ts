@@ -1,3 +1,4 @@
+export { CommentItem } from "./ui/commentItem/CommentItem";
 export { TransactionItemMobile } from "./ui/transactionItem/TransactionItemMobile";
 export { LessonItemMobile } from "./ui/lessonItem/LessonItemMobile";
 export { StudentItemMobile } from "./ui/item/StudentItemMobile";
@@ -10,5 +11,6 @@ export { StudentItem } from "./ui/item/StudentItem";
 export { useStudentActions } from "./lib/hooks/useStudentActions";
 export { default as studentReducer } from './model/reducers/StudentSlice'
 export { studentService } from "./api/StudentService";
-export { type IStudent, type IStudentData, type IStudentFinance, type IStudentChange,
-    type ILesson, type ITransactions, type INotifications, type ITgAdminUsername } from './model/types'
+
+export type { IStudent, IStudentData, IStudentFinance, IStudentChange,
+    ILesson, ITransaction, INotification, ITgAdminUsername, IComment } from './model/types'

@@ -54,8 +54,9 @@ export const TutorsWidget: FC<IProps> = ({request, highlight=true}) => {
 
     const onSelectedFilters = () => {
         const tgAdminIds = params.getAll('tg_admin_ids').map(id => parseInt(id, 10)).filter(id => !isNaN(id))
-        if(tgAdminIds.length){
-            getData(() => tutorService.getAllByFilters(tgAdminIds))
+        const isFailer = !!params.get('is_failer')
+        if(tgAdminIds.length || isFailer){
+            getData(() => tutorService.getAllByFilters(tgAdminIds, isFailer))
         }
         else{
             getData(request)
@@ -98,7 +99,7 @@ export const TutorsWidget: FC<IProps> = ({request, highlight=true}) => {
                                 <th>ID</th>
                                 <th>ФИО</th>
                                 <th>Телеграм</th>
-                                <th>Дата создания</th>
+                                <th>Без чека</th>
                             </tr>
                         </thead>
                         <tbody>

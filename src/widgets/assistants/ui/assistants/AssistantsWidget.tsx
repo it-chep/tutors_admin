@@ -11,8 +11,11 @@ import { assistantService, IAssistant } from "../../../../entities/assistant";
 import { Table } from "../table/Table";
 import { Items } from "../items/Items";
 
+interface IProps {
+    isAdmin: boolean;
+}
 
-export const AssistantsWidget: FC = () => {
+export const AssistantsWidget: FC<IProps> = ({isAdmin}) => {
 
     const [isLoading, setIsLoading] = useState<boolean>(true)
 
@@ -50,13 +53,17 @@ export const AssistantsWidget: FC = () => {
 
     return (
         <section className={classes.container}>
-            <section className={classes.addStudentWrap}>
-                <section className={classes.button}> 
-                    <MyButton onClick={() => router(ASSISTANT_CREATE_ROUTE.path)}>
-                        Добавить ассистента
-                    </MyButton>
+            {
+                isAdmin
+                    &&
+                <section className={classes.addStudentWrap}>
+                    <section className={classes.button}> 
+                        <MyButton onClick={() => router(ASSISTANT_CREATE_ROUTE.path)}>
+                            Добавить ассистента
+                        </MyButton>
+                    </section>
                 </section>
-            </section>
+            }
             {
                 isLoading
                     ?

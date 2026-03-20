@@ -1,5 +1,5 @@
 import { FC, useState } from "react";
-import { Calendar } from "../../../../features/calendar";
+import { Calendar } from "../../../../shared/ui/calendar";
 import classes from './studentCalendar.module.scss'
 import { IStudentFinance, studentService } from "../../../../entities/student";
 import { LoaderSpinner } from "../../../../shared/ui/spinner";

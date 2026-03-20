@@ -1,4 +1,5 @@
 import { findMock } from "../../app/mocks/Mocks";
+import { MyError } from "../lib/error/MyError";
 import { AuthError } from "../lib/helpers/AuthError";
 
 let isRefreshing = false;
@@ -52,7 +53,7 @@ export async function handleUnauthorized(requestFn: () => Promise<Response>): Pr
     }
 }
 
-export const fetchAuth = async (url: string, init?: RequestInit, isRetry?: boolean): Promise<Response> => {
+export const fetchAuth = async (url: string, init?: RequestInit, isRetry?: boolean, myContentType?: boolean): Promise<Response> => {
 
     const newInit: RequestInit = {...init};
 
@@ -63,11 +64,18 @@ export const fetchAuth = async (url: string, init?: RequestInit, isRetry?: boole
         }
     }
 
-    newInit.headers = {
+    newInit.headers = (myContentType ?
+    {
+        ...newInit.headers,
+        'Authorization': `Bearer ${localStorage.getItem('auth_token')}`
+    }
+        :
+    {
         ...newInit.headers,
         'Content-Type': 'application/json;charset=utf-8',
         'Authorization': `Bearer ${localStorage.getItem('auth_token')}`
-    } 
+    })
+    
     newInit.credentials = 'include'
     const res = await fetch(url, newInit)
 
@@ -87,7 +95,7 @@ export const fetchAuth = async (url: string, init?: RequestInit, isRetry?: boole
         }
         else{
             const textErr = await res.text()
-            throw new Error(textErr || 'Ошибка в запросе')
+            throw new MyError(textErr || 'Ошибка в запросе', res.status)
         }
     }
     

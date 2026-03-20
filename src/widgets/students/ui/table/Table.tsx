@@ -29,6 +29,12 @@ export const Table: FC<IProps> = ({studentsSearch, highlight}) => {
                             <th>Телеграм</th>
                             <th>Баланс</th>
                             <th>Платежка</th>
+                            {
+                                my.paid_functions['student_comments']
+                                    &&
+                                <th>Комментарии</th>
+                            }
+                            <th></th>
                         </>
                     }
                 </tr>

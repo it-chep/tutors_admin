@@ -3,12 +3,12 @@ import classes from './financeWidget.module.scss'
 import { useGlobalMessageActions } from "../../../entities/globalMessage";
 import { useMyActions } from "../../../entities/my";
 import { AuthError } from "../../../shared/lib/helpers/AuthError";
-import { Calendar } from "../../../features/calendar";
 import { useAppSelector } from "../../../app/store/store";
 import { useGlobalLoadingActions } from "../../../entities/globalLoading";
 import { adminService, IAdminFinanceByTgAdmins } from "../../../entities/admin";
 import { getDateUTC } from "../../../shared/lib/helpers/getDateUTC";
 import { SelectedTgAdmins } from "../../../features/studentFilters";
+import { Calendar } from "../../../shared/ui/calendar";
 
 
 export const FinanceWidget: FC = () => {
@@ -70,7 +70,7 @@ export const FinanceWidget: FC = () => {
     return (
         <section className={classes.container}>
             <section className={classes.calendar}>
-                <Calendar onDateRangeSelect={setDate}/> 
+                <Calendar onDateRangeSelect={setDate} /> 
                 {
                     finance
                         &&

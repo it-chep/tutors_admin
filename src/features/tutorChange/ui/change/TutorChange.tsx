@@ -1,11 +1,7 @@
 import { FC, PropsWithChildren, useState } from "react";
 import classes from './tutorChange.module.scss'
 import { MyInput } from "../../../../shared/ui/input";
-import { useGlobalLoadingActions } from "../../../../entities/globalLoading";
-import { useGlobalMessageActions } from "../../../../entities/globalMessage";
-import { useMyActions } from "../../../../entities/my";
-import { useNavigate } from "react-router-dom";
-import { IFormError, IItem } from "../../../../shared/model/types";
+import { IFormError } from "../../../../shared/model/types";
 import { useAppSelector } from "../../../../app/store/store";
 import { ITutorChange, useTutorActions } from "../../../../entities/tutor";
 import { Send } from "../send/Send";
