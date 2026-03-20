@@ -63,7 +63,15 @@ function App() {
           assistant: fns.includes('assistant'),
           student_archive: fns.includes('student_archive'),
           finance_by_tgs: fns.includes('finance_by_tgs'),
-          payment_landing: fns.includes('payment_landing')
+          payment_landing: fns.includes('payment_landing'),
+          tutor_archive: fns.includes('tutor_archive'),
+          change_all_students_payment: fns.includes('change_all_students_payment'),
+          tutor_filter_by_tg: fns.includes('tutor_filter_by_tg'),
+          tutor_update: fns.includes('tutor_update'),
+          student_comments: fns.includes('student_comments'),
+          manual_transaction: fns.includes('manual_transaction'),
+          gph: fns.includes('gph'),
+          can_penalize_assistants: fns.includes('can_penalize_assistants'),
         } 
         setPaidFunctions(paidFns)
       }

@@ -1,5 +1,5 @@
 import { FC, useState } from "react";
-import { Calendar } from "../../../../features/calendar";
+import { Calendar } from "../../../../shared/ui/calendar";
 import classes from './studentCalendar.module.scss'
 import { IStudentFinance, studentService } from "../../../../entities/student";
 import { LoaderSpinner } from "../../../../shared/ui/spinner";
@@ -69,6 +69,11 @@ export const StudentCalendar: FC<IProps> = ({id}) => {
                         <section className={classes.data}>
                             <span>Количество занятий: {finance?.count}</span>
                             <span>Прибыль: {finance?.amount} ₽</span>
+                            {
+                                finance?.total_confirmed_amount != null
+                                    &&
+                                <span>Сумма подтверждённых транзакций: {finance.total_confirmed_amount} ₽</span>
+                            }
                         </section>
                     }
                 </section>

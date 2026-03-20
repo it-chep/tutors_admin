@@ -5,12 +5,16 @@ import { AssistantsWidget } from '../../widgets/assistants';
 import { LayoutPages } from '../layoutPages'
 import { Navigate } from 'react-router-dom';
 
-const roles: TRole[] = ['admin'] 
+const roles: TRole[] = ['admin', 'assistant'] 
 
 export default function AssistantsPage() {
 
     const {my} = useAppSelector(s => s.myReducer)
-    const isAccess = roles.includes(my.role) && my.paid_functions['assistant']
+
+    const isAccessAdmin = (my.role === 'admin') && my.paid_functions['assistant']
+    const isAccessAssistant = (my.role === 'assistant') && my.paid_functions['can_penalize_assistants']
+
+    const isAccess = roles.includes(my.role) && (isAccessAdmin || isAccessAssistant) 
 
     if(!isAccess){
         return (
@@ -20,7 +24,7 @@ export default function AssistantsPage() {
 
     return (
         <LayoutPages title={ASSISTANTS_ROUTE.name}>
-            <AssistantsWidget />
+            <AssistantsWidget isAdmin={my.role === 'admin'} />
         </LayoutPages>
     )
 }

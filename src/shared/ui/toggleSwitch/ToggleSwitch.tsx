@@ -1,4 +1,4 @@
-import {FC, MouseEvent, PropsWithChildren, useRef} from "react";
+import {FC, MouseEvent, PropsWithChildren} from "react";
 import classes from './toggleSwitch.module.scss'
 
 interface IProps {

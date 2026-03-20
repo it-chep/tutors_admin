@@ -2,7 +2,7 @@ import { FC, PropsWithChildren } from "react";
 import classes from './tutorItem.module.scss'
 import { ITutor } from "../../model/types";
 import { LabelText } from "../../../../shared/ui/sign";
-
+import { NoReceipt } from "../noReceipt/NoReceipt";
 
 interface IProps {
     tutor: ITutor;
@@ -42,6 +42,13 @@ export const TutorItemMobile: FC<IProps & PropsWithChildren> = ({tutor, highligh
                     </a>
                 }
             />
+            {
+                tutor.is_failer
+                    &&
+                <section className={classes.receiptFailer}>
+                    <NoReceipt />
+                </section>
+            }
             <section className={classes.feature}>
                 {children}
             </section>

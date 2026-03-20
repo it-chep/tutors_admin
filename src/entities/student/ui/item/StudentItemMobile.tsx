@@ -3,6 +3,7 @@ import classes from './studentItem.module.scss'
 import { IStudent } from "../../model/types";
 import { useAppSelector } from "../../../../app/store/store";
 import { LabelText } from "../../../../shared/ui/sign";
+import { CommentsCount } from "./CommentsCount";
 
 interface IProps {
     student: IStudent;
@@ -60,6 +61,14 @@ export const StudentItemMobile: FC<IProps & PropsWithChildren> = ({student, high
                         label="Платежка"
                         text={student.payment_name}
                     />
+                    {
+                        my.paid_functions['student_comments'] && Boolean(student.comments_count)
+                            &&
+                        <LabelText 
+                            label="Кол-во комментариев"
+                            text={<CommentsCount count={student.comments_count} />}
+                        />
+                    }
                 </>
             }            
             <section className={classes.feature}>

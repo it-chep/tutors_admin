@@ -16,8 +16,8 @@ export const assistantChange = (assistant: IAssistantCreate, setAssistant: (assi
         setTg(tg: string){
             setAssistant({...assistant, tg})
         },
-        setTgAdmins(tg_admins_usernames: string[]){
-            setAssistant({...assistant, tg_admins_usernames})
+        setTgAdmins(tg_admins_usernames_ids: number[]){
+            setAssistant({...assistant, tg_admins_usernames_ids})
         }
     }
 }

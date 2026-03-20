@@ -7,7 +7,6 @@ import { useMyActions } from "../../../../entities/my";
 import { useGlobalMessageActions } from "../../../../entities/globalMessage";
 import { Link, useSearchParams } from "react-router-dom";
 import { SearchItems } from "../../../../features/searchItems";
-import { StudentFilters } from "../../../../features/studentFilters";
 import { STUDENTS_ROUTE } from "../../../../app/router/routes";
 import { Table } from "../table/Table";
 import { Items } from "../items/Items";
@@ -49,9 +48,10 @@ export const StudentsArchive: FC = () => {
 
     const onSelectedFilters = () => {
         const isLost = !!params.get('is_lost');
-        const tgAdmins = params.getAll('tg_admins')
-        if(tgAdmins.length || isLost){
-            getData(() => studentService.getAllByFilters(tgAdmins, isLost, true))
+        const tgAdminIds = params.getAll('tg_admin_ids').map(id => parseInt(id, 10)).filter(id => !isNaN(id))
+        const paymentIds = params.getAll('payment_ids').map(id => parseInt(id, 10))
+        if(tgAdminIds.length || isLost || paymentIds.length){
+            getData(() => studentService.getAllByFilters(tgAdminIds, isLost, true, paymentIds))
         }
         else{
             getData(studentService.getArchiveAll)
@@ -64,14 +64,6 @@ export const StudentsArchive: FC = () => {
 
     return (
         <section className={classes.container}>
-            <section className={classes.header}>
-                <section className={classes.filter}>
-                    <StudentFilters onSelectedFilters={onSelectedFilters} />
-                </section>
-                <Link to={STUDENTS_ROUTE.path}>
-                    К активным студентам
-                </Link>
-            </section>
             <section className={classes.search}>
                 <section className={classes.searchItems}>
                     <SearchItems

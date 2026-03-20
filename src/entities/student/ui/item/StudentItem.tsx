@@ -2,6 +2,7 @@ import { FC, PropsWithChildren } from "react";
 import classes from './studentItem.module.scss'
 import { IStudent } from "../../model/types";
 import { useAppSelector } from "../../../../app/store/store";
+import { CommentsCount } from "./CommentsCount";
 
 interface IProps {
     student: IStudent;
@@ -49,6 +50,13 @@ export const StudentItem: FC<IProps & PropsWithChildren> = ({student, highlight,
                     </td>
                     <td>
                         {student.payment_name}
+                    </td>
+                    <td>
+                        {
+                            my.paid_functions['student_comments'] && Boolean(student.comments_count)
+                                &&
+                            <CommentsCount count={student.comments_count} />
+                        }
                     </td>
                 </>
             }            

@@ -1,10 +1,10 @@
 import { FC } from "react";
 import classes from './table.module.scss'
-import { ITransactions, TransactionItem } from "../../../../entities/student";
+import { ITransaction, TransactionItem } from "../../../../entities/student";
 
 
 interface IProps {
-    transactions: ITransactions[];
+    transactions: ITransaction[];
 }
 
 export const Table: FC<IProps> = ({transactions}) => {
@@ -18,6 +18,7 @@ export const Table: FC<IProps> = ({transactions}) => {
                         <th>Дата</th>
                         <th>Сумма</th>
                         <th>Подтвержденная</th>
+                        <th>Ручная</th>
                     </tr>
                 </thead>
                 <tbody>

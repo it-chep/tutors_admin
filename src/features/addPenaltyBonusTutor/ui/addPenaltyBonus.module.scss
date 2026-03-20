@@ -1,0 +1,31 @@
+
+
+.container{
+
+    .button{
+        margin-top: 20px;
+        width: 240px;
+        height: 40px;
+        max-width: 100%;
+    }
+}
+
+.content{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 500px;
+    padding: 30px 50px;
+    border-radius: 20px;
+    background-color: #fff;
+
+    .sign{
+        margin-left: 4px;
+        margin-bottom: 4px;
+    }
+
+    .button{
+        height: 40px;
+        margin-top: 8px;
+    }
+}

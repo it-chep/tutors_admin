@@ -1,4 +1,4 @@
-import { FC, MouseEvent, PropsWithChildren, useState } from "react";
+import { FC, MouseEvent as MouseEventReact, PropsWithChildren, useCallback, useEffect, useRef, useState } from "react";
 import classes from './dropDownList.module.scss'
 import { LoaderSpinner } from "../../spinner";
 import { List } from "../list/List";
@@ -19,11 +19,34 @@ export const DropDownListSelected: FC<IProps & PropsWithChildren> = (
 ) => {
 
     const [open, setOpen] = useState<boolean>(false)
+    const refWrapper = useRef<HTMLDivElement>(null)
 
-    const onOpen = (e: MouseEvent) => {
+    const clickDoc = useCallback((e: MouseEvent) => {
+        const target = e.target as Element;
+        if((refWrapper.current && refWrapper.current.contains(target)) || target.closest('.modal')){}
+        else{
+            setOpen(false)
+            document.removeEventListener('click', clickDoc, {capture: true})
+        }
+    }, [])
+
+    useEffect(() => {
+        return () => {
+            document.removeEventListener('click', clickDoc, {capture: true})
+        }
+    }, [])  
+
+    const onOpen = (e: MouseEventReact) => {
         const target = e.target as HTMLElement;
         if(!isLoading && !target.closest('.' + classes.item)){
-            setOpen(!open)
+            if(open){
+                setOpen(false)
+                document.removeEventListener('click', clickDoc, {capture: true})
+            }
+            else{
+                document.addEventListener('click', clickDoc, {capture: true})
+                setOpen(true)
+            }
         }
     }
 
@@ -39,7 +62,7 @@ export const DropDownListSelected: FC<IProps & PropsWithChildren> = (
     }
 
     return (
-        <section className={classes.wrapper}>
+        <section className={classes.wrapper} ref={refWrapper}>
             <section 
                 onClick={onOpen} 
                 className={classes.selectedWrap}

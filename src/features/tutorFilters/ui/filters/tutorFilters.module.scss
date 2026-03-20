@@ -1,0 +1,29 @@
+
+.container{
+    display: flex;
+    align-items: center;
+    gap: 36px;
+    flex-wrap: wrap;
+
+    .sign{
+        font-weight: 500;
+    }
+
+    .label{
+        display: block;
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--black);
+        margin-bottom: 3px;
+        white-space: nowrap;
+    }
+
+    .tgAdmins{
+        width: 260px;
+    }
+
+    .toggle{
+        display: flex;
+        align-items: center;
+    }
+}

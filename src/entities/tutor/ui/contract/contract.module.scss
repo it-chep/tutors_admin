@@ -1,0 +1,30 @@
+
+
+.container{
+    display: flex;
+    justify-content: space-between;
+
+    .link{
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        cursor: pointer;
+        width: fit-content;
+    
+        &:hover{
+            .sign{
+                color: var(--blue-hover);
+            }
+        }
+                
+        .sign{
+            color: var(--blue);
+            transition: all .15s ease;
+        }
+    
+        img{
+            width: 30px;
+        }
+    }
+
+}

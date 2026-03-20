@@ -1,0 +1,23 @@
+.container{
+    margin-top: 20px;
+    border-top: 2px solid black;
+    position: relative;
+    padding-top: 20px;
+    z-index: 1;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 20px;
+
+    .count{
+        font-weight: 500;
+    }
+
+    .loader{
+        margin-top: 40px;
+        margin-left: 40px;
+    }
+}

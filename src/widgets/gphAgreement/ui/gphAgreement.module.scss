@@ -1,0 +1,29 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    .content{
+        min-height: 100px;
+        margin-top: 20px;
+
+        .add{
+            display: flex;
+            width: fit-content;
+            padding: 12px 20px;
+            border-radius: 12px;
+            background-color: var(--blue);
+            cursor: pointer;
+            color: #fff;
+            transition: all .15s ease;
+
+            &:hover{
+                background-color: var(--blue-hover);
+            }
+
+            .input{
+                display: none;
+            }   
+        }
+    }
+}

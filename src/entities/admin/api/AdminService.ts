@@ -35,13 +35,13 @@ class AdminService{
         return data
     }
 
-    async getFinanceByTgAdmins(from: string, to: string, admin_id: number, tg_admins_usernames: string[]): Promise<IAdminFinanceByTgAdmins> {
+    async getFinanceByTgAdmins(from: string, to: string, admin_id: number, tg_admins_usernames_ids: number[]): Promise<IAdminFinanceByTgAdmins> {
         const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/finance_by_tgs', {
             method: "POST",
             body: JSON.stringify({
                 from,
                 to,
-                tg_admins_usernames,
+                tg_admins_usernames_ids,
                 admin_id
             })
         })
@@ -70,8 +70,8 @@ class AdminService{
             method: "POST",
             body: JSON.stringify({from, to})
         })
-        const {lessons, lessons_count}: {lessons: IAdminLesson[], lessons_count: number} = await res.json()
-        return {lessons, lessons_count}
+        const {lessons, lessons_count, total_hours}: {lessons: IAdminLesson[], lessons_count: number, total_hours: number} = await res.json()
+        return {lessons, lessons_count, total_hours}
     }
 
     async getPayments(): Promise<IPayment[]> {

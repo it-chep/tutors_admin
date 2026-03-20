@@ -1,19 +1,54 @@
 
-
-
 .container{
     display: flex;
     align-items: center;
-    gap: 20px;
-    justify-content: space-between;
+    gap: 36px;
     flex-wrap: wrap;
+    width: 100%;
+
+    .sign{
+        font-weight: 500;
+    }
+
+    .title{
+        font-weight: 500;
+    }
+
+    .wrap{
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .label{
+        display: block;
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--black);
+        margin-bottom: 3px;
+        white-space: nowrap;
+    }
 
     .tgAdmins{
         width: 260px;
+    }
+
+    .payments{
+        width: 200px;
     }
 
     .toggle{
         display: flex;
         align-items: center;
     }
+}
+
+@media (max-width: 850px) {
+    .container{
+        align-items: start;
+        flex-direction: column;
+        gap: 12px;
+    }
+
 }

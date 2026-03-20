@@ -1,6 +1,6 @@
 import { fetchAuth } from "../../../shared/api/ApiService"
-import { ILesson, INotifications, IStudent, IStudentChange, IStudentData, 
-    IStudentFinance, ITransactions } from "../model/types"
+import { IComment, ILesson, INotification, IStudent, IStudentChange, IStudentData,
+    IStudentFinance, ITgAdminUsername, ITransaction } from "../model/types"
 
 
 
@@ -86,9 +86,9 @@ class StudentService {
         })
     }
 
-    async getTgAdmins(): Promise<string[]> {
+    async getTgAdmins(): Promise<ITgAdminUsername[]> {
         const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/students/tg_admins_usernames')
-        const {tg_admins}: {tg_admins: string[]} = await res.json()
+        const {tg_admins}: {tg_admins: ITgAdminUsername[]} = await res.json()
         return tg_admins
     }
 
@@ -104,10 +104,12 @@ class StudentService {
         return {students, students_count}
     }
 
-    async getAllByFilters(tg_admins_usernames: string[], is_lost: boolean, is_archive?: boolean): Promise<{students: IStudent[], students_count: number}> {
+    async getAllByFilters(tg_admins_usernames_ids: number[], is_lost: boolean, is_archive?: boolean, payment_ids?: number[]): Promise<{students: IStudent[], students_count: number}> {
+        const body: Record<string, unknown> = {tg_admins_usernames_ids, is_lost, is_archive}
+        if(payment_ids && payment_ids.length > 0) body.payment_ids = payment_ids
         const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/students/filter', {
             method: 'POST',
-            body: JSON.stringify({tg_admins_usernames, is_lost, is_archive})
+            body: JSON.stringify(body)
         })
         const {students, students_count}: {students: IStudent[], students_count: number} = await res.json()
         return {students, students_count}
@@ -139,13 +141,13 @@ class StudentService {
         })
     }
 
-    async getLessons(id: number, from: string, to: string): Promise<{lessons: ILesson[], lessons_count: number}> {
+    async getLessons(id: number, from: string, to: string): Promise<{lessons: ILesson[], lessons_count: number, total_hours: number}> {
         const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/students/' + id + '/lessons', {
             method: "POST",
             body: JSON.stringify({from, to})
         })
-        const {lessons, lessons_count}: {lessons: ILesson[], lessons_count: number} = await res.json()
-        return {lessons, lessons_count}
+        const {lessons, lessons_count, total_hours}: {lessons: ILesson[], lessons_count: number, total_hours: number} = await res.json()
+        return {lessons, lessons_count, total_hours: total_hours ?? 0}
     }
 
     async deleteLesson(id: number){
@@ -166,21 +168,37 @@ class StudentService {
         })
     }
 
-    async transactions(id: number, from: string, to: string): Promise<{transactions: ITransactions[], transactions_count: number}>{
+    async transactions(id: number, from: string, to: string): Promise<{transactions: ITransaction[], transactions_count: number, total_confirmed_amount: string}>{
         const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/students/' + id + '/transactions', {
             method: "POST",
             body: JSON.stringify({from, to})
         })
-        const {transactions, transactions_count}: {transactions: ITransactions[], transactions_count: number} = await res.json()
-        return {transactions, transactions_count}
+        const {transactions, transactions_count, total_confirmed_amount}: {transactions: ITransaction[], transactions_count: number, total_confirmed_amount: string} = await res.json()
+        return {transactions, transactions_count, total_confirmed_amount: total_confirmed_amount ?? '0'}
     }
 
-    async notifications(id: number, from: string, to: string): Promise<{notifications: INotifications[], notifications_count: number}>{
+    async addManualTransaction(studentId: number, amount: number): Promise<string> {
+        const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/students/' + studentId + '/transactions/manual', {
+            method: "POST",
+            body: JSON.stringify({amount})
+        })
+        const {id}: {id: string} = await res.json()
+        return id
+    }
+
+    async changeAllPayment(payment_id: number): Promise<void> {
+        await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/students/change_all_payment', {
+            method: "POST",
+            body: JSON.stringify({payment_id})
+        })
+    }
+
+    async notifications(id: number, from: string, to: string): Promise<{notifications: INotification[], notifications_count: number}>{
         const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/students/' + id + '/notifications', {
             method: "POST",
             body: JSON.stringify({from, to})
         })
-        const {notifications, notifications_count}: {notifications: INotifications[], notifications_count: number} = await res.json()
+        const {notifications, notifications_count}: {notifications: INotification[], notifications_count: number} = await res.json()
         return {notifications, notifications_count}
     }
 
@@ -188,6 +206,25 @@ class StudentService {
         await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + `/students/${studentId}/change_payment`, {
             method: "POST",
             body: JSON.stringify({new_payment_id})
+        })
+    }
+
+    async getComments(id: number){
+        const res = await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/students/' + id + '/comments')
+        const {comments, comments_count}: {comments: IComment[], comments_count: number} = await res.json()
+        return {comments, comments_count}
+    }
+
+    async addComment(studentId: number, text: string){
+        await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/students/' + studentId + '/comments', {
+            method: "POST",
+            body: JSON.stringify({text})
+        })
+    }
+    
+    async deleteComment(studentId: number, commentId: number){
+        await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/students/' + studentId + '/comments/' + commentId, {
+            method: "DELETE",
         })
     }
 }

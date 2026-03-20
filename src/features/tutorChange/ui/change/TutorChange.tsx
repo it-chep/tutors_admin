@@ -1,98 +1,53 @@
-import { FC, PropsWithChildren } from "react";
+import { FC, PropsWithChildren, useState } from "react";
 import classes from './tutorChange.module.scss'
 import { MyInput } from "../../../../shared/ui/input";
-import { ITutorCreate, tutorChange, tutorService } from "../../../../entities/tutor";
-import { useGlobalLoadingActions } from "../../../../entities/globalLoading";
-import { useGlobalMessageActions } from "../../../../entities/globalMessage";
-import { useMyActions } from "../../../../entities/my";
-import { AuthError } from "../../../../shared/lib/helpers/AuthError";
-import { MyButton } from "../../../../shared/ui/button";
-import { useNavigate } from "react-router-dom";
-import { TUTORS_ROUTE } from "../../../../app/router/routes";
 import { IFormError } from "../../../../shared/model/types";
 import { useAppSelector } from "../../../../app/store/store";
+import { ITutorChange, useTutorActions } from "../../../../entities/tutor";
+import { Send } from "../send/Send";
+import { SwitchButton } from "../../../../shared/ui/switchButton";
 
 interface IProps {
-    tutor: ITutorCreate;
-    setTutor: (tutor: ITutorCreate) => void;
-    formError: IFormError<ITutorCreate>[];
-    setFormError: (formError: IFormError<ITutorCreate>[]) => void;
-    setErrorFieldDelete: (field: keyof ITutorCreate) => () => void;
+    isCreate: boolean;
+    chooseTutor: React.ReactNode;
+    chooseSubject: React.ReactNode;
+    formError: IFormError<ITutorChange>[];
+    setFormError: (formError: IFormError<ITutorChange>[]) => void;
+    setErrorFieldDelete: (field: keyof ITutorChange) => () => void;
 }
 
-export const TutorChange: FC<IProps & PropsWithChildren> = ({tutor, setTutor, children, formError, setErrorFieldDelete, setFormError}) => {
+export const TutorChange: FC<IProps & PropsWithChildren> = ({
+    isCreate, chooseTutor, formError, setErrorFieldDelete, setFormError, chooseSubject
+}) => {
 
-    const {setIsLoading} = useGlobalLoadingActions()
-    const {setGlobalMessage} = useGlobalMessageActions()
-    const {setIsAuth} = useMyActions()
-    const {my} = useAppSelector(s => s.myReducer)
+    const [isTgAdminInput, setIsTgAdminInput] = useState<boolean>(false)
 
-    const {setFullName, setCostPerHour, setPhone, setTg, setEmail} = tutorChange(tutor, setTutor)
+    const {tutor} = useAppSelector(s => s.tutorReducer)
 
-    const router = useNavigate()
+    const {
+        setFullName, setTgAdminUsernameId, setCostPerHour,
+        setPhone, setEmail, setTg, setTgAdminUsername
+    } = useTutorActions()
 
-    const checkData = (): boolean => {
-        const error: IFormError<ITutorCreate>[] = [];
-        let isOk = true;
-        for(let key in tutor){
-            if(tutor[key as keyof ITutorCreate] === '' || (
-                (tutor[key as keyof ITutorCreate] === -1) && !((key as keyof ITutorCreate === 'admin_id') && (my.role !== 'super_admin')))
-            ){
-                error.push({field: key as keyof ITutorCreate, text: 'Обязательное поле'})
-                isOk = false;
-            }
+    const onSelected = (selected: 1 | 2) => {
+        setIsTgAdminInput(selected === 2)
+        if(selected === 2){
+            setTgAdminUsernameId(-1)
         }
-        setFormError(error)
-        return isOk
-    }
-
-    const onSend = async () => {
-        if(!checkData()){
-            return
-        }
-        try{
-            setIsLoading(true)
-            await tutorService.create(tutor)
-            router(TUTORS_ROUTE.path)
-        }
-        catch(e){
-            console.log(e)
-            if(e instanceof AuthError){
-                setIsAuth(false)
-                setGlobalMessage({message: e.message, type: 'error'})
-            }
-            else{
-                setGlobalMessage({message: `Ошибка при создании репетитора`, type: 'error'})
-            }
-        }
-        finally{
-            setIsLoading(false)
+        else{
+            setTgAdminUsername('')
         }
     }
 
     return (
         <section className={classes.container}>
-            <h1 className={classes.title}>Создание репетитора</h1>
+            <h1 className={classes.title}>{isCreate ? 'Создание' : 'Обновление'} студента</h1>
             <MyInput 
                 title="ФИО репетитора"
                 value={tutor.full_name}
                 setValue={setFullName}
                 error={formError.find(error => error.field === 'full_name')?.text}
                 setError={setErrorFieldDelete('full_name')}
-            />
-            <MyInput 
-                title="Email репетитора"
-                value={tutor.email}
-                setValue={setEmail}
-                error={formError.find(error => error.field === 'email')?.text}
-                setError={setErrorFieldDelete('email')}
-            />
-            <MyInput 
-                title="Ставка в час"
-                value={tutor.cost_per_hour}
-                setValue={setCostPerHour}
-                error={formError.find(error => error.field === 'cost_per_hour')?.text}
-                setError={setErrorFieldDelete('cost_per_hour')}
             />
             <MyInput 
                 title="Номер телефона репетитора"
@@ -102,20 +57,63 @@ export const TutorChange: FC<IProps & PropsWithChildren> = ({tutor, setTutor, ch
                 setError={setErrorFieldDelete('phone')}
             />
             <MyInput 
-                title="Телеграм репетитора"
+                title="TG репетитора"
                 value={tutor.tg}
                 setValue={setTg}
                 error={formError.find(error => error.field === 'tg')?.text}
                 setError={setErrorFieldDelete('tg')}
             />
-            {children}
-            <section className={classes.button}>
-                <MyButton
-                    onClick={onSend}
-                >
-                    Создать
-                </MyButton>
+            <MyInput 
+                title="Email репетитора"
+                value={tutor.email}
+                setValue={setEmail}
+                error={formError.find(error => error.field === 'email')?.text}
+                setError={setErrorFieldDelete('email')}
+            />
+            <MyInput 
+                title="Стоимость часа"
+                value={tutor.cost_per_hour}
+                setValue={setCostPerHour}
+                error={formError.find(error => error.field === 'cost_per_hour')?.text}
+                setError={setErrorFieldDelete('cost_per_hour')}
+            />
+            {chooseSubject}
+            <section className={classes.tgAdmin}>
+                <span className={classes.sign}>TG админа</span>
+                <SwitchButton
+                    text1="Выбрать"
+                    text2="Новый"
+                    selected={isTgAdminInput ? 2 : 1}
+                    onSelected={onSelected}
+                />
+                <section className={classes.input}>
+                {
+                    !isTgAdminInput
+                        ?
+                    chooseTutor
+                        :
+                    <MyInput 
+                        title=""
+                        value={tutor.tg_admin_username}
+                        setValue={setTgAdminUsername}
+                        error={
+                            formError.find(error => error.field === 'tg_admin_username')?.text
+                                ||
+                            formError.find(error => error.field === 'tg_admin_username_id')?.text
+                        }
+                        setError={() => {
+                            setErrorFieldDelete('tg_admin_username_id')()
+                            setErrorFieldDelete('tg_admin_username')()
+                        }}
+                    />
+                }
+                </section>
             </section>
+            <Send 
+                formError={formError} 
+                setFormError={setFormError}
+                isCreate={isCreate} 
+            />
         </section>
-    )
+   )
 }

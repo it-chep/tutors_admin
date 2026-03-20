@@ -5,7 +5,7 @@ import { AuthError } from "../../../../shared/err/AuthError";
 import { useMyActions } from "../../../../entities/my";
 import { useGlobalMessageActions } from "../../../../entities/globalMessage";
 import { LoaderSpinner } from "../../../../shared/ui/spinner";
-import { Calendar } from "../../../../features/calendar";
+import { Calendar } from "../../../../shared/ui/calendar";
 import { getDateUTC } from "../../../../shared/lib/helpers/getDateUTC";
 import { studentService } from "../../../../entities/student";
 import { Table } from "../table/Table";
@@ -17,7 +17,8 @@ export const AdminLessons: FC = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false) 
     const {setIsAuth} = useMyActions()
     const {setGlobalMessage} = useGlobalMessageActions()
-    const [count, setCount] = useState<number>(0)   
+    const [count, setCount] = useState<number>(0)
+    const [totalHours, setTotalHours] = useState<number>(0.0)
 
     const getData = async (from: string, to: string) => {
         try{
@@ -25,6 +26,7 @@ export const AdminLessons: FC = () => {
             const lessonsRes = await adminService.getLessons(from, to)
             setLessons(lessonsRes.lessons)
             setCount(lessonsRes.lessons_count)
+            setTotalHours(lessonsRes.total_hours)
         }
         catch(e){
             console.log(e)
@@ -70,6 +72,7 @@ export const AdminLessons: FC = () => {
                     &&
                 <>
                     <section className={classes.count}>Кол-во занятий: {count}</section>
+                    <section className={classes.count}>Общее количество часов: {parseFloat(totalHours.toFixed(2))}</section>
                 {
                     lessons.length
                         ?

@@ -32,7 +32,7 @@ export const Modal: FC<IProps & PropsWithChildren> = ({open, setOpen, children})
         open
             ?
         createPortal(
-            <section className={classes.wrapper}>
+            <section className={classes.wrapper + " modal"}>
                 <section onClick={onDarkenCLick} className={classes.darken}></section>
                 <section className={classes.content}>
                     {children}

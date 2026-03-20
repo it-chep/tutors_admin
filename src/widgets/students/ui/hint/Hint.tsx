@@ -3,7 +3,7 @@ import { Hint } from "../../../../shared/ui/hint";
 
 
 
-export const HintWrap: FC = () => {
+export const HintHighlight: FC = () => {
 
     return (
         <Hint 

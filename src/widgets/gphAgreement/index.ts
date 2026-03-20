@@ -1,0 +1,1 @@
+export { GPHAgreement } from "./ui/GPHAgreement";

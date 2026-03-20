@@ -17,17 +17,17 @@ class AssistantService{
         return assistant
     }
 
-    async add_available_tg(id: number, tg_admin_username: string) {
+    async add_available_tg(id: number, tg_admin_username_id: number) {
         await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/assistant/' + id + '/add_available_tg', {
             method: 'POST',
-            body: JSON.stringify({"tg_admin_username": tg_admin_username})
+            body: JSON.stringify({tg_admin_username_id})
         })
     }
 
-    async delete_available_tg(id: number, tg_admin_username: string) {
+    async delete_available_tg(id: number, tg_admin_username_id: number) {
         await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + '/assistant/' + id + '/delete_available_tg', {
             method: 'POST',
-            body: JSON.stringify({"tg_admin_username": tg_admin_username})
+            body: JSON.stringify({tg_admin_username_id})
         })
     }
 
@@ -43,6 +43,21 @@ class AssistantService{
             body: JSON.stringify(assistant)
         })
     }
+
+    async changePermissionsGPH(assistantId: number, can_view_contracts: boolean){
+        await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + `/assistants/${assistantId}/permissions_gph`, {
+            method: "POST",
+            body: JSON.stringify({can_view_contracts})
+        })
+    }
+
+    async changePermissions(assistantId: number, can_penalize_assistants: number[]){
+        await fetchAuth(process.env.REACT_APP_SERVER_URL_ADMIN + `/assistants/${assistantId}/permissions`, {
+            method: "POST",
+            body: JSON.stringify({can_penalize_assistants})
+        })
+    }
+    
 
 }
 

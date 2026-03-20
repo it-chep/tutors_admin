@@ -2,7 +2,7 @@ import { FC, useState } from "react";
 import classes from './tutorCalendar.module.scss'
 import { LoaderSpinner } from "../../../../shared/ui/spinner";
 import { ITutorFinance, tutorService } from "../../../../entities/tutor";
-import { Calendar } from "../../../../features/calendar";
+import { Calendar } from "../../../../shared/ui/calendar";
 import { useMyActions } from "../../../../entities/my";
 import { useGlobalMessageActions } from "../../../../entities/globalMessage";
 import { AuthError } from "../../../../shared/lib/helpers/AuthError";

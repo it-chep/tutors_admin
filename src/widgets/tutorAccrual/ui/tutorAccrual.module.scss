@@ -1,0 +1,10 @@
+
+
+.container {
+    .content{
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+        min-height: 600px;
+    }
+}

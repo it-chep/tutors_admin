@@ -1,81 +1,91 @@
-import { useState } from 'react'
-import { HOME_ROUTE, TUTOR_CREATE_ROUTE } from '../../app/router/routes'
+import { useEffect, useState } from 'react'
+import { HOME_ROUTE, TUTOR_CREATE_ROUTE, TUTORS_ROUTE } from '../../app/router/routes'
 import { TutorChange } from '../../features/tutorChange'
 import { LayoutPages } from '../layoutPages'
-import { ITutorCreate, tutorChange } from '../../entities/tutor'
 import { ChooseItems } from '../../features/chooseItems'
-import { subjectService } from '../../entities/subject'
 import { TRole } from '../../entities/my'
-import { Navigate } from 'react-router-dom'
+import { Navigate, useLocation } from 'react-router-dom'
 import { useAppSelector } from '../../app/store/store'
 import { adminService } from '../../entities/admin'
 import { IFormError } from '../../shared/model/types'
 import { changeFormError } from '../../shared/lib/helpers/ChangeFormError'
+import { ITutorChange, useTutorActions } from '../../entities/tutor'
+import { subjectService } from '../../entities/subject'
 
-const roles: TRole[] = ['super_admin', 'admin', 'assistant'] 
+const roles: TRole[] = ['super_admin', 'admin', 'assistant']
 
 export default function TutorChangePage() {
 
-    const [tutor, setTutor] = useState<ITutorCreate>({
-        full_name: '',
-        cost_per_hour: '',
-        phone: '',
-        tg: '',
-        subject_id: -1,
-        email: '',
-        admin_id: -1,
-    })
+    const {pathname} = useLocation()
+    const {tutor} = useAppSelector(s => s.tutorReducer)
+    const {setTgAdminUsernameId, setSubjectId, setInit} = useTutorActions()
 
-    const {setSubjectId, setAdminId} = tutorChange(tutor, setTutor)
+    const isCreate = pathname === TUTOR_CREATE_ROUTE.path
 
     const {my} = useAppSelector(s => s.myReducer)
-    const isAccess = roles.includes(my.role)
+    const isAccess = roles.includes(my.role) && my.paid_functions['tutor_update']
 
-    const [formError, setFormError] = useState<IFormError<ITutorCreate>[]>([])
+    const [formError, setFormError] = useState<IFormError<ITutorChange>[]>([])
     const setErrorFieldDelete = changeFormError(formError, setFormError)
-    
-    if(!isAccess){
-        return (
-            <Navigate to={HOME_ROUTE.path} replace />
-        )
-    }
 
     const getAdmins = async() => {
         const admins = await adminService.getAll()
         return admins.map(admin => ({name: admin.full_name, id: admin.id}))
     }
 
+    useEffect(() => {
+        return () => {
+            setInit()
+        }
+    }, [])
+
+    if(!isAccess){
+        return (
+            <Navigate to={HOME_ROUTE.path} replace />
+        )
+    }
+
+    if(!tutor.id && !isCreate){
+        return (
+            <Navigate to={TUTORS_ROUTE.path} replace />
+        )
+    }
+
     return (
         <LayoutPages title={TUTOR_CREATE_ROUTE.name}>
-            <TutorChange 
+            <TutorChange
+                isCreate={isCreate}
                 formError={formError}
                 setFormError={setFormError}
                 setErrorFieldDelete={setErrorFieldDelete}
-                tutor={tutor}
-                setTutor={setTutor}
-            >
-                <>
+                chooseSubject={
                     <ChooseItems 
+                        error={formError.find(error => error.field === 'subject_id')?.text}
+                        setError={setErrorFieldDelete('subject_id')}
                         title='Предмет'
                         selectedItems={[tutor.subject_id]}
                         setItem={setSubjectId}
                         getData={subjectService.getAll}
-                        error={formError.find(error => error.field === 'subject_id')?.text}
-                        setError={setErrorFieldDelete('subject_id')}
                     />
-                    {
-                        my.role === 'super_admin'
-                            &&
-                        <ChooseItems 
-                            title='Админ'
-                            selectedItems={[tutor.admin_id]}
-                            setItem={setAdminId}
-                            getData={getAdmins}
-                            error={formError.find(error => error.field === 'admin_id')?.text}
-                            setError={setErrorFieldDelete('admin_id')}
-                        />
-                    }
-                </>
+                }
+                chooseTutor={
+                    <ChooseItems
+                        title=''
+                        selectedItems={[tutor.tg_admin_username_id]}
+                        setItem={setTgAdminUsernameId}
+                        getData={getAdmins}
+                        error={
+                            formError.find(error => error.field === 'tg_admin_username')?.text
+                                ||
+                            formError.find(error => error.field === 'tg_admin_username_id')?.text
+                        }
+                        setError={() => {
+                            setErrorFieldDelete('tg_admin_username_id')()
+                            setErrorFieldDelete('tg_admin_username')()
+                        }}
+                    />
+                }
+            >
             </TutorChange>
         </LayoutPages>
     )

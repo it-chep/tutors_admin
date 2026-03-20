@@ -1,0 +1,35 @@
+
+
+
+.textareaBox{
+    width: 100%;
+    border: 1px solid black;
+    display: flex;
+    padding: 4px;
+    border-radius: 6px;
+    
+    transition: all var(--time-input) ease;
+
+    &.hightlight{
+        border: 1px solid var(--blue);
+    }
+
+    .wrap{
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    textarea{
+        width: 100%;
+        min-height: 40px;
+        background-color: transparent;
+        resize: vertical;
+        border: none;
+        outline: none;
+        height: 40px;
+        font-size: 14px;
+    }
+}

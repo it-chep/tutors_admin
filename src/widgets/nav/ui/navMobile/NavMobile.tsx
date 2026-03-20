@@ -2,7 +2,6 @@ import { FC, useState } from "react";
 import classes from './navMobile.module.scss'
 import { NavPages } from "../navPages/NavPages";
 
-
 export const NavMobile: FC = () => {
 
     const [open, setOpen] = useState<boolean>(false)

@@ -1,37 +1,20 @@
+import { RouteObject } from "react-router-dom";
+import { ADMIN_CREATE_ROUTE, ADMIN_LESSONS_ROUTE, ADMIN_ROUTE, ADMIN_TRANSACTIONS_ROUTE, ADMINS_ROUTE,
+    ASSISTANT_CREATE_ROUTE, ASSISTANT_ROUTE, ASSISTANTS_ROUTE, AUTH_ROUTE, FINANCE_ROUTE,
+    HOME_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE, STUDENT_CREATE_ROUTE, STUDENT_PAYMENT_ROUTE, STUDENT_ROUTE,
+    STUDENT_UPDATE_ROUTE, STUDENTS_ARCHIVE_ROUTE, STUDENTS_ROUTE, TUTOR_CREATE_ROUTE, TUTOR_LESSONS_ROUTE,
+    TUTOR_ROUTE, TUTOR_UPDATE_ROUTE, TUTORS_ARCHIVE_ROUTE, TUTORS_ROUTE, TUTOR_ACCRUALS_ROUTE, 
+    TUTOR_FINANCE_ROUTE, THANK_YOU_ROUTE } from "./routes";
 import {RouteObject} from "react-router-dom";
-import {
-    ADMIN_CREATE_ROUTE,
-    ADMIN_LESSONS_ROUTE,
-    ADMIN_ROUTE,
-    ADMIN_TRANSACTIONS_ROUTE,
-    ADMINS_ROUTE,
-    ASSISTANT_CREATE_ROUTE,
-    ASSISTANT_ROUTE,
-    ASSISTANTS_ROUTE,
-    AUTH_ROUTE,
-    FINANCE_ROUTE,
-    HOME_ROUTE,
-    LOGIN_ROUTE,
-    REGISTRATION_ROUTE,
-    STUDENT_CREATE_ROUTE,
-    STUDENT_PAYMENT_ROUTE,
-    STUDENT_ROUTE,
-    THANK_YOU_ROUTE,
-    STUDENT_UPDATE_ROUTE,
-    STUDENTS_ARCHIVE_ROUTE,
-    STUDENTS_ROUTE,
-    TUTOR_CREATE_ROUTE,
-    TUTOR_LESSONS_ROUTE,
-    TUTOR_ROUTE,
-    TUTORS_ROUTE
-} from "./routes";
 import App from "../../App";
 import HomePage from "../../pages/home/HomePage";
 import AuthPage from "../../pages/auth/auth/AuthPage";
-import StudentsPage from "../../pages/students/Students";
+import StudentsPage from "../../pages/students/students/Students";
 import StudentChangePage from "../../pages/studentChange/StudentChange";
 import StudentPage from "../../pages/student/Student";
-import TutorsPage from "../../pages/tutors/Tutors";
+import TutorsLayoutPage from "../../pages/tutors/layout/TutorsLayout";
+import TutorsPage from "../../pages/tutors/tutors/Tutors";
+import TutorsArchivePage from "../../pages/tutors/archive/TutorsArchive";
 import TutorPage from "../../pages/tutor/Tutor";
 import TutorChangePage from "../../pages/tutorChange/TutorChange";
 import FinancePage from "../../pages/finance/Finance";
@@ -44,11 +27,14 @@ import NotFoundPage from "../../pages/notFound/NotFound";
 import TutorLessonsPage from "../../pages/tutorLessons/TutorLessons";
 import AdminTransactionsPage from "../../pages/adminTransactions/AdminTransactions";
 import AdminLessonsPage from "../../pages/adminLessons/AdminLessons";
-import StudentsArchivePage from "../../pages/studentsArchive/StudentsArchive";
+import StudentsArchivePage from "../../pages/students/archive/StudentsArchive";
 import AssistantsPage from "../../pages/assistants/Assistants";
 import AssistantCreatePage from "../../pages/assistantCreate/AssistantCreate";
 import AssistantPage from "../../pages/assistant/Assistant";
 import PaymentPage from "../../pages/payment/Payment";
+import StudentsLayoutPage from "../../pages/students/layout/StudentsLayout";
+import TutorAccrualsPage from "../../pages/tutorAccruals/TutorAccruals";
+import TutorFinancePage from "../../pages/tutorFinance/TutorFinance";
 import SpasiboPage from "../../pages/spasibo/Spasibo";
 
 
@@ -81,12 +67,18 @@ export const Router: RouteObject[] = [
                 ]
             },
             {
-                path: STUDENTS_ARCHIVE_ROUTE.path,
-                Component: StudentsArchivePage
-            },
-            {
                 path: STUDENTS_ROUTE.path,
-                Component: StudentsPage
+                Component: StudentsLayoutPage,
+                children: [
+                    {
+                        path: STUDENTS_ARCHIVE_ROUTE.path,
+                        Component: StudentsArchivePage
+                    },
+                    {
+                        path: STUDENTS_ROUTE.path,
+                        Component: StudentsPage
+                    },
+                ]
             },
             {
                 path: STUDENT_CREATE_ROUTE.path,
@@ -101,8 +93,30 @@ export const Router: RouteObject[] = [
                 Component: StudentPage
             },
             {
+                path: TUTOR_FINANCE_ROUTE.path,
+                Component: TutorFinancePage
+            },
+            {
                 path: TUTORS_ROUTE.path,
-                Component: TutorsPage
+                Component: TutorsLayoutPage,
+                children: [
+                    {
+                        path: TUTORS_ARCHIVE_ROUTE.path,
+                        Component: TutorsArchivePage
+                    },
+                    {
+                        path: TUTORS_ROUTE.path,
+                        Component: TutorsPage
+                    },
+                ]
+            },
+            {
+                path: TUTOR_ACCRUALS_ROUTE.path,
+                Component: TutorAccrualsPage
+            },
+            {
+                path: TUTOR_UPDATE_ROUTE.path,
+                Component: TutorChangePage
             },
             {
                 path: TUTOR_ROUTE.path,

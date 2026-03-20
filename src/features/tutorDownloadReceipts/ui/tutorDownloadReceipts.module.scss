@@ -1,0 +1,11 @@
+
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .sign{
+        font-size: 18px;
+        font-weight: 600;
+    }
+}

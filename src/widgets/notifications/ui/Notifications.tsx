@@ -1,10 +1,10 @@
 import { FC, useCallback, useState } from "react";
-import { INotifications, NotificationItem, studentService } from "../../../entities/student";
+import { INotification, NotificationItem, studentService } from "../../../entities/student";
 import { useGlobalMessageActions } from "../../../entities/globalMessage";
 import { useMyActions } from "../../../entities/my";
 import { AuthError } from "../../../shared/err/AuthError";
 import classes from './notifications.module.scss'
-import { Calendar } from "../../../features/calendar";
+import { Calendar } from "../../../shared/ui/calendar";
 import { OpenContainer } from "../../../features/openContainer";
 import { LoaderSpinner } from "../../../shared/ui/spinner";
 import { getDateUTC } from "../../../shared/lib/helpers/getDateUTC";
@@ -15,7 +15,7 @@ interface IProps {
 
 export const Notifications: FC<IProps> = ({studentId}) => {
 
-    const [notifications, setNotifications] = useState<INotifications[] | null>(null)    
+    const [notifications, setNotifications] = useState<INotification[] | null>(null)    
     const [count, setCount] = useState<number>(0)   
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const {setGlobalMessage} = useGlobalMessageActions()    

@@ -5,19 +5,16 @@ import { LoaderSpinner } from "../../../shared/ui/spinner";
 import { AuthError } from "../../../shared/lib/helpers/AuthError";
 import { useMyActions } from "../../../entities/my";
 import { useGlobalMessageActions } from "../../../entities/globalMessage";
-import { useNavigate } from "react-router-dom";
-import { TUTOR_CREATE_ROUTE } from "../../../app/router/routes";
-import { ITutor, TutorItem, TutorItemMobile } from "../../../entities/tutor";
-import { HintWrap } from "./hint/Hint";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { ITutor, TutorItem, TutorItemMobile, tutorService } from "../../../entities/tutor";
 import { SearchItems } from "../../../features/searchItems";
 
 interface IProps {
     request: () => Promise<{tutors: ITutor[], tutors_count: number}>
-    add: boolean;
     highlight?: boolean;
 }
 
-export const TutorsWidget: FC<IProps> = ({add, request, highlight=true}) => {
+export const TutorsWidget: FC<IProps> = ({request, highlight=true}) => {
 
     const [isLoading, setIsLoading] = useState<boolean>(true)
 
@@ -25,15 +22,17 @@ export const TutorsWidget: FC<IProps> = ({add, request, highlight=true}) => {
     const [tutorsSearch, setTutorsSearch] = useState<ITutor[]>([])
     const [tutorsCount, setTutorsCount] = useState<number>(0)
 
+    const [params] = useSearchParams()
+
     const router = useNavigate()
 
     const {setIsAuth} = useMyActions()
     const {setGlobalMessage} = useGlobalMessageActions()
 
-    const getData = async () => {
+    const getData = async (req: () => Promise<{tutors: ITutor[], tutors_count: number}>) => {
         try{
             setIsLoading(true)
-            const tutorsRes = await request()
+            const tutorsRes = await req()
             setTutors(tutorsRes.tutors)
             setTutorsSearch(tutorsRes.tutors)
             setTutorsCount(tutorsRes.tutors_count)
@@ -53,32 +52,23 @@ export const TutorsWidget: FC<IProps> = ({add, request, highlight=true}) => {
         }
     }
 
+    const onSelectedFilters = () => {
+        const tgAdminIds = params.getAll('tg_admin_ids').map(id => parseInt(id, 10)).filter(id => !isNaN(id))
+        const isFailer = !!params.get('is_failer')
+        if(tgAdminIds.length || isFailer){
+            getData(() => tutorService.getAllByFilters(tgAdminIds, isFailer))
+        }
+        else{
+            getData(request)
+        }
+    }
+
     useEffect(() => {
-        getData()
-    }, [])
+        onSelectedFilters()
+    }, [params])
 
     return (
         <section className={classes.container}>
-            {
-                (add || highlight)
-                    &&
-                <section className={classes.header}>
-                    {
-                        highlight
-                            &&
-                        <HintWrap />
-                    }
-                    {
-                        add 
-                            &&
-                        <section className={classes.button}> 
-                            <MyButton onClick={() => router(TUTOR_CREATE_ROUTE.path)}>
-                                Добавить репетитора
-                            </MyButton>
-                        </section>
-                    }
-                </section>
-            }
             <section className={classes.search}>
                 <section className={classes.searchItems}>
                     <SearchItems
@@ -109,11 +99,12 @@ export const TutorsWidget: FC<IProps> = ({add, request, highlight=true}) => {
                                 <th>ID</th>
                                 <th>ФИО</th>
                                 <th>Телеграм</th>
+                                <th>Без чека</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {tutorsSearch.map(tutor => 
-                                <TutorItem 
+                            {tutorsSearch.map(tutor =>
+                                <TutorItem
                                     highlight={highlight}
                                     key={tutor.id}
                                     tutor={tutor}
@@ -126,7 +117,7 @@ export const TutorsWidget: FC<IProps> = ({add, request, highlight=true}) => {
                         </tbody>
                     </table>
                     <section className={classes.items}>
-                       {tutorsSearch.map(tutor => 
+                       {tutorsSearch.map(tutor =>
                             <TutorItemMobile
                                 key={tutor.id}
                                 tutor={tutor}

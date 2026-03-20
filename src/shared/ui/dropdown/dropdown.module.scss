@@ -1,0 +1,44 @@
+
+
+.container{
+    position: relative;
+    z-index: 1;
+
+    .title{
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        cursor: pointer;
+
+        svg{
+            width: 26px;
+            height: 26px;
+            transition: all .15s ease;
+        }
+    }
+
+    .dropdown{
+        display: none;
+        position: absolute;
+        margin-top: 6px;
+        z-index: 1;
+        border-radius: 16px;
+        background-color: var(--white-dark);
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        padding: 20px;
+        width: fit-content;
+        max-width: calc(100vw - 40px);
+        height: fit-content;
+    }
+
+    &.open{
+        .title{
+            svg{
+                transform: rotate(180deg);
+            }
+        }
+        .dropdown{
+            display: block;
+        }
+    }
+}

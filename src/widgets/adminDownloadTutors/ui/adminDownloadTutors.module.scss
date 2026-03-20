@@ -1,0 +1,16 @@
+
+.actionSign{
+    font-weight: 500;
+}
+
+.features{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    .hr{
+        height: 1px;
+        width: 100%;
+        background-color: var(--dark-gray);
+    }
+}

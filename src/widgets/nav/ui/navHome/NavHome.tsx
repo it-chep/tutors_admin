@@ -14,8 +14,7 @@ export const NavHome: FC = () => {
             {sections.map(section => 
                 <Section 
                     key={section.title}
-                    title={section.title}
-                    sections={section.sections}
+                    section={section}
                 />
             )}
         </nav>

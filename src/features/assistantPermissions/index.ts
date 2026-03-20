@@ -1,0 +1,1 @@
+export { AssistantPermissions } from "./ui/AssistantPermissions";
