@@ -141,6 +141,11 @@ export const ASSISTANT_CREATE_ROUTE: IRoute = {
 
 
 
+export const THANK_YOU_ROUTE: IRoute = {
+    name: 'Спасибо',
+    path: '/spasibo'
+}
+
 export const ADMIN_TRANSACTIONS_ROUTE: IRoute = {
     name: 'Транзакции',
     path: '/transactions'

@@ -4,7 +4,8 @@ import { ADMIN_CREATE_ROUTE, ADMIN_LESSONS_ROUTE, ADMIN_ROUTE, ADMIN_TRANSACTION
     HOME_ROUTE, LOGIN_ROUTE, REGISTRATION_ROUTE, STUDENT_CREATE_ROUTE, STUDENT_PAYMENT_ROUTE, STUDENT_ROUTE,
     STUDENT_UPDATE_ROUTE, STUDENTS_ARCHIVE_ROUTE, STUDENTS_ROUTE, TUTOR_CREATE_ROUTE, TUTOR_LESSONS_ROUTE,
     TUTOR_ROUTE, TUTOR_UPDATE_ROUTE, TUTORS_ARCHIVE_ROUTE, TUTORS_ROUTE, TUTOR_ACCRUALS_ROUTE, 
-    TUTOR_FINANCE_ROUTE } from "./routes";
+    TUTOR_FINANCE_ROUTE, THANK_YOU_ROUTE } from "./routes";
+import {RouteObject} from "react-router-dom";
 import App from "../../App";
 import HomePage from "../../pages/home/HomePage";
 import AuthPage from "../../pages/auth/auth/AuthPage";
@@ -34,6 +35,7 @@ import PaymentPage from "../../pages/payment/Payment";
 import StudentsLayoutPage from "../../pages/students/layout/StudentsLayout";
 import TutorAccrualsPage from "../../pages/tutorAccruals/TutorAccruals";
 import TutorFinancePage from "../../pages/tutorFinance/TutorFinance";
+import SpasiboPage from "../../pages/spasibo/Spasibo";
 
 
 export const Router: RouteObject[] = [
@@ -51,7 +53,7 @@ export const Router: RouteObject[] = [
                 Component: AuthLayoutPage,
                 children: [
                     {
-                        path: AUTH_ROUTE.path, 
+                        path: AUTH_ROUTE.path,
                         Component: AuthPage,
                     },
                     {
@@ -167,6 +169,10 @@ export const Router: RouteObject[] = [
             {
                 path: STUDENT_PAYMENT_ROUTE.path,
                 Component: PaymentPage
+            },
+            {
+                path: THANK_YOU_ROUTE.path,
+                Component: SpasiboPage
             }
         ]
     }
